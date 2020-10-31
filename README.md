@@ -20,7 +20,7 @@ https://1drv.ms/w/s!AqGsKHyz4EdFoEA5DzBsed59Cfvf?e=ZDs06R
 環境構築:
 1. GitLabアカウントを作成してください。
 1. https://gitlab.com/-/profile/keys で自分が作成した(パブリックキー)公開鍵を追加してください。
-1. https://gitlab.com/dhu_a18dc593/dgs_work.git を自分のPCにクローンしてください。
+1. https://gitlab.com/dhu_a18dc593/dgs_work.git を自分のPCにクローンして、Unityで開いてください(Unity Hubにリスト追加の方がオススメです)
 1. プロジェクトマネージャー: 楊 家祺 ヨウ カキ(a18dc593@dhw.ac.jp)に連絡して、自分のGitLabアカウント(メールアドレス)を提供してください。
 1. 楊がこのプロジェクトメンバーリストを追加します。これで自分の作業をGitLabにプッシュする権限を持つようになります。
 

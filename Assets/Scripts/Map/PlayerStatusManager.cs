@@ -105,4 +105,6 @@ public class PlayerStatusManager : MonoBehaviour
     {
         playerNameText.text = PlayerName;
     }
+
+    //テストです。
 }

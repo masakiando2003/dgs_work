@@ -78,6 +78,7 @@ public class PlayerStatusManager : MonoBehaviour
         {
             PlayerCrossesObjects[i].SetActive(true);
         }
+        FindObjectOfType<GameManager>().AddTurn();
     }
 
     void CheckIsGameOver()

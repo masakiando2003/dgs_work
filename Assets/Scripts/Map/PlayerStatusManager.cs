@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerStatusManager : MonoBehaviour
 {
+    /// <summary>
+    /// うんちうんちうんち
+    /// </summary>
     public GameObject[] PlayerCrossesObjects;
     public GameObject GameOverObject;
     public string PlayerName { get; set; }

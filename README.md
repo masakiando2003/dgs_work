@@ -3,16 +3,17 @@
 目的: 12歳以下向けのe-Sportsゲームプロトタイプを制作する
 
 必要なツール:
-Git
-Unity 2019.4.x
+- Git
+- Unity 2019.4.x
 
 プロジェクトUnityバージョン: 2019.4.13f1
 
 オススメツール:
 
-Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)
-Visual Studio Community 2017 以降
-Unity Hub
+- Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)
+- Visual Studio Community 2017 以降
+- Unity Hub
+
 
 Git初心者向けのチュートリアル(Windows + TortoiseGit + Putty Generator):
 https://1drv.ms/w/s!AqGsKHyz4EdFoEA5DzBsed59Cfvf?e=ZDs06R

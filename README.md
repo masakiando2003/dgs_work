@@ -38,6 +38,6 @@ https://1drv.ms/w/s!AqGsKHyz4EdFoEA5DzBsed59Cfvf?e=ZDs06R
 1. 楊に報告してください(メールや他の方法でもいいです)
 
 
-アップデートログ:
+開発状況: https://gitlab.com/dhu_a18dc593/dgs_work/-/wikis/%E9%96%8B%E7%99%BA%E7%8A%B6%E6%B3%81
 
 

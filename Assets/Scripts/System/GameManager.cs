@@ -98,10 +98,9 @@ namespace DHU2020.DGS.MiniGame.Map
         public void ProceedNextTurn()
         {
             selectGameCanvas.SetActive(false);
-            //Debug.Log("Remaining Players: "+ GetRemainingPlayers());
             if(GetRemainingPlayers() < 2)
             {
-                Invoke("Winner", 2f);
+                Invoke("Winner", showCanvasTime);
             }
             else
             {
@@ -111,7 +110,8 @@ namespace DHU2020.DGS.MiniGame.Map
                 {
                     players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(true);
                 }
-                StartCoroutine(ShowTurnCanvas());
+                //StartCoroutine(ShowTurnCanvas());
+                Invoke("ShowTurnCanvas", showCanvasTime);
             }
         }
 
@@ -120,13 +120,22 @@ namespace DHU2020.DGS.MiniGame.Map
             return currentTurn >= maxTurns;
         }
 
+        void ShowTurnCanvas()
+        {
+            turnCanvas.SetActive(true);
+            currentTurnText.text = currentTurn.ToString();
+            Invoke("HideTurnCanvas", showCanvasTime);
+        }
+
+        /*
         IEnumerator ShowTurnCanvas()
         {
             turnCanvas.SetActive(true);
             yield return CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 0f, 1f, canvasFadeInSpeed);
             StartCoroutine(HideTurnCanvas());
-        }
+        }*/
 
+            /*
         IEnumerator HideTurnCanvas()
         {
             yield return StartCoroutine(CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 1f, 0f, canvasFadeOutSpeed));
@@ -135,6 +144,12 @@ namespace DHU2020.DGS.MiniGame.Map
             //FindObjectOfType<PlayerStatusManager>().SetPlayingAnimation(false);
             //StartCoroutine(ShowSelectGameCanvas());
             Invoke("ShowSelectGameCanvas", 2f);
+        }*/
+
+        void HideTurnCanvas()
+        {
+            turnCanvas.SetActive(false);
+            Invoke("ShowSelectGameCanvas", showCanvasTime);
         }
 
         void ShowSelectGameCanvas()

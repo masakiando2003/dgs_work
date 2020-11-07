@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DHU2020.DGS.MiniGame.System;
 
 namespace DHU2020.DGS.MiniGame.Map
 {

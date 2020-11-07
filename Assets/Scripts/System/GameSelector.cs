@@ -46,12 +46,12 @@ public class GameSelector : MonoBehaviour
                 int randomGameIndex = Random.Range(0, gameInfo.GetTotalGameCounts());
                 if (!randomedGameIndexes.Contains(randomGameIndex))
                 {
-                    Debug.Log("randomGameIndex: " + randomGameIndex);
                     randomedGameIndexes.Add(randomGameIndex);
                     GameObject.Find("Game" + (i + 1) + "Text").GetComponent<Text>().text = gameInfo.GetGameTitleJapanese(randomGameIndex);
                     if (i == 0)
                     {
                         selectedGameText.text = gameInfo.GetGameTitleJapanese(randomGameIndex);
+                        selectedGame = gameInfo.GetGameTitleEnglish(randomGameIndex);
                     }
                     randomGameFlag = false;
                 }
@@ -74,7 +74,7 @@ public class GameSelector : MonoBehaviour
             gameIndex = ((gameIndex + 1) >= games.Length) ? 0 : gameIndex + 1;
             SelectGame(gameIndex);
         }
-        else if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             EnterGame();
         }

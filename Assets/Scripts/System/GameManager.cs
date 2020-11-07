@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DHU2020.DGS.MiniGame.Map;
 
-namespace DHU2020.DGS.MiniGame.Map
+namespace DHU2020.DGS.MiniGame.System
 {
     public class GameManager : MonoBehaviour
     {
@@ -155,6 +156,7 @@ namespace DHU2020.DGS.MiniGame.Map
         void ShowSelectGameCanvas()
         {
             selectGameCanvas.SetActive(true);
+            selectGameCanvas.GetComponent<GameSelector>().RandomizeGames();
             for (int i = 0; i < players.Length; i++)
             {
                 players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);

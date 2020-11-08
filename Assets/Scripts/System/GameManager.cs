@@ -28,7 +28,7 @@ namespace DHU2020.DGS.MiniGame.System
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
 
         public GameObject turnCanvas, selectGameCanvas, winnerCanvas;
-        public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup;
+        public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup, PVPSelectPlayerCanvas;
         public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f;
 
         // Start is called before the first frame update

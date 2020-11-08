@@ -14,6 +14,12 @@ namespace DHU2020.DGS.MiniGame.Game
     {
         public string[] gameTitlesEnglish;
         public string[] gameTitlesJapanese;
+        public enum GameType {
+            PVP,
+            ThreePlayers,
+            All
+        };
+        public GameType[] gameType;
 
         public string GetGameTitleJapanese(int index)
         {

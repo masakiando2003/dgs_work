@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Game;
 using Random = UnityEngine.Random;
-using DHU2020.DGS.MiniGame.System;
 
-namespace DHU2020.DGS.MiniGame.Game
+namespace DHU2020.DGS.MiniGame.System
 {
     public class GameSelector : MonoBehaviour
     {
@@ -21,6 +20,7 @@ namespace DHU2020.DGS.MiniGame.Game
         private List<int> randomedGameIndexes = new List<int>();
         [SerializeField] private int selectedGameIndex, originalSelectedGameIndex, gameIndex;
         private string selectedGame;
+        private bool selectedGameFlag;
 
         // Start is called before the first frame update
         void Start()
@@ -33,10 +33,12 @@ namespace DHU2020.DGS.MiniGame.Game
             selectedGameIndex = gameIndex = defaultSelectGameIndex;
             selectColor.a = 1f;
             GameObject.Find("Game1Border").GetComponent<Image>().color = selectColor;
+            selectedGameFlag = false;
         }
 
         public void RandomizeGames()
         {
+            selectedGameFlag = false;
             randomedGameIndexes.Clear();
             for (int i = 0; i < games.Length; i++)
             {
@@ -67,23 +69,23 @@ namespace DHU2020.DGS.MiniGame.Game
         // Update is called once per frame
         void Update()
         {
+            if(selectedGameFlag) { return; }
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 originalSelectedGameIndex = gameIndex;
                 gameIndex = ((gameIndex - 1) < 0) ? games.Length - 1 : gameIndex - 1;
-                Debug.Log("gameIndex: " + gameIndex);
                 SelectGame(gameIndex);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 originalSelectedGameIndex = gameIndex;
                 gameIndex = ((gameIndex + 1) >= games.Length) ? 0 : gameIndex + 1;
-                Debug.Log("gameIndex: " + gameIndex);
                 SelectGame(gameIndex);
             }
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                Debug.Log("gameIndex: " + gameIndex);
+                selectedGameFlag = true;
                 if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
                 {
                     FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
@@ -103,9 +105,8 @@ namespace DHU2020.DGS.MiniGame.Game
 
             GameObject.Find("Game" + (gameIndex + 1) + "Border").GetComponent<Image>().color = selectColor;
             GameObject.Find("Game" + (originalSelectedGameIndex + 1) + "Border").GetComponent<Image>().color = Color.black;
-            string gameNameJappanese = GameObject.Find("Game" + (gameIndex + 1) + "Text").GetComponent<Text>().text;
             selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
-            selectedGame = gameInfo.GetGameSceneNameByJapaneseName(gameNameJappanese);
+            selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
         }
 
         public float GetLoadGameTime()

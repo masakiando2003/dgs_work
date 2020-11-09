@@ -765,7 +765,6 @@ GameObject:
   - component: {fileID: 5605617191264651712}
   - component: {fileID: 5605617191264651719}
   - component: {fileID: 5605617191264651715}
-  - component: {fileID: 4769867140717887774}
   m_Layer: 5
   m_Name: PVPSelectPlayerCanvas
   m_TagString: Untagged
@@ -869,31 +868,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4769867140717887774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5605617191264651718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0f6f607c5a03ee439489b5c45b60eae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
-  games:
-  - {fileID: 3861086212488638892}
-  - {fileID: 1096744384130986554}
-  - {fileID: 1096744383370979657}
-  - {fileID: 0}
-  defaultSelectGameIndex: 0
-  loadGameTime: 2
-  selectColor: {r: 1, g: 0, b: 0, a: 0}
-  selectedGameText: {fileID: 0}
-  selectedGameIndex: 0
-  originalSelectedGameIndex: 0
-  gameIndex: 0
 --- !u!1 &5605617192098493125
 GameObject:
   m_ObjectHideFlags: 0

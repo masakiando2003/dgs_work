@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Map;
+using UnityEngine.SceneManagement;
+using DHU2020.DGS.MiniGame.Setting;
 
 namespace DHU2020.DGS.MiniGame.System
 {
@@ -17,20 +19,35 @@ namespace DHU2020.DGS.MiniGame.System
             get; private set;
         }
 
+        public PlayerInfo playerInfo;
         public GameObject[] players;
         public Text[] playerNames;
         public int numOfWinningPlayers = 1;
   
         [Range(1, 99)]
         public int maxTurns;
-        private int remainingPlayers, currentTurn;
-
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
 
-        public GameObject turnCanvas, selectGameCanvas, winnerCanvas;
-        public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup, PVPSelectPlayerCanvas;
+        public GameObject turnCanvas, selectGameCanvas, winnerCanvas, PVPSelectPlayerCanvas;
+        public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup;
         public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f;
 
+        private int remainingPlayers, currentTurn, selectedPlayerID;
+        [SerializeField] private List<int> PVPPlayerIDs = new List<int>();
+
+        private void Awake()
+        {
+            int numGameSessions = FindObjectsOfType<GameManager>().Length;
+            if(numGameSessions > 1)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -45,6 +62,15 @@ namespace DHU2020.DGS.MiniGame.System
             turnCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);
             winnerCanvas.SetActive(false);
+            PVPSelectPlayerCanvas.SetActive(false);
+            for(int i=0; i < players.Length; i++)
+            {
+                if (playerInfo.GetPlayerName(i).Equals(""))
+                {
+                    playerInfo.RandomizePlayerName(i);
+                }
+                playerNames[i].GetComponent<Text>().text = playerInfo.GetPlayerName(i);
+            }
             ProceedNextTurn();
         }
 
@@ -52,6 +78,23 @@ namespace DHU2020.DGS.MiniGame.System
         void Update()
         {
 
+        }
+
+        public void ActiviatCanvas(string CanvasName)
+        {
+            switch (CanvasName)
+            {
+                case "PVPSelectPlayerCanvas":
+                    PVPSelectPlayerCanvas.SetActive(true);
+                    PVPSelectPlayerCanvas.GetComponent<PVPSelector>().InitializeRivalPlayerList();
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         int GetRemainingPlayers()
@@ -66,6 +109,11 @@ namespace DHU2020.DGS.MiniGame.System
             }
 
             return remainingPlayers;
+        }
+
+        public int GetSelectedPlayerID()
+        {
+            return selectedPlayerID;
         }
 
         void Winner()
@@ -98,6 +146,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         public void ProceedNextTurn()
         {
+            PVPSelectPlayerCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);
             if(GetRemainingPlayers() < 2)
             {
@@ -157,13 +206,10 @@ namespace DHU2020.DGS.MiniGame.System
         {
             selectGameCanvas.SetActive(true);
             selectGameCanvas.GetComponent<GameSelector>().RandomizeGames();
-            for (int i = 0; i < players.Length; i++)
-            {
-                players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
-            }
             if (players[(currentTurn - 1) % players.Length].GetComponent<PlayerStatusManager>().IsAlive())
             {
-                selectGamePlayerText.text = playerNames[(currentTurn - 1) % players.Length].GetComponent<Text>().text;
+                selectedPlayerID = (currentTurn - 1) % players.Length;
+                selectGamePlayerText.text = playerNames[selectedPlayerID].GetComponent<Text>().text;
             }
             else
             {
@@ -173,6 +219,7 @@ namespace DHU2020.DGS.MiniGame.System
                 {
                     if(players[selectPlayerID].GetComponent<PlayerStatusManager>().IsAlive())
                     {
+                        selectedPlayerID = selectPlayerID;
                         selectGamePlayerText.text = playerNames[selectPlayerID].GetComponent<Text>().text;
                         break;
                     }
@@ -188,5 +235,28 @@ namespace DHU2020.DGS.MiniGame.System
             selectGamePlayerText.text = playerNames[currentTurn % players.Length].GetComponent<Text>().text;
         }
         */
+        
+        public void SetPVPPlayerID(int playerIndex)
+        {
+            PVPPlayerIDs.Add(playerIndex);
+        }
+
+        public void ClearPVPPlayerList()
+        {
+            PVPPlayerIDs.Clear();
+        }
+
+        public void EnterGame()
+        {
+            float loadGameTime = FindObjectOfType<GameSelector>().GetLoadGameTime();
+            string selectedGame = FindObjectOfType<GameSelector>().GetGameTitle();
+            StartCoroutine(LoadGame(selectedGame, loadGameTime));
+        }
+
+        IEnumerator LoadGame(string selectedGame, float loadGameTime)
+        {
+            yield return new WaitForSeconds(loadGameTime);
+            SceneManager.LoadScene(selectedGame);
+        }
     }
 }

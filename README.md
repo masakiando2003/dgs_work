@@ -3,16 +3,17 @@
 目的: 12歳以下向けのe-Sportsゲームプロトタイプを制作する
 
 必要なツール:
-Git
-Unity 2019.4.x
+- Git
+- Unity 2019.4.x
 
 プロジェクトUnityバージョン: 2019.4.13f1
 
 オススメツール:
 
-Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)
-Visual Studio Community 2017 以降
-Unity Hub
+- Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)
+- Visual Studio Community 2017 以降
+- Unity Hub
+
 
 Git初心者向けのチュートリアル(Windows + TortoiseGit + Putty Generator):
 https://1drv.ms/w/s!AqGsKHyz4EdFoEA5DzBsed59Cfvf?e=ZDs06R
@@ -38,10 +39,6 @@ https://1drv.ms/w/s!AqGsKHyz4EdFoEA5DzBsed59Cfvf?e=ZDs06R
 1. 楊に報告してください(メールや他の方法でもいいです)
 
 
-現状:
+開発状況: https://gitlab.com/dhu_a18dc593/dgs_work/-/wikis/%E9%96%8B%E7%99%BA%E7%8A%B6%E6%B3%81
 
-2020-11-01 by 楊:
-1. 天下太平マップ作成
-1. プレイヤーライフ増加/減少機能作成
-1. プレイヤーゲームオーバー判定機能作成
-1. 現在ターン数 / 最大ターン数機能作成
+

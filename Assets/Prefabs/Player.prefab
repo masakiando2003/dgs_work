@@ -99,6 +99,8 @@ MonoBehaviour:
   - {fileID: 8398316572157472176}
   GameOverObject: {fileID: 8398316573111642713}
   playerNameText: {fileID: 8398316573108706096}
+  increaseLifeNum: 1
+  decreaseLifeNum: 1
   increaseLifeKey: 97
   decreaseLifeKey: 100
 --- !u!1 &8398316572157472176

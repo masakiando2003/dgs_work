@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 3171079492032904881}
   - component: {fileID: 3171079492032904880}
   - component: {fileID: 3171079492032904883}
+  - component: {fileID: 575981276764647619}
   m_Layer: 5
   m_Name: CountChoiceButton
   m_TagString: Untagged
@@ -197,8 +198,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4226805078090672669, guid: 91168c71d2c571e47ad9a7356bc57dca,
-          type: 3}
+      - m_Target: {fileID: 575981276764647619}
         m_MethodName: GetNextCount
         m_Mode: 2
         m_Arguments:
@@ -209,3 +209,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &575981276764647619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171079492032904885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e21be138a3e174f952ec8c80aee2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

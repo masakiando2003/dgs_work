@@ -17,15 +17,9 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         public GameObject[] NextHandChoice;
 
         //NextCountChoice用のint
-        public int Count
-        {
-            get; private set;
-        }
+        public int Count;
         //NextHandChoice用のint 
-        public int Hand
-        {
-            get; private set;
-        }
+        public int Hand;
 
         //プレイヤーに残っている手
         public int RemainingHand;
@@ -62,8 +56,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             InitializeButton(NextCountChoice, transform.position.y,CountButton);
             InitializeButton(NextHandChoice, transform.position.y + 80f,HandButton);
             RemainingHand = 2;
-            Count = 0;
-            Hand = 0;
         }
 
         private void InitializeButton(GameObject[] buttons,float yPos,Button button)
@@ -122,33 +114,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             }
         }
 
-        public void GetNextCount(Button button)
-        {
-            Count = int.Parse(button.GetComponentInChildren<Text>().text.ToString());
-            Debug.Log(Count);
-            /*for(int i = 0; i < NextCountChoice.Length; i++)
-            {
-                NextCountChoice[i].GetComponentInChildren<Text>().color = Color.black;
-                NextCountChoice[i].GetComponent<Image>().color = Color.white;
-            }
-            */
-            button.GetComponentInChildren<Text>().color = Color.white;
-            button.GetComponent<Image>().color = Color.blue;
-        }
 
-        public void GetNextHand(Button button)
-        {
-            Hand = int.Parse(button.GetComponentInChildren<Text>().text.ToString());
-            //Debug.Log(Hand);
-            /*for (int i = 0; i < NextHandChoice.Length; i++)
-            {
-                NextHandChoice[i].GetComponentInChildren<Text>().color = Color.black;
-                NextHandChoice[i].GetComponent<Image>().color = Color.white;
-            }
-            */
-            button.GetComponentInChildren<Text>().color = Color.white;
-            button.GetComponent<Image>().color = Color.blue;
-        }
 
 
 
@@ -159,9 +125,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             if (GameController.Instance.TotalCount == Count && RemainingHand >= 0 && GameController.Instance.DecidePlayer == this.name)
             {
                 RemainingHand--;
-                Debug.Log("RemainigHand " + RemainingHand + " / Count " + Count + " / TotalCount" + GameController.Instance.TotalCount);
+                Debug.Log("RemainigHand " + RemainingHand + " / Count " + Count + " / TotalCount" + GameController.Instance.TotalCount + " / Hand" + Hand);
+
             }
-            
+
         }
 
         private void Win()

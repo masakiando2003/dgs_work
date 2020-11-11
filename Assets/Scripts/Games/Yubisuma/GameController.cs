@@ -18,11 +18,17 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         //Player
         public GameObject[] Players;
 
-        public string DecidePlayer;
+        public string DecidePlayer
+        {
+            get; private set;
+        }
 
         public int PlayerNumber;
 
-        public int TotalCount;
+        public int TotalCount
+        {
+            get; private set;
+        }
 
         public int RemainingPlayer;
 
@@ -195,9 +201,9 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             TotalCount = 0;
             for(int i = 0; i < Players.Length; i++)
             {
-                TotalCount += Players[i].GetComponent<Player>().Hand;
+                TotalCount += Players[i].GetComponentInChildren<Player>().Hand;
+                Debug.Log("TotalCount " + TotalCount);
             }
-            Debug.Log("TotalCount " + TotalCount);
         }
 
         private void SetDecidePlayer()

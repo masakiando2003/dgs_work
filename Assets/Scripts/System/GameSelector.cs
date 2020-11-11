@@ -90,16 +90,16 @@ namespace DHU2020.DGS.MiniGame.Game
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 selectedGameFlag = true;
-                if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.All)
+                if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
                 {
-                    StartCoroutine(EnterGame());
+                    FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
                 }
                 else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.ThreePlayers)
                 {
                 }
-                else if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
+                else if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.All)
                 {
-                    FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
+                    FindObjectOfType<GameManager>().EnterGame();
                 }
             }
         }
@@ -123,12 +123,6 @@ namespace DHU2020.DGS.MiniGame.Game
         public string GetGameTitle()
         {
             return selectedGame;
-        }
-
-        IEnumerator EnterGame()
-        {
-            yield return new WaitForSeconds(enterGameTime);
-            FindObjectOfType<GameManager>().EnterGame();
         }
     }
 }

@@ -17,11 +17,15 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         public GameObject[] NextHandChoice;
 
         //NextCountChoice用のint
-        public int Count;
-
+        public int Count
+        {
+            get; private set;
+        }
         //NextHandChoice用のint 
-        [Range(0, 2)]
-        public int Hand;
+        public int Hand
+        {
+            get; private set;
+        }
 
         //プレイヤーに残っている手
         public int RemainingHand;
@@ -36,21 +40,37 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         // Update is called once per frame
         void Update()
         {
-
+            switch (GameController.Instance.CurrentState)
+            {
+                case GameController.State.WaitForStart:
+                    DecideNextChoice();
+                    break;
+                case GameController.State.Choose:
+                    NextTurn();
+                    break;
+                case GameController.State.Check:
+                    CheckCount();
+                    DecideNextChoice();
+                    break;
+                case GameController.State.GameEnd:
+                    break;
+            }
         }
 
         private void Initialize()
         {
-            InitializeButton(NextCountChoice, transform.position.y);
-            InitializeButton(NextHandChoice, transform.position.y + 80f);
+            InitializeButton(NextCountChoice, transform.position.y,CountButton);
+            InitializeButton(NextHandChoice, transform.position.y + 80f,HandButton);
             RemainingHand = 2;
+            Count = 0;
+            Hand = 0;
         }
 
-        private void InitializeButton(GameObject[] buttons,float yPos)
+        private void InitializeButton(GameObject[] buttons,float yPos,Button button)
         {
             for(int i = 0; i < buttons.Length; i++)
             {
-                buttons[i] = GameObject.Instantiate(CountButton.gameObject);
+                buttons[i] = GameObject.Instantiate(button.gameObject);
                 buttons[i].transform.SetParent(transform);
                 buttons[i].transform.position = new Vector2(transform.position.x + (float)i * 80,yPos);
                 buttons[i].GetComponentInChildren<Text>().text = i.ToString();
@@ -67,7 +87,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             }
         }
         */
-        private void Decide()
+
+        private void DecideNextChoice()
         {
             for(int i = 0; i < NextCountChoice.Length; i++)
             {
@@ -79,9 +100,32 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             }
         }
 
+        private void NextTurn()
+        {
+            if (GameController.Instance.DecidePlayer == this.name)
+            {
+                for (int i = 0; i < NextCountChoice.Length; i++)
+                {
+                    NextCountChoice[i].SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < NextCountChoice.Length; i++)
+                {
+                    NextCountChoice[i].SetActive(false);
+                }
+            }
+            for (int i = 0; i < NextHandChoice.Length; i++)
+            {
+                NextHandChoice[i].SetActive(true);
+            }
+        }
+
         public void GetNextCount(Button button)
         {
             Count = int.Parse(button.GetComponentInChildren<Text>().text.ToString());
+            Debug.Log(Count);
             /*for(int i = 0; i < NextCountChoice.Length; i++)
             {
                 NextCountChoice[i].GetComponentInChildren<Text>().color = Color.black;
@@ -95,6 +139,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         public void GetNextHand(Button button)
         {
             Hand = int.Parse(button.GetComponentInChildren<Text>().text.ToString());
+            //Debug.Log(Hand);
             /*for (int i = 0; i < NextHandChoice.Length; i++)
             {
                 NextHandChoice[i].GetComponentInChildren<Text>().color = Color.black;
@@ -109,10 +154,14 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         private void CheckCount()
         {
-            if(GameController.Instance.TotalCount == Count)
+            //Debug.Log("RemainigHand " + RemainingHand + " / Count " + Count + " / TotalCount " + GameController.Instance.TotalCount + " / Hand " + Hand);
+
+            if (GameController.Instance.TotalCount == Count && RemainingHand >= 0 && GameController.Instance.DecidePlayer == this.name)
             {
                 RemainingHand--;
+                Debug.Log("RemainigHand " + RemainingHand + " / Count " + Count + " / TotalCount" + GameController.Instance.TotalCount);
             }
+            
         }
 
         private void Win()

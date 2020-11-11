@@ -12,125 +12,210 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             get;private set;
         }
 
-
-        
         [Range(0,10)]
         public int maxTurn;
 
         //Player
-        public Player[] Players;
+        public GameObject[] Players;
 
-        public Player DecidePlayer;
+        public string DecidePlayer;
 
         public int PlayerNumber;
 
         public int TotalCount;
 
-        public int remainingPlayer;
+        public int RemainingPlayer;
 
         public enum State
         {
             WaitForStart,
-            Wait,
-            Play,
+            Choose,
+            Check,
             GameEnd
         }
 
-        public State CurrentState;
+        public float TurnSpan = 10f;
+
+        public State CurrentState
+        {
+            get; private set;
+        }
+
+        private void Awake()
+        {
+            if(Instance != null)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            PlayerNumber = 0;
-            ChangeState(State.WaitForStart);
+            Initialize();
         }
 
         // Update is called once per frame
         void Update()
         {
+            UpdateState();
+        }
 
+        private void Initialize()
+        {
+            PlayerNumber = 0;
+            ChangeState(State.WaitForStart);
+            Players = GameObject.FindGameObjectsWithTag("YubisumaPlayer");
         }
 
         private void ChangeState(State state)
         {
-            CurrentState = state;
-            switch (CurrentState)
+            switch (state)
             {
-                case State.WaitForStart:WaitForStart();
+                case State.WaitForStart:
+                    StartStateWaitForStart();
                     break;
-                case State.Play:
+                case State.Check:
+                    StartStateCheck();
                     break;
-                case State.Wait:
+                case State.Choose:
+                    StartStateChoose();
+                    break;
+                case State.GameEnd:
+                    StartStateGameEnd();
                     break;
             }
+            Debug.Log(state + " From " + CurrentState);
+            CurrentState = state;
         }
 
-        private void UpdateState(State state)
+        private void UpdateState()
         {
-            CurrentState = state;
             switch (CurrentState)
             {
                 case State.WaitForStart:
+                    UpdateStateWaitForStart();
                     break;
-                case State.Play:
+                case State.Check:
+                    UpdateStateCheck();
                     break;
-                case State.Wait:Wait();
+                case State.Choose:
+                    UpdateStateChoose();
                     break;
                 case State.GameEnd:
                     break;
             }
+            //Debug.Log(CurrentState);
         }
 
-        private void WaitForStart()
+        public void StartStateWaitForStart()
         {
             SetDecidePlayer();
-            ChangeState(State.Wait);
+            GameController.Instance.ChangeState(State.Choose);
+            //Debug.Log(CurrentState + " From WaitForStart");
         }
 
-        private IEnumerator Wait()
+        public void StartStateCheck()
+        {
+
+        }
+
+
+        public void StartStateChoose()
+        {
+
+        }
+
+        public void StartStateGameEnd()
+        {
+
+        }
+
+        public void UpdateStateWaitForStart()
+        {
+            ChangeState(State.Choose);
+        }
+
+        public void UpdateStateCheck()
+        {
+            Check();
+        }
+
+        public void UpdateStateChoose()
+        {
+            TurnSpan -= Time.deltaTime;
+            if (TurnSpan <= 0f)
+            {
+                GameController.Instance.ChangeState(State.Check);
+                TurnSpan = 10f;
+            }
+        }
+
+        public void UpdateStateGameEnd()
+        {
+
+        }
+
+        
+        /*public IEnumerator ChooseRoutine()
         {
             yield return new WaitForSeconds(10f);
-            UpdateState(State.Play);
+                GameController.Instance.ChangeState(State.Check);
         }
+        */
 
-        private void Play()
+        public void Check()
         {
+            GetTotalCount();
             CheckWinner();
-            if(CurrentState != State.GameEnd)
+            if (CurrentState != State.GameEnd)
             {
-                UpdateState(State.Wait);
+                SetDecidePlayer();
+                GameController.Instance.ChangeState(State.Choose);
             }
-        }
-
-        private void GetTotalCount()
-        {
-            TotalCount = 0;
-            for(int i = 0; i < Players.Length; i++)
-            {
-                TotalCount += Players[i].Count;
-            }
-        }
-
-        private void SetDecidePlayer()
-        {
-            if(PlayerNumber == Players.Length - 1)
-            {
-                PlayerNumber = 0;
-            }
-            DecidePlayer = Players[PlayerNumber];
-            PlayerNumber++;
         }
 
         public void CheckWinner()
         {
-            for(int i = 0; i < Players.Length; i++)
+            for (int i = 0; i < Players.Length; i++)
             {
-                if (Players[i].RemainingHand==0)
+                if (Players[i].GetComponent<Player>().RemainingHand == 0)
                 {
-                    UpdateState(State.GameEnd);
+                    GameController.Instance.ChangeState(State.GameEnd);
+                    Debug.Log(DecidePlayer + "Win");
                     break;
                 }
             }
         }
+
+        public void GetTotalCount()
+        {
+            TotalCount = 0;
+            for(int i = 0; i < Players.Length; i++)
+            {
+                TotalCount += Players[i].GetComponent<Player>().Hand;
+            }
+            Debug.Log("TotalCount " + TotalCount);
+        }
+
+        private void SetDecidePlayer()
+        {
+            if(PlayerNumber == Players.Length)
+            {
+                PlayerNumber = 0;
+            }
+            DecidePlayer = Players[PlayerNumber].name;
+            Debug.Log(DecidePlayer);
+            PlayerNumber++;
+        }
+
+        public void SetRemainingPlayer()
+        {
+            RemainingPlayer = Players.Length;
+        }
+
+
     }
 }

@@ -907,7 +907,7 @@ MonoBehaviour:
   - {fileID: 1024055300}
   randomedPlayerText: {fileID: 327628949}
   selectColor: {r: 1, g: 0, b: 0, a: 1}
-  enterGameTime: 2
+  enterGameTime: 0
 --- !u!224 &1024055308 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5605617191264651714, guid: f73eaa3271a931b46b894809b713d4ca,

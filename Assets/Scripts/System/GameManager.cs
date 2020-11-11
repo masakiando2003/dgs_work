@@ -152,6 +152,10 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 Invoke("Winner", showCanvasTime);
             }
+            else if(currentTurn >= maxTurns)
+            {
+                // TODO: 一人だけ勝利するか、残っている全員勝利するか、後ほど決めます
+            }
             else
             {
                 currentTurn++;
@@ -246,6 +250,11 @@ namespace DHU2020.DGS.MiniGame.System
             PVPPlayerIDs.Clear();
         }
 
+        public void SelectedAllPlayers()
+        {
+            Debug.Log("SelectedAllPlayers");
+        }
+
         public void EnterGame()
         {
             float loadGameTime = FindObjectOfType<GameSelector>().GetLoadGameTime();
@@ -255,6 +264,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         IEnumerator LoadGame(string selectedGame, float loadGameTime)
         {
+            Debug.Log(loadGameTime + "---" + selectedGame);
             yield return new WaitForSeconds(loadGameTime);
             SceneManager.LoadScene(selectedGame);
         }

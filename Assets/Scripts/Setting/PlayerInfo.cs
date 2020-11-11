@@ -50,5 +50,10 @@ namespace DHU2020.DGS.MiniGame.Setting
             return playerNames.FindIndex(x => x.Equals(name));
         }
 
+        public int GetNumOfPlayer()
+        {
+            return playerNames.Count;
+        }
+
     }
 }

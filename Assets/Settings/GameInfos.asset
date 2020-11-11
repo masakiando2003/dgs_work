@@ -13,25 +13,14 @@ MonoBehaviour:
   m_Name: GameInfos
   m_EditorClassIdentifier: 
   gameTitlesEnglish:
-  - Game1
-  - Game2
-  - Game3
-  - Game4
-  - Game5
-  - Game6
-  - Game7
-  - Game8
-  - Game9
-  - Game10
+  - Yubisuma
+  - Yubisuma
+  - Yubisuma
+  - Yubisuma
   gameTitlesJapanese:
-  - "\u30B2\u30FC\u30E01"
-  - "\u30B2\u30FC\u30E02"
-  - "\u30B2\u30FC\u30E03"
-  - "\u30B2\u30FC\u30E04"
-  - "\u30B2\u30FC\u30E05"
-  - "\u30B2\u30FC\u30E06"
-  - "\u30B2\u30FC\u30E07"
-  - "\u30B2\u30FC\u30E08"
-  - "\u30B2\u30FC\u30E09"
-  - "\u30B2\u30FC\u30E010"
-  gameType: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - "\u3086\u3073\u3059\u307E"
+  - "\u3086\u3073\u3059\u307E"
+  - "\u3086\u3073\u3059\u307E"
+  - "\u3086\u3073\u3059\u307E"
+  gameType: 00000000000000000000000000000000
+  gameImage: []

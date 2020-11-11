@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DHU2020.DGS.MiniGame.Game
 {
@@ -20,6 +21,7 @@ namespace DHU2020.DGS.MiniGame.Game
             All
         };
         public GameType[] gameType;
+        public Image[] gameImage;
 
         public string GetGameTitleJapanese(int index)
         {
@@ -45,6 +47,11 @@ namespace DHU2020.DGS.MiniGame.Game
         public GameType GetGameType(int index)
         {
             return gameType[index];
+        }
+
+        public Image GetGameImage(int index)
+        {
+            return gameImage[index];
         }
     }
 }

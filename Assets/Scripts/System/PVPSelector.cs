@@ -51,6 +51,7 @@ namespace DHU2020.DGS.MiniGame.System
             }
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
+                selectedRivalPlayerFlag = true;
                 int selectedPlayerID = FindObjectOfType<GameManager>().GetSelectedPlayerID();
                 // ランダムの場合
                 if (selectedRivalPlayerID == rivalPlayerNames.Length)

@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Games\GameInfo.cs" />
     <Compile Include="Assets\Scripts\Games\GameSelector.cs" />
     <Compile Include="Assets\Scripts\Games\Yubisuma\GameController.cs" />
+    <Compile Include="Assets\Scripts\Games\Yubisuma\OnClickButton.cs" />
     <Compile Include="Assets\Scripts\Games\Yubisuma\Player.cs" />
     <Compile Include="Assets\Scripts\Map\CanvasFadeEffect.cs" />
     <Compile Include="Assets\Scripts\Map\PlayerStatusManager.cs" />

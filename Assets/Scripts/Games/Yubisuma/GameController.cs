@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DHU2020.DGS.MiniGame.Setting;
 
 
 namespace DHU2020.DGS.MiniGame.Yubisuma
@@ -11,6 +12,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             get;private set;
         }
+
+        public PlayerInfo playerInfo;
 
         [Range(0,10)]
         public int maxTurn;
@@ -36,6 +39,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             WaitForStart,
             Choose,
+            Calculate,
             Check,
             GameEnd
         }
@@ -74,6 +78,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             PlayerNumber = 0;
             ChangeState(State.WaitForStart);
             Players = GameObject.FindGameObjectsWithTag("YubisumaPlayer");
+            for(int i = 0; i < Players.Length;i++)
+            {
+                Players[i].GetComponent<Player>().PlayerName.text = playerInfo.playerNames[i];
+            }
         }
 
         private void ChangeState(State state)
@@ -83,11 +91,14 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 case State.WaitForStart:
                     StartStateWaitForStart();
                     break;
-                case State.Check:
-                    StartStateCheck();
-                    break;
                 case State.Choose:
                     StartStateChoose();
+                    break;
+                case State.Calculate:
+                    StartStateCalculate();
+                    break;
+                case State.Check:
+                    StartStateCheck();
                     break;
                 case State.GameEnd:
                     StartStateGameEnd();
@@ -97,6 +108,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             CurrentState = state;
         }
 
+
         private void UpdateState()
         {
             switch (CurrentState)
@@ -104,11 +116,14 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 case State.WaitForStart:
                     UpdateStateWaitForStart();
                     break;
-                case State.Check:
-                    UpdateStateCheck();
-                    break;
                 case State.Choose:
                     UpdateStateChoose();
+                    break;
+                case State.Calculate:
+                    UpdateStateCalculate();
+                    break;
+                case State.Check:
+                    UpdateStateCheck();
                     break;
                 case State.GameEnd:
                     break;
@@ -123,13 +138,18 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             //Debug.Log(CurrentState + " From WaitForStart");
         }
 
-        public void StartStateCheck()
+
+        public void StartStateChoose()
         {
 
         }
 
+        public void StartStateCalculate()
+        {
 
-        public void StartStateChoose()
+        }
+
+        public void StartStateCheck()
         {
 
         }
@@ -144,20 +164,28 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             ChangeState(State.Choose);
         }
 
-        public void UpdateStateCheck()
-        {
-            Check();
-        }
-
         public void UpdateStateChoose()
         {
             TurnSpan -= Time.deltaTime;
             if (TurnSpan <= 0f)
             {
-                GameController.Instance.ChangeState(State.Check);
-                TurnSpan = 10f;
+                GameController.Instance.ChangeState(State.Calculate);
+                TurnSpan = 15f;
             }
         }
+
+        public void UpdateStateCalculate()
+        {
+            GetTotalCount();
+            ChangeState(State.Check);
+        }
+
+        public void UpdateStateCheck()
+        {
+            Check();
+        }
+
+
 
         public void UpdateStateGameEnd()
         {
@@ -174,7 +202,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public void Check()
         {
-            GetTotalCount();
             CheckWinner();
             if (CurrentState != State.GameEnd)
             {
@@ -202,8 +229,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             for(int i = 0; i < Players.Length; i++)
             {
                 TotalCount += Players[i].GetComponentInChildren<Player>().Hand;
-                Debug.Log("TotalCount " + TotalCount);
             }
+            Debug.Log("TotalCount " + TotalCount);
         }
 
         private void SetDecidePlayer()

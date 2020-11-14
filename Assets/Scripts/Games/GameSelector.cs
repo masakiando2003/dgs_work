@@ -95,6 +95,7 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.All)
                 {
+                    FindObjectOfType<GameManager>().EnterGame();
                 }
             }
         }

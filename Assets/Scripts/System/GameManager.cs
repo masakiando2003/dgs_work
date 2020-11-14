@@ -20,34 +20,20 @@ namespace DHU2020.DGS.MiniGame.System
         }
 
         public PlayerInfo playerInfo;
+        public MapInfo mapInfo;
         public GameObject[] players;
         public Text[] playerNames;
         public int numOfWinningPlayers = 1;
   
-        [Range(1, 99)]
-        public int maxTurns;
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
 
         public GameObject turnCanvas, selectGameCanvas, winnerCanvas, PVPSelectPlayerCanvas;
         public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup;
         public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f;
 
-        private int remainingPlayers, currentTurn, selectedPlayerID;
+        private int remainingPlayers, currentTurn, maxTurns, selectedPlayerID;
         [SerializeField] private List<int> PVPPlayerIDs = new List<int>();
 
-        private void Awake()
-        {
-            int numGameSessions = FindObjectsOfType<GameManager>().Length;
-            if(numGameSessions > 1)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
-        
         // Start is called before the first frame update
         void Start()
         {
@@ -56,22 +42,26 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void Initialize()
         {
-            currentTurn = 0;
+            //mapInfo.StartGame();
+            currentTurn = mapInfo.GetCurrentTurn();
             currentTurnText.text = currentTurn.ToString();
+            maxTurns = mapInfo.GetMaxTurns();
             maxTurnsText.text = maxTurns.ToString();
             turnCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);
             winnerCanvas.SetActive(false);
             PVPSelectPlayerCanvas.SetActive(false);
-            for(int i=0; i < players.Length; i++)
+            //playerInfo.SetDefaultLifes();
+            for (int i=0; i < players.Length; i++)
             {
                 if (playerInfo.GetPlayerName(i).Equals(""))
                 {
                     playerInfo.RandomizePlayerName(i);
                 }
                 playerNames[i].GetComponent<Text>().text = playerInfo.GetPlayerName(i);
+                players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
             }
-            ProceedNextTurn();
+            CheckWinningStatus();
         }
 
         // Update is called once per frame
@@ -144,7 +134,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         }
 
-        public void ProceedNextTurn()
+        public void CheckWinningStatus()
         {
             PVPSelectPlayerCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);

@@ -16,13 +16,13 @@ MonoBehaviour:
   mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
   gameTitlesEnglish:
   - Yubisuma
+  - Yubisumo
   - Yubisuma
-  - Yubisuma
-  - Yubisuma
+  - Yubisumo
   gameTitlesJapanese:
   - "\u3086\u3073\u3059\u307E"
+  - "\u3086\u3073\u3059\u3082\u3046"
   - "\u3086\u3073\u3059\u307E"
-  - "\u3086\u3073\u3059\u307E"
-  - "\u3086\u3073\u3059\u307E"
-  gameType: 02000000020000000200000002000000
+  - "\u3086\u3073\u3059\u3082\u3046"
+  gameType: 02000000000000000200000000000000
   gameImage: []

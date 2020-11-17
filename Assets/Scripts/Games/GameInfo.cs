@@ -71,33 +71,36 @@ namespace DHU2020.DGS.MiniGame.Game
 
         public void SetMiniGameWinner(string miniGame, int playerID, int[] rivalIDs = null)
         {
-            GameType gameType = GetGameTypeByGameName(miniGame);
-            int numOfPlayers = playerInfo.GetPlayersCount();
-            switch (gameType)
+            if (playerID != -1) // -1 = 引き分け
             {
-                case GameType.All:
-                    for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
-                    {
-                        if (playerIndex == playerID)
+                GameType gameType = GetGameTypeByGameName(miniGame);
+                int numOfPlayers = playerInfo.GetPlayersCount();
+                switch (gameType)
+                {
+                    case GameType.All:
+                        for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                         {
-                            playerInfo.IncreaseLife(playerID);
+                            if (playerIndex == playerID)
+                            {
+                                playerInfo.IncreaseLife(playerID);
+                            }
+                            else
+                            {
+                                playerInfo.DecreaseLife(playerIndex);
+                            }
                         }
-                        else
-                        {
-                            playerInfo.DecreaseLife(playerIndex);
-                        }
-                    }
-                    break;
-                case GameType.PVP:
-                    playerInfo.IncreaseLife(playerID);
-                    playerInfo.DecreaseLife(rivalIDs[0]);
-                    break;
-                case GameType.ThreePlayers:
-                    playerInfo.IncreaseLife(playerID);
-                    playerInfo.DecreaseLife(rivalIDs[0]);
-                    playerInfo.DecreaseLife(rivalIDs[1]);
-                    break;
+                        break;
+                    case GameType.PVP:
+                        playerInfo.IncreaseLife(playerID);
+                        playerInfo.DecreaseLife(rivalIDs[0]);
+                        break;
+                    case GameType.ThreePlayers:
+                        playerInfo.IncreaseLife(playerID);
+                        playerInfo.DecreaseLife(rivalIDs[0]);
+                        playerInfo.DecreaseLife(rivalIDs[1]);
+                        break;
 
+                }
             }
             mapInfo.ProceedNextTurn();
         }

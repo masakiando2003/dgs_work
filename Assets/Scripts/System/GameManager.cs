@@ -229,16 +229,6 @@ namespace DHU2020.DGS.MiniGame.System
             selectGamePlayerText.text = playerNames[currentTurn % players.Length].GetComponent<Text>().text;
         }
         */
-        
-        public void SetPVPPlayerID(int playerIndex)
-        {
-            PVPPlayerIDs.Add(playerIndex);
-        }
-
-        public void ClearPVPPlayerList()
-        {
-            PVPPlayerIDs.Clear();
-        }
 
         public void SelectedAllPlayers()
         {
@@ -254,7 +244,6 @@ namespace DHU2020.DGS.MiniGame.System
 
         IEnumerator LoadGame(string selectedGame, float loadGameTime)
         {
-            Debug.Log(loadGameTime + "---" + selectedGame);
             yield return new WaitForSeconds(loadGameTime);
             SceneManager.LoadScene(selectedGame);
         }

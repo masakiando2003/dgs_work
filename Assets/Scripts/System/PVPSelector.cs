@@ -11,6 +11,7 @@ namespace DHU2020.DGS.MiniGame.System
     public class PVPSelector : MonoBehaviour
     {
         public PlayerInfo playerInfo;
+        public PVPPlayerInfo pvpPlayerInfo;
         public GameObject[] players;
         public Text[] playerNames, rivalPlayerNames;
         public Text randomedPlayerText;
@@ -40,6 +41,7 @@ namespace DHU2020.DGS.MiniGame.System
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
                 selectedRivalPlayerID = ((selectedRivalPlayerID - 1) < 0) ? rivalPlayerNames.Length : selectedRivalPlayerID - 1;
+                selectedRivalPlayerName = rivalPlayerNames[selectedRivalPlayerID].text;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -47,6 +49,7 @@ namespace DHU2020.DGS.MiniGame.System
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
                 selectedRivalPlayerID = ((selectedRivalPlayerID + 1) >= rivalPlayerNames.Length+1) ? 0 : selectedRivalPlayerID + 1;
+                selectedRivalPlayerName = rivalPlayerNames[selectedRivalPlayerID].text;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -68,9 +71,7 @@ namespace DHU2020.DGS.MiniGame.System
                         }
                     }
                 }
-                FindObjectOfType<GameManager>().ClearPVPPlayerList();
-                FindObjectOfType<GameManager>().SetPVPPlayerID(selectedPlayerID);
-                FindObjectOfType<GameManager>().SetPVPPlayerID(playerInfo.GetPlayerID(playerInfo.GetPlayerName(selectedRivalPlayerID)));
+                pvpPlayerInfo.SetPlayerID(selectedPlayerID, playerInfo.GetPlayerID(selectedRivalPlayerName));
                 StartCoroutine(EnterGame());
             }
         }

@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e336b62ec17264e91ca922d7309d2f, type: 3}
-  m_Name: MapInfo
+  m_Script: {fileID: 11500000, guid: 59f28fb18e536b248996b1828c24bda2, type: 3}
+  m_Name: PVPPlayerInfo
   m_EditorClassIdentifier: 
-  maxTurns: 99
-  currentTurn: 0
-  loadMainMapSeconds: 1
+  player1ID: 0
+  player2ID: 1

@@ -891,6 +891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  pvpPlayerInfo: {fileID: 11400000, guid: 98b4f8fcff03ba84583fd3e1b3453ef6, type: 2}
   players:
   - {fileID: 1204843880}
   - {fileID: 496361871}
@@ -1129,6 +1130,10 @@ PrefabInstance:
       propertyPath: selectedGameText
       value: 
       objectReference: {fileID: 1588896144}
+    - target: {fileID: 270990872, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}
+      propertyPath: loadGameTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1151478696986392256, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}
       propertyPath: m_Name

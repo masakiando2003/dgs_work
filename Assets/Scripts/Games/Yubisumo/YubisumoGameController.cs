@@ -79,6 +79,8 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
             player1AdvantageImage.enabled = false;
             player2AdvantageImage.enabled = false;
 
+            playerStatusSlider.minValue = winnerHitCount * -1;
+            playerStatusSlider.maxValue = winnerHitCount;
             playerStatusSlider.value = 0;
 
             resultTitleText.enabled = false;

@@ -17,12 +17,12 @@ MonoBehaviour:
   gameTitlesEnglish:
   - Yubisuma
   - Yubisumo
-  - Yubisuma
+  - Kenkenpa
   - Yubisumo
   gameTitlesJapanese:
   - "\u3086\u3073\u3059\u307E"
   - "\u3086\u3073\u3059\u3082\u3046"
-  - "\u3086\u3073\u3059\u307E"
+  - "\u30B1\u30F3\u30B1\u30F3\u30D1"
   - "\u3086\u3073\u3059\u3082\u3046"
   gameType: 02000000000000000200000000000000
   gameImage: []

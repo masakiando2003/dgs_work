@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DHU2020.DGS.MiniGame.System;
+using DHU2020.DGS.MiniGame.Setting;
+using DHU2020.DGS.MiniGame.Game;
 
 namespace DHU2020.DGS.MiniGame.Map
 {
     public class PlayerStatusManager : MonoBehaviour
     {
+        public PlayerInfo playerInfo;
+        public GameInfo gameInfo;
         public GameObject[] PlayerCrossesObjects;
         public GameObject GameOverObject;
-        public string PlayerName { get; set; }
         public Text playerNameText;
-        public int PlayerID { get; set; }
-        private int currentLife, maxLife;
-        public int increaseLifeNum = 1, decreaseLifeNum = 1;
-        public KeyCode increaseLifeKey, decreaseLifeKey;
+        public int playerID;
+        public KeyCode nextTurnKey;
+        private int maxLife;
         private bool isAlive, isPlayingAnimation;
 
         // Start is called before the first frame update
         void Start()
         {
-            maxLife = PlayerCrossesObjects.Length;
-            currentLife = maxLife;
+            maxLife = playerInfo.GetMaxLife(playerID);
             for(int i=0; i < PlayerCrossesObjects.Length; i++)
             {
                 PlayerCrossesObjects[i].SetActive(false);
@@ -36,40 +36,13 @@ namespace DHU2020.DGS.MiniGame.Map
         void Update()
         {
             // 開発用
-            if (isAlive && !isPlayingAnimation)
+            if (isAlive)
             {
-                if (Input.GetKeyDown(increaseLifeKey))
+                if (Input.GetKeyDown(nextTurnKey))
                 {
-                    IncreaseLife();
-                    FindObjectOfType<GameManager>().ProceedNextTurn();
-                }
-                else if (Input.GetKeyDown(decreaseLifeKey))
-                {
-                    DecreaseLife();
-                    CheckIsGameOver();
-                    FindObjectOfType<GameManager>().ProceedNextTurn();
+                    //gameInfo.SetMiniGameWinner("Yubisuma", 1);
                 }
             }
-        }
-
-        void DecreaseLife()
-        {
-            currentLife -= decreaseLifeNum;
-            if (currentLife < 0)
-            {
-                currentLife = 0;
-            }
-            EnableCross(currentLife);
-        }
-
-        void IncreaseLife()
-        {
-            currentLife += increaseLifeNum;
-            if(currentLife > maxLife)
-            {
-                currentLife = maxLife;
-            }
-            EnableCross(currentLife);
         }
 
         void EnableCross(int currentLife)
@@ -89,10 +62,17 @@ namespace DHU2020.DGS.MiniGame.Map
 
         void CheckIsGameOver()
         {
-            if(currentLife < 1)
+            if(playerInfo.GetCurrentLife(playerID) < 1)
             {
                 GameOver();
             }
+        }
+
+        public void CheckLife(int playerID)
+        {
+            int currentLife = playerInfo.GetCurrentLife(playerID);
+            EnableCross(currentLife);
+            CheckIsGameOver();
         }
 
         private void GameOver()
@@ -104,11 +84,6 @@ namespace DHU2020.DGS.MiniGame.Map
         public bool IsAlive()
         {
             return isAlive;
-        }
-
-        void DisplayPlayerName()
-        {
-            playerNameText.text = PlayerName;
         }
 
         public void SetPlayingAnimation(bool isPlaying)

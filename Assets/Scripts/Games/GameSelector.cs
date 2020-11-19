@@ -5,18 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Game;
 using Random = UnityEngine.Random;
-using DHU2020.DGS.MiniGame.System;
-using DHU2020.DGS.MiniGame.Setting;
-using UnityEngine.SceneManagement;
 
-namespace DHU2020.DGS.MiniGame.Game
+namespace DHU2020.DGS.MiniGame.System
 {
     public class GameSelector : MonoBehaviour
     {
         public GameInfo gameInfo;
         public GameObject[] games;
         public int defaultSelectGameIndex = 0;
-        public float loadGameTime = 2f, enterGameTime = 0f;
+        public float loadGameTime = 2f;
         public Color selectColor;
         public Text selectedGameText;
 
@@ -78,7 +75,6 @@ namespace DHU2020.DGS.MiniGame.Game
             {
                 originalSelectedGameIndex = gameIndex;
                 gameIndex = ((gameIndex - 1) < 0) ? games.Length - 1 : gameIndex - 1;
-                Debug.Log("gameIndex: " + gameIndex);
                 SelectGame(gameIndex);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -94,10 +90,10 @@ namespace DHU2020.DGS.MiniGame.Game
                 {
                     FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
                 }
-                else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.ThreePlayers)
+                else if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.ThreePlayers)
                 {
                 }
-                else if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.All)
+                else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.All)
                 {
                     FindObjectOfType<GameManager>().EnterGame();
                 }
@@ -110,9 +106,8 @@ namespace DHU2020.DGS.MiniGame.Game
 
             GameObject.Find("Game" + (gameIndex + 1) + "Border").GetComponent<Image>().color = selectColor;
             GameObject.Find("Game" + (originalSelectedGameIndex + 1) + "Border").GetComponent<Image>().color = Color.black;
-            string gameNameJappanese = GameObject.Find("Game" + (gameIndex + 1) + "Text").GetComponent<Text>().text;
             selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
-            selectedGame = gameInfo.GetGameSceneNameByJapaneseName(gameNameJappanese);
+            selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
         }
 
         public float GetLoadGameTime()

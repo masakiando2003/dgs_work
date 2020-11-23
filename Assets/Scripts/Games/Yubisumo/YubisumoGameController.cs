@@ -55,6 +55,11 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         // Start is called before the first frame update
         void Start()
         {
+            Initialization();
+        }
+
+        private void Initialization()
+        {
             Instance.ChangeGameState(GameState.NotReady);
             yubisumoIntroductionCanvas.SetActive(true);
             yubisumoGameCanvas.SetActive(false);

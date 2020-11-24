@@ -398,6 +398,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f452669d39edb714a9a7ddc58802131e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kenkenpaGameController: {fileID: 1800511832}
+  hitButton1: 116
+  hitButton2: 102
+  hitButton3: 103
+  hitButton4: 104
 --- !u!1 &261535082
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f452669d39edb714a9a7ddc58802131e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kenkenpaGameController: {fileID: 1800511832}
+  hitButton1: 264
+  hitButton2: 260
+  hitButton3: 261
+  hitButton4: 258
 --- !u!1 &368709891
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f452669d39edb714a9a7ddc58802131e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kenkenpaGameController: {fileID: 1800511832}
+  hitButton1: 119
+  hitButton2: 97
+  hitButton3: 115
+  hitButton4: 100
 --- !u!4 &401179259
 Transform:
   m_ObjectHideFlags: 0
@@ -1018,7 +1033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &608924754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1772,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1269313218
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2063,6 +2078,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f452669d39edb714a9a7ddc58802131e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kenkenpaGameController: {fileID: 1800511832}
+  hitButton1: 105
+  hitButton2: 106
+  hitButton3: 107
+  hitButton4: 108
 --- !u!1 &1577399068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,6 +2300,11 @@ MonoBehaviour:
   - {fileID: 1832747225}
   - {fileID: 1006358680}
   - {fileID: 469628153}
+  kenkenpaPlayerControllers:
+  - {fileID: 401179258}
+  - {fileID: 260226031}
+  - {fileID: 1533382484}
+  - {fileID: 281656698}
   kenkenpaIntroductionCanvas: {fileID: 1097847772}
   kenkenpaGameCavnas: {fileID: 1577399068}
   playerStepBlockPrefab: {fileID: 6704272011962535247, guid: 771846fda6ea1b243b612b79e83ef710,
@@ -2303,7 +2328,7 @@ MonoBehaviour:
   startCountDownTime: 3.9
   hideCountDownTime: 1
   remainingTime: 30
-  gameSetTime: 2
+  gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833
 Transform:

@@ -1,7 +1,9 @@
 ﻿using DHU2020.DGS.MiniGame.Game;
 using DHU2020.DGS.MiniGame.Setting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         }
 
         public GameObject[] PlaerRouteAreas;
+        public KenkenpaPlayerController[] kenkenpaPlayerControllers;
         public GameObject kenkenpaIntroductionCanvas, kenkenpaGameCavnas, playerStepBlockPrefab;
         public Text[] playerNameText, playerLapCountText;
         public Text countDownTimeText, remainingTimeText, resultTitleText, resultText;
@@ -22,19 +25,22 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public PlayerInfo playerInfo;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f;
         public string startGameText = "GO!";
-
-        private int[] playerLapCounts, playerPosition;
-        private List<int> winnerIDs = new List<int>();
-        private float countDownTimer, remainingTimer;
         public enum GameState
         {
             NotReady,
             WaitForStart,
             GameStart,
             Winner,
-            Draw
+            Draw,
+            GameSet
         }
+
+        private int[] playerLapCounts, playerPosition, losePlayers;
+        private List<int> winnerPlayerIDs = new List<int>();
+        private float countDownTimer, remainingTimer;
+        private readonly int lapMaxSteps = 8;
         private static GameState currentGameState;
+        private List<string> winnerPlayerList = new List<string>();
 
         private void Awake()
         {
@@ -54,8 +60,6 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
         private void Initialization()
         {
-            kenkenpaIntroductionCanvas.SetActive(true);
-            kenkenpaGameCavnas.SetActive(false);
             playerLapCounts = new int[PlaerRouteAreas.Length];
             playerPosition = new int[PlaerRouteAreas.Length];
             for (int playerIndex = 0; playerIndex < PlaerRouteAreas.Length; playerIndex++)
@@ -64,7 +68,13 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                 playerPosition[playerIndex] = 0;
                 playerNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
                 playerLapCountText[playerIndex].text = playerLapCounts[playerIndex].ToString();
+                string stepBlockNumberID = "Player"+(playerIndex+1)+"StepBlockNumber1Text";
+                GameObject.Find(stepBlockNumberID).GetComponent<Text>().color = Color.blue;
             }
+            resultTitleText.enabled = false;
+            resultText.enabled = false;
+            kenkenpaIntroductionCanvas.SetActive(true);
+            kenkenpaGameCavnas.SetActive(false);
             countDownTimer = startCountDownTime;
             remainingTimer = remainingTime;
             remainingTimeText.text = remainingTimer.ToString();
@@ -73,7 +83,8 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             remainingTimer = remainingTime;
             remainingTimeText.text = remainingTime.ToString();
 
-            winnerIDs.Clear();
+            winnerPlayerIDs.Clear();
+            winnerPlayerList.Clear();
         }
 
         private void CountDown(float countDownTimer)
@@ -118,6 +129,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             switch (currentGameState)
             {
                 case GameState.NotReady:
+                    RandomPlayersStepBlock();
                     break;
                 case GameState.WaitForStart:
                     countDownTimeText.enabled = true;
@@ -129,12 +141,38 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                     remainingTimer -= Time.deltaTime;
                     ShowRemainingTimer(remainingTimer);
                     CheckRemainingTime(remainingTimer);
+                    WaitForPlayerButtonPressed();
                     break;
                 case GameState.Winner:
+                    ShowWinners();
                     break;
                 case GameState.Draw:
                     DrawGame();
                     break;
+            }
+        }
+
+        private void RandomPlayersStepBlock()
+        {
+
+        }
+
+        private void WaitForPlayerButtonPressed()
+        {
+            for(int playerIndex = 0; playerIndex < kenkenpaPlayerControllers.Length; playerIndex++)
+            {
+                List<KeyCode> playerInputs = kenkenpaPlayerControllers[playerIndex].GetEnteredButtons();
+
+                if(playerInputs.Count == 0) { continue; }
+
+                if (PlayerInputAsSameAsStepBlockButton(playerIndex, playerInputs))
+                {
+                    PlayerPositionStepFoward(playerIndex);
+                }
+                else
+                {
+                    ResetPlayerPosition(playerIndex);
+                }
             }
         }
 
@@ -147,8 +185,55 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         {
             if (remainingTimer < 1f)
             {
-
+                CheckWinner();
             }
+        }
+
+        private void CheckWinner()
+        {
+            int[] playerTotalLaps = new int[PlaerRouteAreas.Length];
+            for (int playerIndex = 0; playerIndex < PlaerRouteAreas.Length; playerIndex++)
+            {
+                playerTotalLaps[playerIndex] = GetPlayerLapCount(playerIndex);
+            }
+            int maxTotalLap = playerTotalLaps.Max();
+            int maxTotalLapPlayerCounts = 0, playerCount=0;
+            for (int playerIndex = 0; playerIndex < PlaerRouteAreas.Length; playerIndex++)
+            {
+                if (playerTotalLaps[playerIndex] == maxTotalLap)
+                {
+                    maxTotalLapPlayerCounts++;
+                    winnerPlayerList.Add(playerInfo.GetPlayerName(playerIndex));
+                    winnerPlayerIDs.Add(playerIndex);
+                }
+                else
+                {
+                    losePlayers[playerCount++] = playerIndex;
+                }
+            }
+            if(maxTotalLapPlayerCounts > 0 && maxTotalLapPlayerCounts< PlaerRouteAreas.Length)
+            {
+                Debug.Log("GameState.Winner");
+                Instance.ChangeGameState(GameState.Winner);
+            }
+            else
+            {
+                Debug.Log("GameState.Draw");
+                Instance.ChangeGameState(GameState.Draw);
+            }
+        }
+
+        private void ShowWinners()
+        {
+            resultTitleText.enabled = true;
+            resultText.enabled = true;
+            resultText.text = "";
+            for (int i = 0; i < winnerPlayerList.Count; i++)
+            {
+                resultText.text += winnerPlayerList[i] + "\n";
+            }
+            resultText.text += "勝ち";
+            StartCoroutine(WinGameSet());
         }
 
         private void DrawGame()
@@ -157,7 +242,15 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             resultText.enabled = true;
             string drawText = "引き分け...";
             resultText.text = drawText;
+            Instance.ChangeGameState(GameState.GameSet);
             StartCoroutine(DrawGameSet());
+        }
+
+        IEnumerator WinGameSet()
+        {
+            yield return new WaitForSeconds(gameSetTime);
+            // 一人プレイヤー以上が勝つ出来るので、二番目パラメータのplayerIDが0で設定します
+            gameInfo.SetMiniGameWinner("Kenkenpa", 0, losePlayers, winnerPlayerIDs);
         }
 
 
@@ -172,6 +265,11 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             return currentGameState;
         }
 
+        private bool PlayerInputAsSameAsStepBlockButton(int playerIndex, List<KeyCode> playerInputs)
+        {
+            return false;
+        }
+
         // 途中でボタン入力を間違えてしまったら、最初のポジションに再開します
         public void ResetPlayerPosition(int playerIndex)
         {
@@ -181,6 +279,17 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public void PlayerPositionStepFoward(int playerIndex)
         {
             playerPosition[playerIndex]++;
+            int playerCurrentStep = playerPosition[playerIndex];
+            if(playerCurrentStep > lapMaxSteps)
+            {
+                IncreasePlayerLapCount(playerIndex);
+                ResetPlayerPosition(playerIndex);
+            }
+        }
+
+        public int GetPlayerPosition(int playerIndex)
+        {
+            return playerPosition[playerIndex];
         }
 
         public void IncreasePlayerLapCount(int playerIndex)

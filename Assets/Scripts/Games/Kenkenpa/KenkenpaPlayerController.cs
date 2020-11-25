@@ -13,11 +13,18 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
         private bool buttonPressed;
         private List<KeyCode> buttonEntered = new List<KeyCode>();
+        private List<KeyCode> playerButtons = new List<KeyCode>();
 
         // Start is called before the first frame update
         void Start()
         {
             buttonPressed = false;
+
+            playerButtons.Clear();
+            playerButtons.Add(hitButton1);
+            playerButtons.Add(hitButton2);
+            playerButtons.Add(hitButton3);
+            playerButtons.Add(hitButton4);
 
             GameState currentGameState = kenkenpaGameController.GetCurrentGameState();
 
@@ -51,6 +58,11 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                  Input.GetKeyDown(hitButton4);
 
             }
+        }
+
+        public List<KeyCode> GetPlayerButtons()
+        {
+            return playerButtons;
         }
 
         public List<KeyCode> GetEnteredButtons()

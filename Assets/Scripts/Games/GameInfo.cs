@@ -89,7 +89,10 @@ namespace DHU2020.DGS.MiniGame.Game
                             }
                             for (var playerIndex = 0; playerIndex < rivalIDs.Length; playerIndex++)
                             {
-                                playerInfo.DecreaseLife(rivalIDs[playerIndex]);
+                                if (!winnerPlayerIDs.Contains(playerIndex))
+                                {
+                                    playerInfo.DecreaseLife(rivalIDs[playerIndex]);
+                                }
                             }
                         }
                         else

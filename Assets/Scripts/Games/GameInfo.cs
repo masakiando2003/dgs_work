@@ -69,7 +69,7 @@ namespace DHU2020.DGS.MiniGame.Game
             return UnityEditor.ArrayUtility.IndexOf(gameTitlesEnglish, gameName);
         }
 
-        public void SetMiniGameWinner(string miniGame, int playerID, int[] rivalIDs = null)
+        public void SetMiniGameWinner(string miniGame, int playerID, int[] rivalIDs = null, List<int> winnerPlayerIDs = null)
         {
             if (playerID != -1) // -1 = 引き分け
             {
@@ -78,15 +78,35 @@ namespace DHU2020.DGS.MiniGame.Game
                 switch (gameType)
                 {
                     case GameType.All:
-                        for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
+                        if(winnerPlayerIDs.Count > 0)
                         {
-                            if (playerIndex == playerID)
+                            for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                             {
-                                playerInfo.IncreaseLife(playerID);
+                                if (winnerPlayerIDs.Contains(playerIndex))
+                                {
+                                    playerInfo.IncreaseLife(playerID);
+                                }
                             }
-                            else
+                            for (var playerIndex = 0; playerIndex < rivalIDs.Length; playerIndex++)
                             {
-                                playerInfo.DecreaseLife(playerIndex);
+                                if (!winnerPlayerIDs.Contains(playerIndex))
+                                {
+                                    playerInfo.DecreaseLife(rivalIDs[playerIndex]);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
+                            {
+                                if (playerIndex == playerID)
+                                {
+                                    playerInfo.IncreaseLife(playerID);
+                                }
+                                else
+                                {
+                                    playerInfo.DecreaseLife(playerIndex);
+                                }
                             }
                         }
                         break;

@@ -399,10 +399,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  playerID: 1
   hitButton1: 116
   hitButton2: 102
   hitButton3: 103
   hitButton4: 104
+  buttonEntered: 
 --- !u!1 &261535082
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,10 +523,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  playerID: 3
   hitButton1: 264
   hitButton2: 260
   hitButton3: 261
   hitButton4: 258
+  buttonEntered: 
 --- !u!1 &368709891
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,10 +637,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  playerID: 0
   hitButton1: 119
   hitButton2: 97
   hitButton3: 115
   hitButton4: 100
+  buttonEntered: 
 --- !u!4 &401179259
 Transform:
   m_ObjectHideFlags: 0
@@ -664,7 +670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 176713019, guid: ad90ae82de6a2354cacb7c6b7e65c33d, type: 3}
       propertyPath: m_Name
-      value: Player4StepBlock1
+      value: Player4StepBlockArea1
       objectReference: {fileID: 0}
     - target: {fileID: 509121085, guid: ad90ae82de6a2354cacb7c6b7e65c33d, type: 3}
       propertyPath: m_Name
@@ -843,7 +849,7 @@ PrefabInstance:
     - target: {fileID: 4199924944084462772, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
-      value: Player4StepBlockNumber6Text
+      value: Player4StepBlockNumber5Text
       objectReference: {fileID: 0}
     - target: {fileID: 4264811075238578144, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -1250,7 +1256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &608924755
@@ -1405,7 +1411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 176713019, guid: ad90ae82de6a2354cacb7c6b7e65c33d, type: 3}
       propertyPath: m_Name
-      value: Player3StepBlock1
+      value: Player3StepBlockArea1
       objectReference: {fileID: 0}
     - target: {fileID: 509121085, guid: ad90ae82de6a2354cacb7c6b7e65c33d, type: 3}
       propertyPath: m_Name
@@ -1584,7 +1590,12 @@ PrefabInstance:
     - target: {fileID: 4199924944084462772, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
-      value: Player3StepBlockNumber6Text
+      value: Player3StepBlockNumber5Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264811075238578144, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player3StepBlockNumber3Text
       objectReference: {fileID: 0}
     - target: {fileID: 4275816266428671884, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -2204,8 +2215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -250}
-  m_SizeDelta: {x: 800, y: 300}
+  m_AnchoredPosition: {x: 0, y: -200}
+  m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1269313219
 CanvasRenderer:
@@ -2247,7 +2258,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC"
+  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC1\n\u52DD\u3061!"
 --- !u!1 &1452955394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,10 +2490,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  playerID: 2
   hitButton1: 105
   hitButton2: 106
   hitButton3: 107
   hitButton4: 108
+  buttonEntered: 
 --- !u!1 &1577399068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2727,7 +2740,7 @@ MonoBehaviour:
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9
   hideCountDownTime: 1
-  remainingTime: 30
+  remainingTime: 60
   gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833
@@ -2936,7 +2949,7 @@ PrefabInstance:
     - target: {fileID: 4199924944084462772, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
-      value: Player2StepBlockNumber6Text
+      value: Player2StepBlockNumber5Text
       objectReference: {fileID: 0}
     - target: {fileID: 4264811075238578144, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -3749,7 +3762,7 @@ PrefabInstance:
     - target: {fileID: 4199924944084462772, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
-      value: Player1StepBlockNumber6Text
+      value: Player1StepBlockNumber5Text
       objectReference: {fileID: 0}
     - target: {fileID: 4264811075238578144, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -3825,6 +3838,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1StepSingleBlockArea1Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866654341525267748, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock2
       objectReference: {fileID: 0}
     - target: {fileID: 5891856397064225044, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}

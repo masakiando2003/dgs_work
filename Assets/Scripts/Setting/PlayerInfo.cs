@@ -64,7 +64,7 @@ namespace DHU2020.DGS.MiniGame.Setting
             playerLifes.Add(life);
         }
 
-        public void SetDefaultLifes()
+        public void SetPlayersDefaultLife()
         {
             playerLifes.Clear();
             for (var i = 0; i < playerNames.Count; i++)

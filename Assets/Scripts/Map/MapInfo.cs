@@ -33,7 +33,7 @@ namespace DHU2020.DGS.MiniGame.Map
             return maxTurns;
         }
 
-        public void StartGame()
+        public void StartNewGame()
         {
             currentTurn = 0;
         }

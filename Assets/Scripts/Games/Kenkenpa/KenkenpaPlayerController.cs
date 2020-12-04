@@ -9,10 +9,12 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
     public class KenkenpaPlayerController : MonoBehaviour
     {
         public KenkenpaGameController kenkenpaGameController;
+        public float handlePlayerInputTime = 0.5f;
         public int playerID;
         public KeyCode hitButton1, hitButton2, hitButton3, hitButton4;
 
         private bool buttonPressed;
+        private float currenyPlayerInputTime;
         [SerializeField] private List<KeyCode> buttonEntered = new List<KeyCode>();
         private List<KeyCode> playerButtons = new List<KeyCode>();
 
@@ -20,6 +22,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         void Start()
         {
             buttonPressed = false;
+            currenyPlayerInputTime = 0f;
 
             buttonEntered.Clear();
             playerButtons.Clear();
@@ -37,186 +40,49 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
             if (!buttonPressed)
             {
-                if (Input.GetKeyDown(hitButton1))
+                currenyPlayerInputTime += Time.deltaTime;
+
+                if (Input.GetKey(hitButton1))
                 {
-                    buttonEntered.Clear();
-                    if (Input.GetKeyDown(hitButton2))
+                    if (!buttonEntered.Contains(hitButton1))
                     {
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton3))
-                    {
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton4))
-                    {
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                    }
-                    else
-                    {
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
+                        buttonEntered.Add(hitButton1);
                     }
                 }
-                if (Input.GetKeyDown(hitButton2))
+                if (Input.GetKey(hitButton2))
                 {
-                    buttonEntered.Clear();
-                    if (Input.GetKeyDown(hitButton1))
+                    if (!buttonEntered.Contains(hitButton2))
                     {
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton3))
-                    {
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton4))
-                    {
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                    }
-                    else
-                    {
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
+                        buttonEntered.Add(hitButton2);
                     }
                 }
-                if (Input.GetKeyDown(hitButton3))
+                if (Input.GetKey(hitButton3))
                 {
-                    buttonEntered.Clear();
-                    if (Input.GetKeyDown(hitButton1))
+                    if (!buttonEntered.Contains(hitButton3))
                     {
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton2))
-                    {
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton4))
-                    {
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                    }
-                    else
-                    {
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
+                        buttonEntered.Add(hitButton3);
                     }
                 }
-                if (Input.GetKeyDown(hitButton4))
+                if (Input.GetKey(hitButton4))
                 {
-                    buttonEntered.Clear();
-                    if (Input.GetKeyDown(hitButton1))
+                    if (!buttonEntered.Contains(hitButton4))
                     {
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                        if (!buttonEntered.Contains(hitButton1))
-                        {
-                            buttonEntered.Add(hitButton1);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton2))
-                    {
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                        if (!buttonEntered.Contains(hitButton2))
-                        {
-                            buttonEntered.Add(hitButton2);
-                        }
-                    }
-                    else if (Input.GetKeyDown(hitButton3))
-                    {
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
-                        if (!buttonEntered.Contains(hitButton3))
-                        {
-                            buttonEntered.Add(hitButton3);
-                        }
-                    }
-                    else
-                    {
-                        if (!buttonEntered.Contains(hitButton4))
-                        {
-                            buttonEntered.Add(hitButton4);
-                        }
+                        buttonEntered.Add(hitButton4);
                     }
                 }
-                buttonPressed = Input.GetKeyDown(hitButton1) |
-                 Input.GetKeyDown(hitButton2) |
-                 Input.GetKeyDown(hitButton3) |
-                 Input.GetKeyDown(hitButton4);
+
+                /*
+                buttonPressed = Input.GetKey(hitButton1) |
+                 Input.GetKey(hitButton2) |
+                 Input.GetKey(hitButton3) |
+                 Input.GetKey(hitButton4);
+                */
+
+                if (currenyPlayerInputTime >= handlePlayerInputTime)
+                {
+                    buttonPressed = true;
+                }
+
             }
             else
             {
@@ -237,6 +103,8 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public void SetButtonNotPressed()
         {
             buttonPressed = false;
+            currenyPlayerInputTime = 0f;
+            buttonEntered.Clear();
         }
     }
 }

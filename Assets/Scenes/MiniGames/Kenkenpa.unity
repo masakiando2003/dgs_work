@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  handlePlayerInputTime: 0.6
   playerID: 1
   hitButton1: 116
   hitButton2: 102
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  handlePlayerInputTime: 0.6
   playerID: 3
   hitButton1: 264
   hitButton2: 260
@@ -637,6 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  handlePlayerInputTime: 0.6
   playerID: 0
   hitButton1: 119
   hitButton2: 97
@@ -2490,6 +2493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
+  handlePlayerInputTime: 0.6
   playerID: 2
   hitButton1: 105
   hitButton2: 106
@@ -2713,6 +2717,7 @@ MonoBehaviour:
   - {fileID: 1832747225}
   - {fileID: 1006358680}
   - {fileID: 469628153}
+  PlayerStepBlockAreas: []
   kenkenpaPlayerControllers:
   - {fileID: 401179258}
   - {fileID: 260226031}
@@ -2740,7 +2745,7 @@ MonoBehaviour:
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9
   hideCountDownTime: 1
-  remainingTime: 60
+  remainingTime: 120
   gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833
@@ -3669,10 +3674,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1StepSingleBlockArea3Block
       objectReference: {fileID: 0}
+    - target: {fileID: 1610597381736380202, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock4
+      objectReference: {fileID: 0}
     - target: {fileID: 1711599357523243413, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
       value: Player1StepBlockArea2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890053435401995629, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock8
       objectReference: {fileID: 0}
     - target: {fileID: 1970964816452607326, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -3688,6 +3703,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1StepBlockNumber6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374286088565160206, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock6
       objectReference: {fileID: 0}
     - target: {fileID: 2604803131185045375, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -4029,6 +4049,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1StepSingleBlockArea6
       objectReference: {fileID: 0}
+    - target: {fileID: 7381227479138431096, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7575857184649614309, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player1StepBlock5
+      objectReference: {fileID: 0}
     - target: {fileID: 7869784868853987404, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
@@ -4039,10 +4069,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1StepDoubleBlockArea8Block1
       objectReference: {fileID: 0}
+    - target: {fileID: 8098838696417797301, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8098838696835839264, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
       value: Player1StepSingleBlockArea2Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098838696835839264, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098838697238626778, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098838697569938600, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8128660387650299695, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}

@@ -17,7 +17,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             get; private set;
         }
 
-        public GameObject[] PlaerRouteAreas;
+        public GameObject[] PlaerRouteAreas, PlayerStepBlockAreas;
         public KenkenpaPlayerController[] kenkenpaPlayerControllers;
         public GameObject kenkenpaIntroductionCanvas, kenkenpaGameCavnas, playerStepBlockPrefab;
         public Text[] playerNameText, playerLapCountText;
@@ -171,46 +171,72 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             List<KeyCode> playerButtons = kenkenpaPlayerControllers[playerIndex].GetPlayerButtons();
             for (int step = 1; step <= lapMaxSteps; step++)
             {
-                //int randomBlockPattern = Random.Range(0, 2); // シングルブロックまたはダブルブロック
-                int randomBlockPattern = 0;
+                int randomBlockPattern = Random.Range(0, 2); // シングルブロックまたはダブルブロック
+                //int randomBlockPattern = 0;
                 int randomButtonNum = Random.Range(0, playerButtons.Count);
                 int randomButtonNum2 = Random.Range(0, playerButtons.Count);
                 while(randomButtonNum2 == randomButtonNum)
                 {
                     randomButtonNum2 = Random.Range(0, playerButtons.Count);
                 }
-
+                
                 GameObject singleBlockArea = GameObject.Find("Player" + (playerIndex + 1) + "StepSingleBlockArea" + step);
+                foreach(Image img in singleBlockArea.GetComponentsInChildren<Image>())
+                {
+                    img.enabled = true;
+                }
+                foreach (Text txt in singleBlockArea.GetComponentsInChildren<Text>())
+                {
+                    txt.enabled = true;
+                }
                 GameObject doubleBlockArea = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step);
+                foreach (Image img in doubleBlockArea.GetComponentsInChildren<Image>())
+                {
+                    img.enabled = true;
+                }
+                foreach (Text txt in doubleBlockArea.GetComponentsInChildren<Text>())
+                {
+                    txt.enabled = true;
+                }
 
                 // 一旦全てのブロックエリアを活性化する
-                singleBlockArea.SetActive(true);
-                //doubleBlockArea.SetActive(true);
-
-                KenkenpaRandomStepBlock randomSingleBlock = GameObject.Find("Player" + (playerIndex + 1) + "StepSingleBlockArea" + step + "Block").
-                    GetComponent<KenkenpaRandomStepBlock>();
-                randomSingleBlock.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
-                /*
-                KenkenpaRandomStepBlock randomDoubleBlock1 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block1").
-                            GetComponent<KenkenpaRandomStepBlock>();
-                randomDoubleBlock1.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
-                KenkenpaRandomStepBlock randomDoubleBlock2 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block2").
-                    GetComponent<KenkenpaRandomStepBlock>();
-                randomDoubleBlock2.SetStepBlockKeyCode(playerButtons[randomButtonNum2]);
-                */
-
                 switch (randomBlockPattern)
                 {
                     case 0:
-                        if (doubleBlockArea != null)
+                        KenkenpaRandomStepBlock randomSingleBlock = GameObject.Find("Player" + (playerIndex + 1) + "StepSingleBlockArea" + step + "Block").
+                            GetComponent<KenkenpaRandomStepBlock>();
+                        randomSingleBlock.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
+                        foreach (Image img in doubleBlockArea.GetComponentsInChildren<Image>())
                         {
-                            doubleBlockArea.SetActive(false);
+                            img.enabled = false;
+                        }
+                        foreach (Text txt in doubleBlockArea.GetComponentsInChildren<Text>())
+                        {
+                            txt.enabled = false;
+                        }
+                        foreach (KenkenpaRandomStepBlock k in doubleBlockArea.GetComponentsInChildren<KenkenpaRandomStepBlock>())
+                        {
+                            k.SetStepBlockKeyCode(KeyCode.None);
                         }
                         break;
                     case 1:
-                        if (singleBlockArea != null)
+                        KenkenpaRandomStepBlock randomDoubleBlock1 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block1").
+                                    GetComponent<KenkenpaRandomStepBlock>();
+                        randomDoubleBlock1.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
+                        KenkenpaRandomStepBlock randomDoubleBlock2 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block2").
+                            GetComponent<KenkenpaRandomStepBlock>();
+                        randomDoubleBlock2.SetStepBlockKeyCode(playerButtons[randomButtonNum2]);
+                        foreach (Image img in singleBlockArea.GetComponentsInChildren<Image>())
                         {
-                            singleBlockArea.SetActive(false);
+                            img.enabled = false;
+                        }
+                        foreach (Text txt in singleBlockArea.GetComponentsInChildren<Text>())
+                        {
+                            txt.enabled = false;
+                        }
+                        foreach (KenkenpaRandomStepBlock k in singleBlockArea.GetComponentsInChildren<KenkenpaRandomStepBlock>())
+                        {
+                            k.SetStepBlockKeyCode(KeyCode.None);
                         }
                         break;
                 }
@@ -221,26 +247,33 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         {
             List<KeyCode> playerInputs = kenkenpaPlayerControllers[playerIndex].GetEnteredButtons();
 
-            if(playerInputs.Count == 0) { return; }
-
-            int currentPlayerPosition = GetPlayerPosition(playerIndex);
-            int playerID = playerIndex + 1;
-            GameObject currentStepBlock = GameObject.Find("Player" + playerID + "StepBlockArea" + currentPlayerPosition);
-            List<KeyCode> stepBlocksKeyCodes = new List<KeyCode>();
-            foreach (KenkenpaRandomStepBlock kpsb in currentStepBlock.GetComponentsInChildren<KenkenpaRandomStepBlock>())
-            {
-                stepBlocksKeyCodes.Add(kpsb.GetStepBlockKeyCode());
+            if(playerInputs.Count == 0) {
+                kenkenpaPlayerControllers[playerIndex].SetButtonNotPressed();
             }
-
-            if (playerInputs.Count == stepBlocksKeyCodes.Count)
+            else
             {
-                if (PlayerInputAsSameAsStepBlockButton(playerIndex, playerInputs, stepBlocksKeyCodes))
+                int currentPlayerPosition = GetPlayerPosition(playerIndex);
+                int playerID = playerIndex + 1;
+                GameObject currentStepBlock = GameObject.Find("Player" + playerID + "StepBlockArea" + currentPlayerPosition);
+                List<KeyCode> stepBlocksKeyCodes = new List<KeyCode>();
+                foreach (KenkenpaRandomStepBlock kpsb in currentStepBlock.GetComponentsInChildren<KenkenpaRandomStepBlock>())
                 {
-                    PlayerPositionStepFoward(playerIndex);
+                    if(kpsb.GetStepBlockKeyCode() != KeyCode.None)
+                    {
+                        stepBlocksKeyCodes.Add(kpsb.GetStepBlockKeyCode());
+                    }
                 }
-                else
+
+                if (playerInputs.Count == stepBlocksKeyCodes.Count)
                 {
-                    ResetPlayerPosition(playerIndex);
+                    if (PlayerInputAsSameAsStepBlockButton(playerIndex, playerInputs, stepBlocksKeyCodes))
+                    {
+                        PlayerPositionStepFoward(playerIndex);
+                    }
+                    else
+                    {
+                        ResetPlayerPosition(playerIndex);
+                    }
                 }
                 kenkenpaPlayerControllers[playerIndex].SetButtonNotPressed();
             }
@@ -377,7 +410,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             playerPosition[playerIndex]++;
             int playerCurrentStep = playerPosition[playerIndex];
             int playerID = playerIndex + 1;
-            int currentBlockPosition = playerPosition[playerIndex];
+            int currentBlockPosition = playerPosition[playerIndex] > lapMaxSteps ? lapMaxSteps : playerPosition[playerIndex];
             int nextBlockPosition = (currentBlockPosition + 1) > lapMaxSteps ? 1 : (currentBlockPosition + 1);
             string currentStepBlockID = "Player" + playerID + "StepBlockNumber"+ currentBlockPosition + "Text";
             GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.black;

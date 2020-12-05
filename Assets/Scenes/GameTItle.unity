@@ -1832,6 +1832,7 @@ MonoBehaviour:
   optionCanvas: {fileID: 1093063567}
   menuItems:
   - {fileID: 977197205}
+  - {fileID: 766384806}
   - {fileID: 2121778427}
   startGameText: {fileID: 1251955324}
   upKey: 273

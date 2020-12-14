@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -23,9 +24,14 @@ namespace DHU2020.DGS.MiniGame.Network
 
         public Text CurrentPlayersInRoom;
 
-        public bool MoveToRoom;
+        public bool MoveToRoom
+        {
+            get; private set;
+        }
 
         public PhotonView PhotonView;
+
+        private RoomOptions roomOptions;
 
         private void Awake()
         {
@@ -45,16 +51,12 @@ namespace DHU2020.DGS.MiniGame.Network
             //SwitchButton();
             CurrentPlayersInRoom.text = "Players In Room = " + PhotonNetwork.CountOfPlayers;
             CheckMoveToRoom();
-            if (MoveToRoom)
-            {
-                Debug.Log("Players -> " + PhotonNetwork.CountOfPlayers);
-                Debug.Log(PhotonNetwork.MasterClient);
-                PhotonNetwork.LoadLevel("NetworkGameMainMap");
-            }
+            SwitchButton();
         }
 
         public void Connect()
         {
+            isConnecting = true;
             if (PhotonNetwork.IsConnected)
             {
                 JoinRoom();
@@ -75,10 +77,14 @@ namespace DHU2020.DGS.MiniGame.Network
             {
                 Debug.Log("Join Room.....");
 
-                RoomOptions roomOptions = new RoomOptions();
+                roomOptions = new RoomOptions();
                 roomOptions.MaxPlayers = MaxPlayersPerRoom;
 
                 PhotonNetwork.JoinOrCreateRoom(RoomName, roomOptions, TypedLobby.Default);
+                if(PhotonNetwork.MasterClient == null || PhotonNetwork.PlayerListOthers.Length == 0)
+                {
+                    PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                }
             }
         }
 
@@ -104,6 +110,10 @@ namespace DHU2020.DGS.MiniGame.Network
         }
         public override void OnDisconnected(DisconnectCause cause)
         {
+            if (PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
+            {
+                PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerListOthers[0]);
+            }
             Debug.Log(cause);
 
             isConnecting = false;
@@ -125,31 +135,30 @@ namespace DHU2020.DGS.MiniGame.Network
 
         private void SwitchButton()
         {
-            if(PhotonNetwork.CountOfPlayers >= 2)
+            if (PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
             {
-                StartButton.enabled = true;
-            }else
+                StartButton.gameObject.SetActive(true);
+            }
+            else
             {
-                StartButton.enabled = false;
+                StartButton.gameObject.SetActive(false);
             }
         }
 
         public void StartNetworkGame()
         {
-            MoveToRoom = true;
+            this.MoveToRoom = true;
         }
 
         public void CheckMoveToRoom()
         {
-            foreach(NetworkController controller in FindObjectsOfType<NetworkController>())
+            if (MoveToRoom)
             {
-                if (controller.MoveToRoom && controller != this)
-                {
-                    this.MoveToRoom = MoveToRoom;
-                }
+                PhotonNetwork.LoadLevel("NetworkGameMainMap");
             }
         }
-        public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
+
+        /*public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
         {
             if (stream.IsWriting)
             {
@@ -158,6 +167,6 @@ namespace DHU2020.DGS.MiniGame.Network
             {
                 MoveToRoom = (bool)stream.ReceiveNext();
             }
-        }
+        }*/
     }
 }

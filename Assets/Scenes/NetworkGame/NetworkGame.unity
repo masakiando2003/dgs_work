@@ -248,7 +248,7 @@ MonoBehaviour:
   MaxPlayersPerRoom: 4
   StartButton: {fileID: 1945799747}
   CurrentPlayersInRoom: {fileID: 787142935}
-  MoveToRoom: 0
+  PhotonView: {fileID: 211180376}
 --- !u!4 &211180374
 Transform:
   m_ObjectHideFlags: 0

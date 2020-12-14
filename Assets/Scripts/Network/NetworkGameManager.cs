@@ -20,9 +20,12 @@ namespace DHU2020.DGS.MiniGame.Network
             get; private set;
         }
 
+        private string[] defaultPlayerName = { "ダイスケ", "サトシ", "カズヤ", "ケイコ", "ユリナ", "アヤ" };
+
         public PlayerInfo playerInfo;
         public MapInfo mapInfo;
-        public GameObject[] players;
+        public Photon.Realtime.Player[] players;
+        public PhotonView PhotonView;
         public Text[] playerNames;
         public int numOfWinningPlayers = 1;
   
@@ -44,6 +47,7 @@ namespace DHU2020.DGS.MiniGame.Network
         private void Initialize()
         {
             //mapInfo.StartGame();
+
             currentTurn = mapInfo.GetCurrentTurn();
             currentTurnText.text = currentTurn.ToString();
             maxTurns = mapInfo.GetMaxTurns();
@@ -56,17 +60,14 @@ namespace DHU2020.DGS.MiniGame.Network
             for (int i=0; i < PhotonNetwork.CountOfPlayers; i++)
             {
 
-                if (playerInfo.GetPlayerName(i).Equals(""))
+                if (PhotonNetwork.PlayerList[i].NickName.Equals(""))
                 {
-                    playerInfo.RandomizePlayerName(i);
+                    PhotonNetwork.PlayerList[i].NickName = defaultPlayerName[i];
                 }
-                playerNames[i].GetComponent<Text>().text = playerInfo.GetPlayerName(i);
-                players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
+                playerNames[i].GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
+                //players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
             }
             CheckWinningStatus();
-            for(int i = 0; i <= PhotonNetwork.CountOfPlayers; i++)
-            {
-            }
         }
 
         // Update is called once per frame
@@ -84,7 +85,7 @@ namespace DHU2020.DGS.MiniGame.Network
                     PVPSelectPlayerCanvas.GetComponent<PVPSelector>().InitializeRivalPlayerList();
                     for (int i = 0; i < players.Length; i++)
                     {
-                        players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
+                        //players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
                     }
                     break;
                 default:
@@ -97,10 +98,12 @@ namespace DHU2020.DGS.MiniGame.Network
             remainingPlayers = 0;// 一旦リセットします
             for (int i = 0; i < players.Length; i++)
             {
+                /*
                 if (players[i].GetComponent<PlayerStatusManager>().IsAlive())
                 {
                     remainingPlayers++;
                 }
+                */
             }
 
             return remainingPlayers;
@@ -119,7 +122,7 @@ namespace DHU2020.DGS.MiniGame.Network
             */
             for (int i = 0; i < players.Length; i++)
             {
-                if (players[i].GetComponentInChildren<PlayerStatusManager>().IsAlive())
+                //if (players[i].GetComponentInChildren<PlayerStatusManager>().IsAlive())
                 {
                     /*
                     winnerPlayerIDs.Add(players[i].GetComponentInChildren<PlayerStatusManager>().PlayerID);
@@ -157,7 +160,7 @@ namespace DHU2020.DGS.MiniGame.Network
                 turnCanvasTurnText.text = currentTurn.ToString();
                 for(int i = 0; i < players.Length; i++)
                 {
-                    players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(true);
+                    //players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(true);
                 }
                 //StartCoroutine(ShowTurnCanvas());
                 Invoke("ShowTurnCanvas", showCanvasTime);
@@ -203,27 +206,32 @@ namespace DHU2020.DGS.MiniGame.Network
 
         void ShowSelectGameCanvas()
         {
-            selectGameCanvas.SetActive(true);
-            selectGameCanvas.GetComponent<GameSelector>().RandomizeGames();
+            //selectGameCanvas.SetActive(true);
+            //selectGameCanvas.GetComponent<GameSelector>().RandomizeGames();
+            /*
             if (players[(currentTurn - 1) % players.Length].GetComponent<PlayerStatusManager>().IsAlive())
             {
                 selectedPlayerID = (currentTurn - 1) % players.Length;
                 selectGamePlayerText.text = playerNames[selectedPlayerID].GetComponent<Text>().text;
             }
+            
             else
             {
                 // 生存しているプレイヤーを探す
                 // 次のプレイヤーが優先なので逆順で探す
                 for(int selectPlayerID = players.Length - 1; selectPlayerID > 0; selectPlayerID--)
                 {
+                    /*
                     if(players[selectPlayerID].GetComponent<PlayerStatusManager>().IsAlive())
                     {
                         selectedPlayerID = selectPlayerID;
                         selectGamePlayerText.text = playerNames[selectPlayerID].GetComponent<Text>().text;
                         break;
                     }
+                    
                 }
             }
+            */
         }
 
         /*

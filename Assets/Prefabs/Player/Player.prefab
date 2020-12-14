@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398316572242205502}
   m_Layer: 5
-  m_Name: PlayerCanva
+  m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -720, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 480, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8398316571992009943
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aea4a0e6ea839f47b30f856cbbaf8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
+  gameInfo: {fileID: 0}
   PlayerCrossesObjects:
   - {fileID: 8398316573212873252}
   - {fileID: 8398316573639139664}
@@ -99,10 +101,8 @@ MonoBehaviour:
   - {fileID: 8398316572157472176}
   GameOverObject: {fileID: 8398316573111642713}
   playerNameText: {fileID: 8398316573108706096}
-  increaseLifeNum: 1
-  decreaseLifeNum: 1
-  increaseLifeKey: 97
-  decreaseLifeKey: 100
+  playerID: 0
+  nextTurnKey: 0
 --- !u!1 &8398316572157472176
 GameObject:
   m_ObjectHideFlags: 0

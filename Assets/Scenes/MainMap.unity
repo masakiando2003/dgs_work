@@ -1257,12 +1257,17 @@ PrefabInstance:
     - target: {fileID: 1151478697363475052, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -400
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 1151478697363475053, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}
       propertyPath: m_Text
       value: "\u30DE\u30B5\u30AD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151478697363475053, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1151478698351840705, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}

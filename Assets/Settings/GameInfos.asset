@@ -18,11 +18,11 @@ MonoBehaviour:
   - Yubisuma
   - Yubisumo
   - Kenkenpa
-  - Yubisumo
+  - Darumasan
   gameTitlesJapanese:
   - "\u3086\u3073\u3059\u307E"
   - "\u3086\u3073\u3059\u3082\u3046"
   - "\u30B1\u30F3\u30B1\u30F3\u30D1"
-  - "\u3086\u3073\u3059\u3082\u3046"
-  gameType: 02000000000000000200000000000000
+  - "\u3060\u308B\u307E\u3055\u3093\u304C\u3053\u308D\u3093\u3060"
+  gameType: 02000000000000000200000002000000
   gameImage: []

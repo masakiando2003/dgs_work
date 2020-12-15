@@ -78,7 +78,7 @@ namespace DHU2020.DGS.MiniGame.Game
                 switch (gameType)
                 {
                     case GameType.All:
-                        if(winnerPlayerIDs.Count > 0)
+                        if(winnerPlayerIDs != null && winnerPlayerIDs.Count > 0)
                         {
                             for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                             {

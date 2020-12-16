@@ -78,14 +78,9 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             resultTitleText.enabled = false;
             resultText.enabled = false;
             kenkenpaIntroductionCanvas.SetActive(true);
-            //kenkenpaGameCavnas.SetActive(false);
             countDownTimer = startCountDownTime;
             remainingTimer = remainingTime;
             remainingTimeText.text = remainingTimer.ToString();
-
-            countDownTimer = startCountDownTime;
-            remainingTimer = remainingTime;
-            remainingTimeText.text = remainingTime.ToString();
 
             winnerPlayerIDs.Clear();
             winnerPlayerList.Clear();
@@ -353,8 +348,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             // 一人プレイヤー以上が勝つ出来るので、二番目パラメータのplayerIDが0で設定します
             gameInfo.SetMiniGameWinner("Kenkenpa", 0, losePlayers, winnerPlayerIDs);
         }
-
-
+        
         IEnumerator DrawGameSet()
         {
             yield return new WaitForSeconds(gameSetTime);

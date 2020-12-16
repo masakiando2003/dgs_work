@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.6
+  handlePlayerInputTime: 0.8
   playerID: 1
   hitButton1: 116
   hitButton2: 102
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.6
+  handlePlayerInputTime: 0.8
   playerID: 3
   hitButton1: 264
   hitButton2: 260
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.6
+  handlePlayerInputTime: 0.8
   playerID: 0
   hitButton1: 119
   hitButton2: 97
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.6
+  handlePlayerInputTime: 0.8
   playerID: 2
   hitButton1: 105
   hitButton2: 106
@@ -2745,7 +2745,7 @@ MonoBehaviour:
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9
   hideCountDownTime: 1
-  remainingTime: 120
+  remainingTime: 60
   gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833

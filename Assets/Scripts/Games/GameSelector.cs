@@ -49,7 +49,8 @@ namespace DHU2020.DGS.MiniGame.System
                     if (!randomedGameIndexes.Contains(randomGameIndex))
                     {
                         randomedGameIndexes.Add(randomGameIndex);
-                        GameObject.Find("Game" + (i + 1) + "Text").GetComponent<Text>().text = gameInfo.GetGameTitleJapanese(randomGameIndex);
+                        //GameObject.Find("Game" + (i + 1) + "Text").GetComponent<Text>().text = gameInfo.GetGameTitleJapanese(randomGameIndex);
+                        GameObject.Find("Game" + (i + 1) + "Image").GetComponent<Image>().sprite = gameInfo.GetGameImage(randomGameIndex);
                         if (i == 0)
                         {
                             selectedGameText.text = gameInfo.GetGameTitleJapanese(randomGameIndex);

@@ -22,7 +22,11 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public GameObject darumansanIntroductionCanvas, darumansanGameCavnas;
         public DarumasanPlayerController[] darumasanPlayerControllers;
         public DarumasanGhostTextWriter darumasanGhostTextWriter;
-        public Text[] playerNameText, playerIconNameText, playerRemainingDistanceText;
+        public Image player1RightHandImage, player1LeftHandImage;
+        public Image player2RightHandImage, player2LeftHandImage;
+        public Image player3RightHandImage, player3LeftHandImage;
+        public Image player4RightHandImage, player4LeftHandImage;
+        public Text[] playerNameText, playerRemainingDistanceText;
         public Text countDownTimeText, resultTitleText, resultText;
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
@@ -68,7 +72,6 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             for (int playerIndex = 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
             {
                 playerNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
-                playerIconNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
                 playerRemainingDistanceText[playerIndex].text = goalDistance.ToString();
                 playerInputCount[playerIndex] = 0;
                 playerRemainingDistance[playerIndex] = goalDistance;
@@ -79,6 +82,14 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             countDownTimer = startCountDownTime;
             ghostWatchPlayerTimer = 0;
             winnerPlayerID = 0;
+            player1RightHandImage.enabled = true;
+            player2RightHandImage.enabled = true;
+            player3RightHandImage.enabled = true;
+            player4RightHandImage.enabled = true;
+            player1LeftHandImage.enabled = false;
+            player2LeftHandImage.enabled = false;
+            player3LeftHandImage.enabled = false;
+            player4LeftHandImage.enabled = false;
         }
 
         // Update is called once per frame
@@ -162,6 +173,57 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 playerRemainingDistanceText[playerIndex].text = playerRemainingDistance[playerIndex].ToString();
                 int moveIconFactor = (iconGoalPosX - iconStartPosX) / goalDistance;
                 playerIcon[playerIndex].GetComponent<RectTransform>().offsetMin += new Vector2(moveIconFactor, 0);
+                switch (playerIndex)
+                {
+                    case 0:
+                        if(playerRemainingDistance[playerIndex] % 2 == 0)
+                        {
+                            player1RightHandImage.enabled = true;
+                            player1LeftHandImage.enabled = false;
+                        }
+                        else
+                        {
+                            player1RightHandImage.enabled = false;
+                            player1LeftHandImage.enabled = true;
+                        }
+                        break;
+                    case 1:
+                        if (playerRemainingDistance[playerIndex] % 2 == 0)
+                        {
+                            player2RightHandImage.enabled = true;
+                            player2LeftHandImage.enabled = false;
+                        }
+                        else
+                        {
+                            player2RightHandImage.enabled = false;
+                            player2LeftHandImage.enabled = true;
+                        }
+                        break;
+                    case 2:
+                        if (playerRemainingDistance[playerIndex] % 2 == 0)
+                        {
+                            player3RightHandImage.enabled = true;
+                            player3LeftHandImage.enabled = false;
+                        }
+                        else
+                        {
+                            player3RightHandImage.enabled = false;
+                            player3LeftHandImage.enabled = true;
+                        }
+                        break;
+                    case 3:
+                        if (playerRemainingDistance[playerIndex] % 2 == 0)
+                        {
+                            player4RightHandImage.enabled = true;
+                            player4LeftHandImage.enabled = false;
+                        }
+                        else
+                        {
+                            player4RightHandImage.enabled = false;
+                            player4LeftHandImage.enabled = true;
+                        }
+                        break;
+                }
                 playerIcon[playerIndex].GetComponent<RectTransform>().offsetMax -= new Vector2(-moveIconFactor, 0);
             }
         }

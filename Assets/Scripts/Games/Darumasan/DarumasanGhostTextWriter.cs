@@ -10,6 +10,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
     {
         public DarumasanGameController darumasanGameController;
         public Text ghostMessageText;
+        public Image ghostFaceToRightImage, ghostFaceToLeftImage;
         public float ghostMessageRandomMinTimeFactor = 0.1f, ghostMessageRandomMaxTimeFactor = 1f;
         public string ghostMessageToShow;
 
@@ -20,6 +21,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
 
         private void Start()
         {
+            ghostFaceToRightImage.enabled = true;
+            ghostFaceToLeftImage.enabled = false;
             showMessageFlag = false;
             ghostMessage = ghostMessageToShow;
             ghostMessageText.text = "";
@@ -45,6 +48,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                     characterIndex++;
                     if(characterIndex >= ghostMessage.Length)
                     {
+                        ghostFaceToRightImage.enabled = false;
+                        ghostFaceToLeftImage.enabled = true;
                         showMessageFlag = false;
                         darumasanGameController.ShowGhostMessageEnd();
                     }
@@ -58,6 +63,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
 
         public void ShowGhostMessageText()
         {
+            ghostFaceToRightImage.enabled = true;
+            ghostFaceToLeftImage.enabled = false;
             ghostMessage = ghostMessageToShow;
             showMessageFlag = true;
         }

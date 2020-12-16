@@ -25,4 +25,8 @@ MonoBehaviour:
   - "\u30B1\u30F3\u30B1\u30F3\u30D1"
   - "\u3060\u308B\u307E\u3055\u3093\u304C\u3053\u308D\u3093\u3060"
   gameType: 02000000000000000200000002000000
-  gameImage: []
+  gameImage:
+  - {fileID: 21300000, guid: 600e606676d53ad4d824818d71a78d41, type: 3}
+  - {fileID: 21300000, guid: 6038793d7aa2bbc40ad13b85afa61a49, type: 3}
+  - {fileID: 21300000, guid: 272ab267923c1d546a006f544fb236b0, type: 3}
+  - {fileID: 21300000, guid: 30d3ee5e2ebb3e445a442255c664d7eb, type: 3}

@@ -25,7 +25,7 @@ namespace DHU2020.DGS.MiniGame.Game
             All
         };
         public GameType[] gameType;
-        public Image[] gameImage;
+        public Sprite[] gameImage;
 
         public string GetGameTitleJapanese(int index)
         {
@@ -53,7 +53,7 @@ namespace DHU2020.DGS.MiniGame.Game
             return gameType[index];
         }
 
-        public Image GetGameImage(int index)
+        public Sprite GetGameImage(int index)
         {
             return gameImage[index];
         }

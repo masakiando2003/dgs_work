@@ -9,15 +9,18 @@ namespace DHU2020.DGS.MiniGame.Darumasan
     public class DarumasanPlayerController : MonoBehaviour
     {
         public DarumasanGameController darumasanGameController;
-        public int playerID;
         public KeyCode runKeyCode;
+        public float playerStandTimer = 1.5f;
+        public int playerID;
 
+        private float playerInputTimer;
         private bool playerIsRunning;
         
         // Start is called before the first frame update
         void Start()
         {
             playerIsRunning = false;
+            playerInputTimer = playerStandTimer;
         }
 
         // Update is called once per frame
@@ -39,6 +42,19 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 else if (currentGameState == GameState.GhostMessageEnded)
                 {
                     playerIsRunning = true;
+                }
+            }
+            else
+            {
+                if(playerID == 1)
+                {
+                    Debug.Log("playerInputTimer: "+ playerInputTimer);
+                }
+                playerInputTimer -= Time.deltaTime;
+                if(playerInputTimer <= 0f)
+                {
+                    playerInputTimer += playerStandTimer;
+                    darumasanGameController.PlayerStand(playerID);
                 }
             }
         }

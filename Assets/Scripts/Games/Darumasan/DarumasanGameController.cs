@@ -22,10 +22,10 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public GameObject darumansanIntroductionCanvas, darumansanGameCavnas;
         public DarumasanPlayerController[] darumasanPlayerControllers;
         public DarumasanGhostTextWriter darumasanGhostTextWriter;
-        public Image player1RightHandImage, player1LeftHandImage;
-        public Image player2RightHandImage, player2LeftHandImage;
-        public Image player3RightHandImage, player3LeftHandImage;
-        public Image player4RightHandImage, player4LeftHandImage;
+        public Image player1RightHandImage, player1LeftHandImage, player1StandImage, player1CaughtByGhostImage;
+        public Image player2RightHandImage, player2LeftHandImage, player2StandImage, player2CaughtByGhostImage;
+        public Image player3RightHandImage, player3LeftHandImage, player3StandImage, player3CaughtByGhostImage;
+        public Image player4RightHandImage, player4LeftHandImage, player4StandImage, player4CaughtByGhostImage;
         public Text[] playerNameText, playerRemainingDistanceText;
         public Text countDownTimeText, resultTitleText, resultText;
         public GameInfo gameInfo;
@@ -82,14 +82,22 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             countDownTimer = startCountDownTime;
             ghostWatchPlayerTimer = 0;
             winnerPlayerID = 0;
-            player1RightHandImage.enabled = true;
-            player2RightHandImage.enabled = true;
-            player3RightHandImage.enabled = true;
-            player4RightHandImage.enabled = true;
+            player1StandImage.enabled = true;
+            player2StandImage.enabled = true;
+            player3StandImage.enabled = true;
+            player4StandImage.enabled = true;
             player1LeftHandImage.enabled = false;
             player2LeftHandImage.enabled = false;
             player3LeftHandImage.enabled = false;
             player4LeftHandImage.enabled = false;
+            player1RightHandImage.enabled = false;
+            player2RightHandImage.enabled = false;
+            player3RightHandImage.enabled = false;
+            player4RightHandImage.enabled = false;
+            player1CaughtByGhostImage.enabled = false;
+            player2CaughtByGhostImage.enabled = false;
+            player3CaughtByGhostImage.enabled = false;
+            player4CaughtByGhostImage.enabled = false;
         }
 
         // Update is called once per frame
@@ -180,11 +188,13 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         {
                             player1RightHandImage.enabled = true;
                             player1LeftHandImage.enabled = false;
+                            player1StandImage.enabled = false;
                         }
                         else
                         {
                             player1RightHandImage.enabled = false;
                             player1LeftHandImage.enabled = true;
+                            player1StandImage.enabled = false;
                         }
                         break;
                     case 1:
@@ -192,11 +202,13 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         {
                             player2RightHandImage.enabled = true;
                             player2LeftHandImage.enabled = false;
+                            player2StandImage.enabled = false;
                         }
                         else
                         {
                             player2RightHandImage.enabled = false;
                             player2LeftHandImage.enabled = true;
+                            player2StandImage.enabled = false;
                         }
                         break;
                     case 2:
@@ -204,11 +216,13 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         {
                             player3RightHandImage.enabled = true;
                             player3LeftHandImage.enabled = false;
+                            player3StandImage.enabled = false;
                         }
                         else
                         {
                             player3RightHandImage.enabled = false;
                             player3LeftHandImage.enabled = true;
+                            player3StandImage.enabled = false;
                         }
                         break;
                     case 3:
@@ -216,15 +230,48 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         {
                             player4RightHandImage.enabled = true;
                             player4LeftHandImage.enabled = false;
+                            player4StandImage.enabled = false;
                         }
                         else
                         {
                             player4RightHandImage.enabled = false;
                             player4LeftHandImage.enabled = true;
+                            player4StandImage.enabled = false;
                         }
                         break;
                 }
                 playerIcon[playerIndex].GetComponent<RectTransform>().offsetMax -= new Vector2(-moveIconFactor, 0);
+            }
+        }
+
+        public void PlayerStand(int playerIndex)
+        {
+            switch (playerIndex)
+            {
+                case 0:
+                    player1StandImage.enabled = true;
+                    player1LeftHandImage.enabled = false;
+                    player1RightHandImage.enabled = false;
+                    player1CaughtByGhostImage.enabled = false;
+                    break;
+                case 1:
+                    player2StandImage.enabled = true;
+                    player2LeftHandImage.enabled = false;
+                    player2RightHandImage.enabled = false;
+                    player2CaughtByGhostImage.enabled = false;
+                    break;
+                case 2:
+                    player3StandImage.enabled = true;
+                    player3LeftHandImage.enabled = false;
+                    player3RightHandImage.enabled = false;
+                    player3CaughtByGhostImage.enabled = false;
+                    break;
+                case 3:
+                    player4StandImage.enabled = true;
+                    player4LeftHandImage.enabled = false;
+                    player4RightHandImage.enabled = false;
+                    player4CaughtByGhostImage.enabled = false;
+                    break;
             }
         }
 
@@ -237,6 +284,11 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         {
             ghostWatchPlayerTimer = 0f;
             darumasanGhostTextWriter.EmptyGhostMessageText();
+            // 全てのプレイヤーが立つ画像を表示する
+            PlayerStand(0);
+            PlayerStand(1);
+            PlayerStand(2);
+            PlayerStand(3);
             Instance.ChangeGameState(GameState.GameStart);
         }
 
@@ -267,6 +319,33 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         {
             playerRemainingDistance[playerIndex] = goalDistance;
             playerRemainingDistanceText[playerIndex].text = playerRemainingDistance[playerIndex].ToString();
+            switch (playerIndex)
+            {
+                case 0:
+                    player1CaughtByGhostImage.enabled = true;
+                    player1StandImage.enabled = false;
+                    player1LeftHandImage.enabled = false;
+                    player1RightHandImage.enabled = false;
+                    break;
+                case 1:
+                    player2CaughtByGhostImage.enabled = true;
+                    player2StandImage.enabled = false;
+                    player2LeftHandImage.enabled = false;
+                    player2RightHandImage.enabled = false;
+                    break;
+                case 2:
+                    player3CaughtByGhostImage.enabled = true;
+                    player3StandImage.enabled = false;
+                    player3LeftHandImage.enabled = false;
+                    player3RightHandImage.enabled = false;
+                    break;
+                case 3:
+                    player4CaughtByGhostImage.enabled = true;
+                    player4StandImage.enabled = false;
+                    player4LeftHandImage.enabled = false;
+                    player4RightHandImage.enabled = false;
+                    break;
+            }
             playerIcon[playerIndex].GetComponent<RectTransform>().anchoredPosition = new Vector2(iconStartPosX, 0);
         }
 

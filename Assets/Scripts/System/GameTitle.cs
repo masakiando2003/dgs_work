@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace DHU2020.DGS.MiniGame.System
 {
@@ -13,7 +14,7 @@ namespace DHU2020.DGS.MiniGame.System
         public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f;
         public MapInfo mapInfo;
         public PlayerInfo playerInfo;
-        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, optionCanvas;
+        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas, optionCanvas;
         public GameObject[] menuItems;
         public Text startGameText;
         public KeyCode upKey, downKey;
@@ -30,6 +31,7 @@ namespace DHU2020.DGS.MiniGame.System
             menuItemIndex = 0;
             startGameTimer = 0f;
             gameTitleCanvas.SetActive(true);
+            setPlayerNameCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
             gameTitleOptionObject.SetActive(false);
@@ -59,7 +61,7 @@ namespace DHU2020.DGS.MiniGame.System
                 switch (menuItemIndex)
                 {
                     case 0:
-                        Introduction();
+                        SetPlayerName();
                         break;
                     case 1:
                         GameOptions();
@@ -103,10 +105,11 @@ namespace DHU2020.DGS.MiniGame.System
             }
         }
 
-        private void Introduction()
+        public void Introduction()
         {
             canControl = false;
             gameTitleCanvas.SetActive(false);
+            setPlayerNameCanvas.SetActive(false);
             optionCanvas.SetActive(false);
             introductionCanvas.SetActive(true);
             startGameText.CrossFadeAlpha(0f, 0f, false);
@@ -116,6 +119,13 @@ namespace DHU2020.DGS.MiniGame.System
         private void ShowStartGameText()
         {
             enterGameFlag = true;
+        }
+
+        private void SetPlayerName()
+        {
+            setPlayerNameCanvas.SetActive(true);
+            gameTitleCanvas.SetActive(false);
+            optionCanvas.SetActive(false);
         }
 
         private void NewGame()

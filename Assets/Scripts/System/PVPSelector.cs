@@ -61,6 +61,7 @@ namespace DHU2020.DGS.MiniGame.System
                     while (!randomFinishedFlag)
                     {
                         int randomedRivalID = Random.Range(0, playerNames.Length);
+                        Debug.Log("randomedRivalID: "+ randomedRivalID);
                         if (randomedRivalID != selectedPlayerID && players[randomedRivalID].GetComponent<PlayerStatusManager>().IsAlive())
                         {
                             selectedRivalPlayerID = randomedRivalID;

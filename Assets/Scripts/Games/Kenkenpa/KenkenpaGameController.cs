@@ -242,7 +242,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         {
             List<KeyCode> playerInputs = kenkenpaPlayerControllers[playerIndex].GetEnteredButtons();
 
-            if(playerInputs.Count == 0) {
+            if (playerInputs.Count == 0) {
                 kenkenpaPlayerControllers[playerIndex].SetButtonNotPressed();
             }
             else

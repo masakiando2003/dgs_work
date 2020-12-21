@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 
 namespace DHU2020.DGS.MiniGame.System
 {
@@ -15,8 +16,10 @@ namespace DHU2020.DGS.MiniGame.System
         public Slider maxTurnSlider;
         public GameTitle gameTitle;
         public Text[] optionLabels;
-        public Text maxTurnText;
+        public Text maxTurnText, settingHints;
+        public string setMaxTurnsHints, playerControllerSettingHints1, playerControllerSettingHints2, saveHints, exitHints;
 
+        private PlayerControllerInput[] playerControllerInputs;
         private int maxTurn, defaultMaxTurn, selectedOptionIndex, selectedPlayerIDControllerIndex;
         private bool changeMaxTurnFlag, setPlayerControllerFlag, isSettingPlayerControllerFlag;
 
@@ -44,28 +47,32 @@ namespace DHU2020.DGS.MiniGame.System
                 if(optionLabels[0].name == "MaxTurnLabel")
                 {
                     EnableChangeTurnFlag();
+                    settingHints.text = setMaxTurnsHints;
                 }
                 else if(optionLabels[0].name == "PlayerControllerSettingLabel")
                 {
                     EnableSetPlayerControllerFlag();
+                    settingHints.text = playerControllerSettingHints1;
                 }
             }
-            for(int playerIndex= 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
+            playerControllerInputs = new PlayerControllerInput[playerInfo.GetPlayersCount()];
+            for (int playerIndex= 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
             {
                 int playerID = playerIndex + 1;
                 GameObject.Find("Player" + playerID + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
                 GameObject.Find("Player" + playerID + "ControllerLabelText").GetComponent<Text>().color = Color.black;
+                playerControllerInputs[playerIndex] = playerInfo.GetPlayerControllerInput(playerIndex);
                 if (playerInfo.GetPlayerControllerInput(playerIndex) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
                     GameObject.Find("Player" + playerID + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("Player" + playerID + "ControllerKeyboardText").GetComponent<Text>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerJoyStickBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerJoyStickText").GetComponent<Text>().color = Color.black;
+                    GameObject.Find("Player" + playerID + "ControllerJoystickBackground").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Player" + playerID + "ControllerJoystickText").GetComponent<Text>().color = Color.black;
                 }
                 else
                 {
-                    GameObject.Find("Player" + playerID + "ControllerJoyStickBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + playerID + "ControllerJoyStickText").GetComponent<Text>().color = Color.white;
+                    GameObject.Find("Player" + playerID + "ControllerJoystickBackground").GetComponent<Image>().color = Color.black;
+                    GameObject.Find("Player" + playerID + "ControllerJoystickText").GetComponent<Text>().color = Color.white;
                     GameObject.Find("Player" + playerID + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.white;
                     GameObject.Find("Player" + playerID + "ControllerKeyboardText").GetComponent<Text>().color = Color.black;
                 }
@@ -155,6 +162,7 @@ namespace DHU2020.DGS.MiniGame.System
                     GameObject.Find("PlayerControllerSettingLabel").GetComponent<Text>().color = Color.black;
                     GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.white;
+                    settingHints.text = playerControllerSettingHints2;
                 }
                 else
                 {
@@ -163,6 +171,7 @@ namespace DHU2020.DGS.MiniGame.System
                     GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.black;
                     GameObject.Find("PlayerControllerSettingLabelBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("PlayerControllerSettingLabel").GetComponent<Text>().color = Color.white;
+                    settingHints.text = playerControllerSettingHints1;
                 }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow) && isSettingPlayerControllerFlag)
@@ -182,6 +191,24 @@ namespace DHU2020.DGS.MiniGame.System
                                                     ? playerInfo.GetPlayersCount() : selectedPlayerIDControllerIndex - 1;
                 GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.black;
                 GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.white;
+            }
+            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && isSettingPlayerControllerFlag)
+            {
+                ChoostPlayerInputMethod(selectedPlayerIDControllerIndex-1, playerControllerInputs[selectedPlayerIDControllerIndex-1]);
+                if (playerControllerInputs[selectedPlayerIDControllerIndex-1] == PlayerControllerInput.Joystick)
+                {
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickBackground").GetComponent<Image>().color = Color.black;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickText").GetComponent<Text>().color = Color.white;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardText").GetComponent<Text>().color = Color.black;
+                }
+                else
+                {
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.black;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardText").GetComponent<Text>().color = Color.white;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickBackground").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickText").GetComponent<Text>().color = Color.black;
+                }
             }
         }
 
@@ -231,11 +258,14 @@ namespace DHU2020.DGS.MiniGame.System
                     DisableChangeTurnFlag();
                     GameObject.Find("TitleTextBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("TitleText").GetComponent<Text>().color = Color.white;
+                    settingHints.text = saveHints;
                     break;
                 case -2:
                     DisableChangeTurnFlag();
+                    settingHints.text = "";
                     GameObject.Find("SaveTextBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("SaveText").GetComponent<Text>().color = Color.white;
+                    settingHints.text = exitHints;
                     break;
                 default:
                     GameObject.Find(optionLabels[selectedOptionIndex].name + "Background").GetComponent<Image>().color = Color.black;
@@ -243,6 +273,7 @@ namespace DHU2020.DGS.MiniGame.System
                     if(optionLabels[selectedOptionIndex].name == "MaxTurnLabel")
                     {
                         EnableChangeTurnFlag();
+                        settingHints.text = setMaxTurnsHints;
                     }
                     else
                     {
@@ -251,6 +282,7 @@ namespace DHU2020.DGS.MiniGame.System
                     if(optionLabels[selectedOptionIndex].name == "PlayerControllerSettingLabel")
                     {
                         EnableSetPlayerControllerFlag();
+                        settingHints.text = playerControllerSettingHints1;
                     }
                     else
                     {
@@ -260,6 +292,14 @@ namespace DHU2020.DGS.MiniGame.System
             }
         }
 
+        private void ChoostPlayerInputMethod(int playerIndex, PlayerControllerInput inputMethod)
+        {
+            playerControllerInputs[playerIndex] =
+                       (inputMethod == PlayerControllerInput.Joystick)
+                           ? PlayerControllerInput.Keyboard
+                           : PlayerControllerInput.Joystick;
+        }
+
         private void SaveMaxTurns()
         {
             mapInfo.SetMaxTurns(maxTurn);
@@ -267,7 +307,10 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void SavePlayerControllerInput()
         {
-            
+            for (int playerIndex = 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
+            {
+                playerInfo.SetPlayerControllerInput(playerIndex, playerControllerInputs[playerIndex]);
+            }
         }
 
         private void SaveChanges()

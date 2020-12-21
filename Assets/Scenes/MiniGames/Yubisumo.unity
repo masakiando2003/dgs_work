@@ -386,8 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76827206d879f4a48b9d80a5a0b12d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
-  hitKeyCode: 100
+  hitKeyCode: 103
 --- !u!1 &110704564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76827206d879f4a48b9d80a5a0b12d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
   hitKeyCode: 97
 --- !u!1 &1002193425

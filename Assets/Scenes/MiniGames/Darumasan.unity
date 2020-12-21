@@ -598,7 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
   playerID: 1
-  runKeyCode: 102
+  runKeyCode: 103
 --- !u!1 &261535082
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
   playerID: 3
-  runKeyCode: 32
+  runKeyCode: 260
 --- !u!1 &291609504
 GameObject:
   m_ObjectHideFlags: 0
@@ -3370,7 +3370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
   playerID: 2
-  runKeyCode: 106
+  runKeyCode: 108
 --- !u!1 &1558860006
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,7 +64,11 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
             yubisumoIntroductionCanvas.SetActive(true);
             yubisumoGameCanvas.SetActive(false);
             player1ID = pvpPlayerInfo.GetPlayer1ID();
+            player1Controller.SetPlayerID(player1ID);
+            player1Controller.InitializeInputMethod(player1ID);
             player2ID = pvpPlayerInfo.GetPlayer2ID();
+            player2Controller.SetPlayerID(player2ID);
+            player2Controller.InitializeInputMethod(player2ID);
             player1HitCount = player2HitCount = 0;
 
             for (int i = 0; i < player1NameText.Length; i++)

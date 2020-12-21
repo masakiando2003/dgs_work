@@ -399,12 +399,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  handlePlayerInputTime: 0.9
   playerID: 1
-  hitButton1: 116
-  hitButton2: 102
-  hitButton3: 103
-  hitButton4: 104
+  hitButton1: 102
+  hitButton2: 103
+  hitButton3: 104
+  hitButton4: 116
   buttonEntered: 
 --- !u!1 &261535082
 GameObject:
@@ -524,12 +525,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  handlePlayerInputTime: 0.9
   playerID: 3
-  hitButton1: 264
-  hitButton2: 260
-  hitButton3: 261
-  hitButton4: 258
+  hitButton1: 260
+  hitButton2: 261
+  hitButton3: 262
+  hitButton4: 264
   buttonEntered: 
 --- !u!1 &368709891
 GameObject:
@@ -639,12 +641,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  handlePlayerInputTime: 0.9
   playerID: 0
-  hitButton1: 119
-  hitButton2: 97
-  hitButton3: 115
-  hitButton4: 100
+  hitButton1: 97
+  hitButton2: 115
+  hitButton3: 100
+  hitButton4: 119
   buttonEntered: 
 --- !u!4 &401179259
 Transform:
@@ -2493,12 +2496,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kenkenpaGameController: {fileID: 1800511832}
-  handlePlayerInputTime: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  handlePlayerInputTime: 0.9
   playerID: 2
-  hitButton1: 105
-  hitButton2: 106
-  hitButton3: 107
-  hitButton4: 108
+  hitButton1: 106
+  hitButton2: 107
+  hitButton3: 108
+  hitButton4: 105
   buttonEntered: 
 --- !u!1 &1577399068
 GameObject:
@@ -2745,7 +2749,7 @@ MonoBehaviour:
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9
   hideCountDownTime: 1
-  remainingTime: 60
+  remainingTime: 120
   gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833

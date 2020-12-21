@@ -745,9 +745,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
-  runKeyCode: 102
-  playerStandTimer: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   playerID: 1
+  runKeyCodeKeyboard: 103
 --- !u!1 &261535082
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,9 +866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
-  runKeyCode: 32
-  playerStandTimer: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   playerID: 3
+  runKeyCodeKeyboard: 260
 --- !u!1 &291609504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,9 +1281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
-  runKeyCode: 97
-  playerStandTimer: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   playerID: 0
+  runKeyCodeKeyboard: 97
 --- !u!4 &401179259
 Transform:
   m_ObjectHideFlags: 0
@@ -3898,9 +3898,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   darumasanGameController: {fileID: 1800511832}
-  runKeyCode: 106
-  playerStandTimer: 0.8
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   playerID: 2
+  runKeyCodeKeyboard: 108
 --- !u!1 &1558860006
 GameObject:
   m_ObjectHideFlags: 0

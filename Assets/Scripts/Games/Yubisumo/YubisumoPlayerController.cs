@@ -1,17 +1,21 @@
-﻿using System;
+﻿using DHU2020.DGS.MiniGame.Setting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 using static DHU2020.DGS.MiniGame.Yubisumo.YubisumoGameController;
 
 namespace DHU2020.DGS.MiniGame.Yubisumo
 {
     public class YubisumoPlayerController : MonoBehaviour
     {
+        public PlayerInfo playerInfo;
         public YubisumoGameController yubisumoGameController;
         public KeyCode hitKeyCode;
 
-        private int hitCount;
+        private int hitCount, playerID;
+        private PlayerControllerInput playerInputMethod;
 
         // Start is called before the first frame update
         void Start()
@@ -24,11 +28,21 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         {
             GameState currentGameState = yubisumoGameController.GetCurrentGameState();
 
-            if(currentGameState != GameState.GameStart) { return; }
+            if ((currentGameState != GameState.GameStart)) { return; }
 
-            if (Input.GetKeyDown(hitKeyCode))
+            if (playerInputMethod == PlayerControllerInput.Keyboard)
             {
-                IncreaseHitCount();
+                if (Input.GetKeyDown(hitKeyCode))
+                {
+                    IncreaseHitCount();
+                }
+            }
+            else if (playerInputMethod == PlayerControllerInput.Joystick)
+            {
+                if (Input.GetButtonDown("YubisumoP" + (playerID + 1) + "HitButton"))
+                {
+                    IncreaseHitCount();
+                }
             }
         }
 
@@ -40,6 +54,16 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         public int GetHitCount()
         {
             return hitCount;
+        }
+
+        public void SetPlayerID(int playerIndex)
+        {
+            playerID = playerIndex;
+        }
+
+        public void InitializeInputMethod(int playerIndex)
+        {
+            playerInputMethod = playerInfo.GetPlayerControllerInput(playerIndex);
         }
     }
 }

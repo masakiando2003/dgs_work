@@ -1,26 +1,28 @@
-﻿using System;
+﻿using DHU2020.DGS.MiniGame.Setting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static DHU2020.DGS.MiniGame.Darumasan.DarumasanGameController;
+using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 
 namespace DHU2020.DGS.MiniGame.Darumasan
 {
     public class DarumasanPlayerController : MonoBehaviour
     {
         public DarumasanGameController darumasanGameController;
-        public KeyCode runKeyCode;
-        public float playerStandTimer = 1.5f;
+        public PlayerInfo playerInfo;
         public int playerID;
+        public KeyCode runKeyCodeKeyboard;
 
-        private float playerInputTimer;
         private bool playerIsRunning;
-        
+        private PlayerControllerInput playerInputMethod;
+
         // Start is called before the first frame update
         void Start()
         {
             playerIsRunning = false;
-            playerInputTimer = playerStandTimer;
+            playerInputMethod = playerInfo.GetPlayerControllerInput(playerID);
         }
 
         // Update is called once per frame
@@ -33,28 +35,32 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 return;
             }
 
-            if (Input.GetKeyDown(runKeyCode))
+            if (playerInputMethod == PlayerControllerInput.Keyboard)
             {
-                if(currentGameState == GameState.GameStart)
+                if (Input.GetKeyDown(runKeyCodeKeyboard))
                 {
-                    darumasanGameController.HandlePlayersInputRun(playerID);
-                }
-                else if (currentGameState == GameState.GhostMessageEnded)
-                {
-                    playerIsRunning = true;
+                    if (currentGameState == GameState.GameStart)
+                    {
+                        darumasanGameController.HandlePlayersInputRun(playerID);
+                    }
+                    else if (currentGameState == GameState.GhostMessageEnded)
+                    {
+                        playerIsRunning = true;
+                    }
                 }
             }
-            else
+            else if(playerInputMethod == PlayerControllerInput.Joystick)
             {
-                if(playerID == 1)
+                if (Input.GetButtonDown("DarumasanP"+(playerID+1)+"RunButton"))
                 {
-                    Debug.Log("playerInputTimer: "+ playerInputTimer);
-                }
-                playerInputTimer -= Time.deltaTime;
-                if(playerInputTimer <= 0f)
-                {
-                    playerInputTimer += playerStandTimer;
-                    darumasanGameController.PlayerStand(playerID);
+                    if (currentGameState == GameState.GameStart)
+                    {
+                        darumasanGameController.HandlePlayersInputRun(playerID);
+                    }
+                    else if (currentGameState == GameState.GhostMessageEnded)
+                    {
+                        playerIsRunning = true;
+                    }
                 }
             }
         }

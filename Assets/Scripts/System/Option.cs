@@ -62,7 +62,7 @@ namespace DHU2020.DGS.MiniGame.System
                 GameObject.Find("Player" + playerID + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
                 GameObject.Find("Player" + playerID + "ControllerLabelText").GetComponent<Text>().color = Color.black;
                 playerControllerInputs[playerIndex] = playerInfo.GetPlayerControllerInput(playerIndex);
-                if (playerInfo.GetPlayerControllerInput(playerIndex) == PlayerInfo.PlayerControllerInput.Keyboard)
+                if (playerInfo.GetPlayerControllerInput(playerIndex) == PlayerControllerInput.Keyboard)
                 {
                     GameObject.Find("Player" + playerID + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.black;
                     GameObject.Find("Player" + playerID + "ControllerKeyboardText").GetComponent<Text>().color = Color.white;
@@ -122,7 +122,7 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 SetPlayerControllers();
             }
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 switch (selectedOptionIndex)
                 {
@@ -152,7 +152,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void SetPlayerControllers()
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 if (!isSettingPlayerControllerFlag)
                 {

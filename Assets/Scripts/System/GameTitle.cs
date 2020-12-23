@@ -14,7 +14,7 @@ namespace DHU2020.DGS.MiniGame.System
         public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f;
         public MapInfo mapInfo;
         public PlayerInfo playerInfo;
-        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas, optionCanvas;
+        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas, checkInputCanvas, optionCanvas;
         public GameObject[] menuItems;
         public Text startGameText;
         public KeyCode upKey, downKey;
@@ -32,6 +32,7 @@ namespace DHU2020.DGS.MiniGame.System
             startGameTimer = 0f;
             gameTitleCanvas.SetActive(true);
             setPlayerNameCanvas.SetActive(false);
+            checkInputCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
             gameTitleOptionObject.SetActive(false);
@@ -109,8 +110,9 @@ namespace DHU2020.DGS.MiniGame.System
         {
             canControl = false;
             gameTitleCanvas.SetActive(false);
-            setPlayerNameCanvas.SetActive(false);
             optionCanvas.SetActive(false);
+            setPlayerNameCanvas.SetActive(false);
+            checkInputCanvas.SetActive(false);
             introductionCanvas.SetActive(true);
             startGameText.CrossFadeAlpha(0f, 0f, false);
             Invoke("ShowStartGameText", showStartGameTextTime);
@@ -121,10 +123,23 @@ namespace DHU2020.DGS.MiniGame.System
             enterGameFlag = true;
         }
 
-        private void SetPlayerName()
+        public void SetPlayerName()
         {
+            canControl = false;
             setPlayerNameCanvas.SetActive(true);
+            checkInputCanvas.SetActive(false);
             gameTitleCanvas.SetActive(false);
+            introductionCanvas.SetActive(false);
+            optionCanvas.SetActive(false);
+        }
+
+        public void CheckPlayerInput()
+        {
+            canControl = false;
+            checkInputCanvas.SetActive(true);
+            setPlayerNameCanvas.SetActive(false);
+            gameTitleCanvas.SetActive(false);
+            introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
         }
 

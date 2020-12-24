@@ -14,15 +14,18 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public PlayerInfo playerInfo;
         public int playerID;
         public KeyCode runKeyCodeKeyboard;
+        public float playerStandTimer = 0.9f;
 
         private bool playerIsRunning;
         private PlayerControllerInput playerInputMethod;
+        private float playerInputTimer;
 
         // Start is called before the first frame update
         void Start()
         {
             playerIsRunning = false;
             playerInputMethod = playerInfo.GetPlayerControllerInput(playerID);
+            playerInputTimer = playerStandTimer;
         }
 
         // Update is called once per frame
@@ -48,6 +51,15 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         playerIsRunning = true;
                     }
                 }
+                else
+                {
+                    playerInputTimer -= Time.deltaTime;
+                    if (playerInputTimer <= 0f)
+                    {
+                        playerInputTimer += playerStandTimer;
+                        darumasanGameController.PlayerStand(playerID);
+                    }
+                }
             }
             else if(playerInputMethod == PlayerControllerInput.Joystick)
             {
@@ -62,7 +74,17 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                         playerIsRunning = true;
                     }
                 }
+                else
+                {
+                    playerInputTimer -= Time.deltaTime;
+                    if (playerInputTimer <= 0f)
+                    {
+                        playerInputTimer += playerStandTimer;
+                        darumasanGameController.PlayerStand(playerID);
+                    }
+                }
             }
+
         }
 
         public bool GetPlayerIsInRunningState()

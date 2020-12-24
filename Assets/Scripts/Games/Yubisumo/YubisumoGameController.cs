@@ -18,6 +18,7 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
 
         public GameObject yubisumoIntroductionCanvas, yubisumoGameCanvas;
         public YubisumoPlayerController player1Controller, player2Controller;
+        public KeyCode[] playerIDInputKeyCodes;
         public GameInfo gameInfo;
         public PVPPlayerInfo pvpPlayerInfo;
         public PlayerInfo playerInfo;
@@ -65,9 +66,11 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
             yubisumoGameCanvas.SetActive(false);
             player1ID = pvpPlayerInfo.GetPlayer1ID();
             player1Controller.SetPlayerID(player1ID);
+            player1Controller.SetKeyboardInputKeyCode(playerIDInputKeyCodes[player1ID]);
             player1Controller.InitializeInputMethod(player1ID);
             player2ID = pvpPlayerInfo.GetPlayer2ID();
             player2Controller.SetPlayerID(player2ID);
+            player2Controller.SetKeyboardInputKeyCode(playerIDInputKeyCodes[player2ID]);
             player2Controller.InitializeInputMethod(player2ID);
             player1HitCount = player2HitCount = 0;
 

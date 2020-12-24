@@ -84,7 +84,6 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                     {
                         if (!buttonEntered.Contains(hitButton1))
                         {
-                            Debug.Log("hitButton1Test");
                             buttonEntered.Add(hitButton1);
                         }
                     }

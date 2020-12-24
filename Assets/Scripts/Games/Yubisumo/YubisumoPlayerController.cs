@@ -12,10 +12,10 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
     {
         public PlayerInfo playerInfo;
         public YubisumoGameController yubisumoGameController;
-        public KeyCode hitKeyCode;
 
         private int hitCount, playerID;
         private PlayerControllerInput playerInputMethod;
+        private KeyCode hitKeyCode;
 
         // Start is called before the first frame update
         void Start()
@@ -64,6 +64,11 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         public void InitializeInputMethod(int playerIndex)
         {
             playerInputMethod = playerInfo.GetPlayerControllerInput(playerIndex);
+        }
+
+        public void SetKeyboardInputKeyCode(KeyCode keyboardKeyCode)
+        {
+            hitKeyCode = keyboardKeyCode;
         }
     }
 }

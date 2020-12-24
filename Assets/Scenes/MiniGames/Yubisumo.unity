@@ -388,7 +388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
-  hitKeyCode: 103
 --- !u!1 &110704564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1508,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
-  hitKeyCode: 97
 --- !u!1 &1002193425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,6 +2913,7 @@ MonoBehaviour:
   yubisumoGameCanvas: {fileID: 637133916}
   player1Controller: {fileID: 999486883}
   player2Controller: {fileID: 96115394}
+  playerIDInputKeyCodes: 61000000670000006c00000004010000
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   pvpPlayerInfo: {fileID: 11400000, guid: 98b4f8fcff03ba84583fd3e1b3453ef6, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}

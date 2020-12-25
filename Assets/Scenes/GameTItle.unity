@@ -5790,7 +5790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c4e2ea668610b48988c9e8e5bf6de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  playerInfo: {fileID: 0}
   mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
   maxTurnSlider: {fileID: 309317178}
   gameTitle: {fileID: 1303213112}
@@ -5798,13 +5798,12 @@ MonoBehaviour:
   - {fileID: 957221986}
   - {fileID: 402245121}
   maxTurnText: {fileID: 2060596560}
-  settingHints: {fileID: 792308623}
-  setMaxTurnsHints: "\u5DE6\u30AD\u30FC / \u53F3\u30AD\u30FC: \u6700\u5927\u30BF\u30FC\u30F3\u6570\u5909\u66F4"
-  playerControllerSettingHints1: "Enter\u30AD\u30FC: \u30D7\u30EC\u30A4\u30E4\u30FC\u64CD\u4F5C\u8A2D\u5B9A\u958B\u59CB"
-  playerControllerSettingHints2: "\u5DE6\u30AD\u30FC / \u53F3\u30AD\u30FC: \u64CD\u4F5C\u9078\u629E,
-    Enter\u30AD\u30FC: \u30D7\u30EC\u30A4\u30E4\u30FC\u64CD\u4F5C\u8A2D\u5B9A\u5B8C\u4E86"
-  saveHints: "Enter\u30AD\u30FC: \u8A2D\u5B9A\u30BB\u30FC\u30D6&\u30BF\u30A4\u30C8\u30EB\u3078"
-  exitHints: "Enter\u30AD\u30FC: \u8A2D\u5B9A\u305B\u305A\u30BF\u30A4\u30C8\u30EB\u3078"
+  settingHints: {fileID: 0}
+  setMaxTurnsHints: 
+  playerControllerSettingHints1: 
+  playerControllerSettingHints2: 
+  saveHints: 
+  exitHints: 
 --- !u!1 &1114113412
 GameObject:
   m_ObjectHideFlags: 0

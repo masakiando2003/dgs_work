@@ -5,23 +5,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 
 namespace DHU2020.DGS.MiniGame.System
 {
     public class Option : MonoBehaviour
     {
-        public PlayerInfo playerInfo;
+        public Localization japaneseLocale, englishLocale;
         public MapInfo mapInfo;
         public Slider maxTurnSlider;
         public GameTitle gameTitle;
         public Text[] optionLabels;
-        public Text maxTurnText, settingHints;
-        public string setMaxTurnsHints, playerControllerSettingHints1, playerControllerSettingHints2, saveHints, exitHints;
-
-        private PlayerControllerInput[] playerControllerInputs;
-        private int maxTurn, defaultMaxTurn, selectedOptionIndex, selectedPlayerIDControllerIndex;
-        private bool changeMaxTurnFlag, setPlayerControllerFlag, isSettingPlayerControllerFlag;
+        public Text maxTurnLabel, langaugeLabel, saveLabel, titleLabel, maxTurnText, settingHints;
+        
+        private Language selectedLanguage;
+        private int maxTurn, defaultMaxTurn, selectedOptionIndex;
+        private string setMaxTurnsHints, setLanguageHints, saveHints, titleHints;
+        private bool changeMaxTurnFlag, changeLanguageFlag;
 
         // Start is called before the first frame update
         void Start()
@@ -32,14 +33,21 @@ namespace DHU2020.DGS.MiniGame.System
         private void Initialization()
         {
             changeMaxTurnFlag = false;
-            setPlayerControllerFlag = false;
-            isSettingPlayerControllerFlag = false;
+            changeLanguageFlag = false;
             defaultMaxTurn = mapInfo.GetMaxTurns();
             maxTurn = defaultMaxTurn;
             maxTurnSlider.value = maxTurn;
             maxTurnText.text = maxTurn.ToString();
             selectedOptionIndex = 0;
-            selectedPlayerIDControllerIndex = 0;
+            selectedLanguage = mapInfo.GetGameLanguage();
+            if(selectedLanguage == Language.Japanese)
+            {
+                ShowLanguage("Japanese");
+            }
+            else
+            {
+                ShowLanguage("English");
+            }
             if (optionLabels.Length > 0)
             {
                 GameObject.Find(optionLabels[0].name + "Background").GetComponent<Image>().color = Color.black;
@@ -49,38 +57,16 @@ namespace DHU2020.DGS.MiniGame.System
                     EnableChangeTurnFlag();
                     settingHints.text = setMaxTurnsHints;
                 }
-                else if(optionLabels[0].name == "PlayerControllerSettingLabel")
+                else if(optionLabels[0].name == "LanguageLabel")
                 {
-                    EnableSetPlayerControllerFlag();
-                    settingHints.text = playerControllerSettingHints1;
+                    EnableSetLanguageFlag();
+                    settingHints.text = setLanguageHints;
                 }
             }
-            playerControllerInputs = new PlayerControllerInput[playerInfo.GetPlayersCount()];
-            for (int playerIndex= 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
-            {
-                int playerID = playerIndex + 1;
-                GameObject.Find("Player" + playerID + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
-                GameObject.Find("Player" + playerID + "ControllerLabelText").GetComponent<Text>().color = Color.black;
-                playerControllerInputs[playerIndex] = playerInfo.GetPlayerControllerInput(playerIndex);
-                if (playerInfo.GetPlayerControllerInput(playerIndex) == PlayerControllerInput.Keyboard)
-                {
-                    GameObject.Find("Player" + playerID + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + playerID + "ControllerKeyboardText").GetComponent<Text>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerJoystickBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerJoystickText").GetComponent<Text>().color = Color.black;
-                }
-                else
-                {
-                    GameObject.Find("Player" + playerID + "ControllerJoystickBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + playerID + "ControllerJoystickText").GetComponent<Text>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + playerID + "ControllerKeyboardText").GetComponent<Text>().color = Color.black;
-                }
-            }
-            GameObject.Find("SaveTextBackground").GetComponent<Image>().color = Color.white;
-            GameObject.Find("SaveText").GetComponent<Text>().color = Color.black;
-            GameObject.Find("TitleTextBackground").GetComponent<Image>().color = Color.white;
-            GameObject.Find("TitleText").GetComponent<Text>().color = Color.black;
+            GameObject.Find("SaveLabelBackground").GetComponent<Image>().color = Color.white;
+            GameObject.Find("SaveLabel").GetComponent<Text>().color = Color.black;
+            GameObject.Find("TitleLabelBackground").GetComponent<Image>().color = Color.white;
+            GameObject.Find("TitleLabel").GetComponent<Text>().color = Color.black;
         }
 
         private void EnableChangeTurnFlag()
@@ -93,14 +79,14 @@ namespace DHU2020.DGS.MiniGame.System
             changeMaxTurnFlag = false;
         }
 
-        private void EnableSetPlayerControllerFlag()
+        private void EnableSetLanguageFlag()
         {
-            setPlayerControllerFlag = true;
+            changeLanguageFlag = true;
         }
 
-        private void DisableSetPlayerControllerFlag()
+        private void DisableSetLanguageFlag()
         {
-            setPlayerControllerFlag = false;
+            changeLanguageFlag = false;
         }
 
         // Update is called once per frame
@@ -118,9 +104,9 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 SetMaxTurns();
             }
-            if (setPlayerControllerFlag)
+            if (changeLanguageFlag)
             {
-                SetPlayerControllers();
+                SetLanguage();
             }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
@@ -150,73 +136,61 @@ namespace DHU2020.DGS.MiniGame.System
             maxTurnText.text = maxTurn.ToString();
         }
 
-        private void SetPlayerControllers()
+        private void SetLanguage()
         {
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (!isSettingPlayerControllerFlag)
+                if(selectedLanguage == Language.Japanese)
                 {
-                    isSettingPlayerControllerFlag = true;
-                    selectedPlayerIDControllerIndex = 1;
-                    GameObject.Find("PlayerControllerSettingLabelBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("PlayerControllerSettingLabel").GetComponent<Text>().color = Color.black;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.white;
-                    settingHints.text = playerControllerSettingHints2;
+                    selectedLanguage = Language.English;
+                    ShowLanguage("English");
                 }
                 else
                 {
-                    isSettingPlayerControllerFlag = false;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.black;
-                    GameObject.Find("PlayerControllerSettingLabelBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("PlayerControllerSettingLabel").GetComponent<Text>().color = Color.white;
-                    settingHints.text = playerControllerSettingHints1;
+                    selectedLanguage = Language.Japanese;
+                    ShowLanguage("Japanese");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && isSettingPlayerControllerFlag)
+        }
+
+        private void ShowLanguage(string language)
+        {
+            if (language == "Japanese")
             {
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.black;
-                selectedPlayerIDControllerIndex = (selectedPlayerIDControllerIndex + 1) > playerInfo.GetPlayersCount()
-                                                    ? 1 : selectedPlayerIDControllerIndex + 1;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.black;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.white;
+                GameObject.Find("LanguageJapaneseLabel").GetComponent<Image>().color = Color.black;
+                GameObject.Find("LanguageJapaneseText").GetComponent<Text>().color = Color.white;
+                GameObject.Find("LanguageEnglishLabel").GetComponent<Image>().color = Color.white;
+                GameObject.Find("LanguageEnglishText").GetComponent<Text>().color = Color.black;
+                maxTurnLabel.text = japaneseLocale.GetLabelContent("MaxTurns");
+                langaugeLabel.text = japaneseLocale.GetLabelContent("Language");
+                saveLabel.text = japaneseLocale.GetLabelContent("Save");
+                titleLabel.text = japaneseLocale.GetLabelContent("Title");
+                setMaxTurnsHints = japaneseLocale.GetLabelContent("MaxTurnsHints");
+                setLanguageHints = japaneseLocale.GetLabelContent("LanguageHints");
+                saveHints = japaneseLocale.GetLabelContent("SaveHints");
+                titleHints = japaneseLocale.GetLabelContent("TitleHints");
+                settingHints.text = setLanguageHints;
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow) && isSettingPlayerControllerFlag)
+            else if(language == "English")
             {
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.white;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.black;
-                selectedPlayerIDControllerIndex = (selectedPlayerIDControllerIndex - 1) < 1
-                                                    ? playerInfo.GetPlayersCount() : selectedPlayerIDControllerIndex - 1;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelBackground").GetComponent<Image>().color = Color.black;
-                GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerLabelText").GetComponent<Text>().color = Color.white;
-            }
-            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && isSettingPlayerControllerFlag)
-            {
-                ChoostPlayerInputMethod(selectedPlayerIDControllerIndex-1, playerControllerInputs[selectedPlayerIDControllerIndex-1]);
-                if (playerControllerInputs[selectedPlayerIDControllerIndex-1] == PlayerControllerInput.Joystick)
-                {
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickText").GetComponent<Text>().color = Color.white;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardText").GetComponent<Text>().color = Color.black;
-                }
-                else
-                {
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerKeyboardText").GetComponent<Text>().color = Color.white;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickBackground").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Player" + selectedPlayerIDControllerIndex + "ControllerJoystickText").GetComponent<Text>().color = Color.black;
-                }
+                GameObject.Find("LanguageEnglishLabel").GetComponent<Image>().color = Color.black;
+                GameObject.Find("LanguageEnglishText").GetComponent<Text>().color = Color.white;
+                GameObject.Find("LanguageJapaneseLabel").GetComponent<Image>().color = Color.white;
+                GameObject.Find("LanguageJapaneseText").GetComponent<Text>().color = Color.black;
+                maxTurnLabel.text = englishLocale.GetLabelContent("MaxTurns");
+                langaugeLabel.text = englishLocale.GetLabelContent("Language");
+                saveLabel.text = englishLocale.GetLabelContent("Save");
+                titleLabel.text = englishLocale.GetLabelContent("Title");
+                setMaxTurnsHints = englishLocale.GetLabelContent("MaxTurnsHints");
+                setLanguageHints = englishLocale.GetLabelContent("LanguageHints");
+                saveHints = englishLocale.GetLabelContent("SaveHints");
+                titleHints = englishLocale.GetLabelContent("TitleHints");
+                settingHints.text = setLanguageHints;
             }
         }
 
         private void ChangeSelectOption(string input)
         {
-            // 各プレイヤー操作を設定する時、他の項目に変更出来ない
-            if(isSettingPlayerControllerFlag) { return; }
-
             // セーブ: -1
             // タイトル(セーブしない): -2
             switch (input) {
@@ -247,25 +221,26 @@ namespace DHU2020.DGS.MiniGame.System
                 GameObject.Find(optionLabels[i].name + "Background").GetComponent<Image>().color = Color.white;
                 optionLabels[i].GetComponent<Text>().color = Color.black;
             }
-            GameObject.Find("SaveTextBackground").GetComponent<Image>().color = Color.white;
-            GameObject.Find("SaveText").GetComponent<Text>().color = Color.black;
-            GameObject.Find("TitleTextBackground").GetComponent<Image>().color = Color.white;
-            GameObject.Find("TitleText").GetComponent<Text>().color = Color.black;
+            GameObject.Find("SaveLabelBackground").GetComponent<Image>().color = Color.white;
+            GameObject.Find("SaveLabel").GetComponent<Text>().color = Color.black;
+            GameObject.Find("TitleLabelBackground").GetComponent<Image>().color = Color.white;
+            GameObject.Find("TitleLabel").GetComponent<Text>().color = Color.black;
 
             switch (selectedOptionIndex)
             {
                 case -1:
                     DisableChangeTurnFlag();
-                    GameObject.Find("TitleTextBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("TitleText").GetComponent<Text>().color = Color.white;
-                    settingHints.text = saveHints;
+                    DisableSetLanguageFlag();
+                    GameObject.Find("TitleLabelBackground").GetComponent<Image>().color = Color.black;
+                    GameObject.Find("TitleLabel").GetComponent<Text>().color = Color.white;
+                    settingHints.text = titleHints;
                     break;
                 case -2:
                     DisableChangeTurnFlag();
-                    settingHints.text = "";
-                    GameObject.Find("SaveTextBackground").GetComponent<Image>().color = Color.black;
-                    GameObject.Find("SaveText").GetComponent<Text>().color = Color.white;
-                    settingHints.text = exitHints;
+                    DisableSetLanguageFlag();
+                    GameObject.Find("SaveLabelBackground").GetComponent<Image>().color = Color.black;
+                    GameObject.Find("SaveLabel").GetComponent<Text>().color = Color.white;
+                    settingHints.text = saveHints;
                     break;
                 default:
                     GameObject.Find(optionLabels[selectedOptionIndex].name + "Background").GetComponent<Image>().color = Color.black;
@@ -279,25 +254,17 @@ namespace DHU2020.DGS.MiniGame.System
                     {
                         DisableChangeTurnFlag();
                     }
-                    if(optionLabels[selectedOptionIndex].name == "PlayerControllerSettingLabel")
+                    if(optionLabels[selectedOptionIndex].name == "LanguageLabel")
                     {
-                        EnableSetPlayerControllerFlag();
-                        settingHints.text = playerControllerSettingHints1;
+                        EnableSetLanguageFlag();
+                        settingHints.text = setLanguageHints;
                     }
                     else
                     {
-                        DisableSetPlayerControllerFlag();
+                        DisableSetLanguageFlag();
                     }
                     break;
             }
-        }
-
-        private void ChoostPlayerInputMethod(int playerIndex, PlayerControllerInput inputMethod)
-        {
-            playerControllerInputs[playerIndex] =
-                       (inputMethod == PlayerControllerInput.Joystick)
-                           ? PlayerControllerInput.Keyboard
-                           : PlayerControllerInput.Joystick;
         }
 
         private void SaveMaxTurns()
@@ -305,18 +272,15 @@ namespace DHU2020.DGS.MiniGame.System
             mapInfo.SetMaxTurns(maxTurn);
         }
 
-        private void SavePlayerControllerInput()
+        private void SaveGameLanguage()
         {
-            for (int playerIndex = 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
-            {
-                playerInfo.SetPlayerControllerInput(playerIndex, playerControllerInputs[playerIndex]);
-            }
+            mapInfo.SetLanguage(selectedLanguage);
         }
 
         private void SaveChanges()
         {
             SaveMaxTurns();
-            SavePlayerControllerInput();
+            SaveGameLanguage();
             gameTitle.ReturnToMenu();
         }
 

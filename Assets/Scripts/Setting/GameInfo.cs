@@ -22,7 +22,8 @@ namespace DHU2020.DGS.MiniGame.Game
         public enum GameType {
             PVP,
             ThreePlayers,
-            All
+            All,
+            MultipleType
         };
         public GameType[] gameType;
         public Sprite[] gameImage;
@@ -78,7 +79,8 @@ namespace DHU2020.DGS.MiniGame.Game
                 switch (gameType)
                 {
                     case GameType.All:
-                        if(winnerPlayerIDs != null && winnerPlayerIDs.Count > 0)
+                    case GameType.MultipleType:
+                        if (winnerPlayerIDs != null && winnerPlayerIDs.Count > 0)
                         {
                             for (var playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                             {
@@ -89,7 +91,7 @@ namespace DHU2020.DGS.MiniGame.Game
                             }
                             for (var playerIndex = 0; playerIndex < rivalIDs.Length; playerIndex++)
                             {
-                                if (!winnerPlayerIDs.Contains(playerIndex))
+                                if (!winnerPlayerIDs.Contains(rivalIDs[playerIndex]))
                                 {
                                     playerInfo.DecreaseLife(rivalIDs[playerIndex]);
                                 }

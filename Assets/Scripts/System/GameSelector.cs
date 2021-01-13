@@ -71,7 +71,7 @@ namespace DHU2020.DGS.MiniGame.System
         // Update is called once per frame
         void Update()
         {
-            if(selectedGameFlag) { return; }
+            if(selectedGameFlag == true) { return; }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -123,6 +123,10 @@ namespace DHU2020.DGS.MiniGame.System
                 {
                     FindObjectOfType<GameManager>().EnterGame();
                 }
+                else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.MultipleType)
+                {
+                    FindObjectOfType<GameManager>().ActiviatCanvas("SelectGameTypeCanvas");
+                }
             }
         }
 
@@ -138,6 +142,11 @@ namespace DHU2020.DGS.MiniGame.System
             }
             selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
             selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
+        }
+
+        public int GetSelectedGameIndex()
+        {
+            return randomedGameIndexes[selectedGameIndex];
         }
 
         public void SelectRandomGame(int gameIndex)

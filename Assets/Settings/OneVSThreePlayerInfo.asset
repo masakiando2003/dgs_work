@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e336b62ec17264e91ca922d7309d2f, type: 3}
-  m_Name: MapInfo
+  m_Script: {fileID: 11500000, guid: e38b4317575844443824ebbfb2104a3e, type: 3}
+  m_Name: OneVSThreePlayerInfo
   m_EditorClassIdentifier: 
-  maxTurns: 91
-  currentTurn: 0
-  loadMainMapSeconds: 1
-  langauge: 1
+  onePlayerSidePlayerID: 1
+  threePlayerSidePlayerIDs: 000000000200000003000000

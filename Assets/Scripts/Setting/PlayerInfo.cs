@@ -114,7 +114,6 @@ namespace DHU2020.DGS.MiniGame.Setting
 
         public PlayerControllerInput GetPlayerControllerInput(int index)
         {
-            Debug.Log("index: "+ index);
             return playerControllerInputs[index];
         }
 

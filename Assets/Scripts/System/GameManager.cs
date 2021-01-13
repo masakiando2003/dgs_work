@@ -27,7 +27,7 @@ namespace DHU2020.DGS.MiniGame.System
   
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
 
-        public GameObject turnCanvas, selectGameCanvas, winnerCanvas, PVPSelectPlayerCanvas;
+        public GameObject turnCanvas, selectGameCanvas, selectGameTypeCanvas, selectGhostPlayerCanvas, winnerCanvas, PVPSelectPlayerCanvas;
         public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup;
         public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f;
 
@@ -49,6 +49,8 @@ namespace DHU2020.DGS.MiniGame.System
             maxTurnsText.text = maxTurns.ToString();
             turnCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);
+            selectGameTypeCanvas.SetActive(false);
+            selectGhostPlayerCanvas.SetActive(false);
             winnerCanvas.SetActive(false);
             PVPSelectPlayerCanvas.SetActive(false);
             //playerInfo.SetDefaultLifes();
@@ -72,6 +74,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         public void ActiviatCanvas(string CanvasName)
         {
+            int selectedGameIndex;
             switch (CanvasName)
             {
                 case "PVPSelectPlayerCanvas":
@@ -81,6 +84,23 @@ namespace DHU2020.DGS.MiniGame.System
                     {
                         players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
                     }
+                    break;
+                case "SelectGameTypeCanvas":
+                    selectGameTypeCanvas.SetActive(true);
+                    selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetPlayerName(selectedPlayerID);
+                    selectedGameIndex = selectGameCanvas.GetComponent<GameSelector>().GetSelectedGameIndex();
+                    selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetSelectedGameIndex(selectedGameIndex);
+                    selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetGameNameText(selectedGameIndex);
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
+                    }
+                    break;
+                case "SelectGhostPlayerCanvas":
+                    selectGhostPlayerCanvas.SetActive(true);
+                    selectedGameIndex = selectGameCanvas.GetComponent<GameSelector>().GetSelectedGameIndex();
+                    selectGhostPlayerCanvas.GetComponent<SelectGhostPlayer>().SetSelectedGameIndex(selectedGameIndex);
+                    selectGhostPlayerCanvas.GetComponent<SelectGhostPlayer>().SetGhostPlayerFromPlayer(selectedPlayerID);
                     break;
                 default:
                     break;
@@ -138,7 +158,8 @@ namespace DHU2020.DGS.MiniGame.System
         {
             PVPSelectPlayerCanvas.SetActive(false);
             selectGameCanvas.SetActive(false);
-            if(GetRemainingPlayers() < 2)
+            selectGameTypeCanvas.SetActive(false);
+            if (GetRemainingPlayers() < 2)
             {
                 Invoke("Winner", showCanvasTime);
             }

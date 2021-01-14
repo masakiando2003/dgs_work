@@ -17,6 +17,13 @@ namespace DHU2020.DGS.MiniGame.Setting
         public List<string> playerNames = new List<string>();
         public List<int> playerLifes = new List<int>();
         public List<int> playerMaxLifes = new List<int>();
+        public enum PlayerControllerInput
+        {
+            Keyboard,
+            Joystick
+        }
+        public List<PlayerControllerInput> playerControllerInputs = new List<PlayerControllerInput>();
+
         private string[] defaultPlayerName = { "ダイスケ", "サトシ", "カズヤ", "ケイコ", "ユリナ", "アヤ" };
 
         public void RandomizePlayerName(int index)
@@ -38,10 +45,15 @@ namespace DHU2020.DGS.MiniGame.Setting
             return playerNames.Contains(playerName);
         }
 
-        // プレイヤー名入力用
         public void AddPlayerName(string playerName)
         {
             playerNames.Add(playerName);
+        }
+
+        // プレイヤー名入力用
+        public void SetPlayerName(int index, string playerName)
+        {
+            playerNames[index] = playerName;
         }
 
         public string GetPlayerName(int index)
@@ -54,11 +66,6 @@ namespace DHU2020.DGS.MiniGame.Setting
             return playerNames.FindIndex(x => x.Equals(name));
         }
 
-        public int GetNumOfPlayer()
-        {
-            return playerNames.Count;
-        }
-
         public void AddPlayerLife(int life)
         {
             playerLifes.Add(life);
@@ -67,6 +74,7 @@ namespace DHU2020.DGS.MiniGame.Setting
         public void SetPlayersDefaultLife()
         {
             playerLifes.Clear();
+            playerMaxLifes.Clear();
             for (var i = 0; i < playerNames.Count; i++)
             {
                 playerLifes.Add(defaultLife);
@@ -97,6 +105,16 @@ namespace DHU2020.DGS.MiniGame.Setting
         public int GetCurrentLife(int playerIndex)
         {
             return playerLifes[playerIndex];
+        }
+
+        public void SetPlayerControllerInput(int index, PlayerControllerInput input)
+        {
+            playerControllerInputs[index] = input;
+        }
+
+        public PlayerControllerInput GetPlayerControllerInput(int index)
+        {
+            return playerControllerInputs[index];
         }
 
         public int GetPlayersCount()

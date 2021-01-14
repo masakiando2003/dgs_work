@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76827206d879f4a48b9d80a5a0b12d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
-  hitKeyCode: 100
 --- !u!1 &110704564
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1506,8 +1506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76827206d879f4a48b9d80a5a0b12d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   yubisumoGameController: {fileID: 1666713691}
-  hitKeyCode: 97
 --- !u!1 &1002193425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,7 +2194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u52DD\u3064\u30E9\u30A4\u30F3"
+  m_Text: "\u52DD\u3061\u30E9\u30A4\u30F3"
 --- !u!222 &1435992118
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2760,7 +2760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2877,7 +2877,7 @@ GameObject:
   - component: {fileID: 1666713690}
   - component: {fileID: 1666713691}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: YubisumoGameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2913,6 +2913,7 @@ MonoBehaviour:
   yubisumoGameCanvas: {fileID: 637133916}
   player1Controller: {fileID: 999486883}
   player2Controller: {fileID: 96115394}
+  playerIDInputKeyCodes: 61000000670000006c00000004010000
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   pvpPlayerInfo: {fileID: 11400000, guid: 98b4f8fcff03ba84583fd3e1b3453ef6, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
@@ -3069,7 +3070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3478,7 +3479,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u52DD\u3064\u30E9\u30A4\u30F3"
+  m_Text: "\u52DD\u3061\u30E9\u30A4\u30F3"
 --- !u!222 &2003796584
 CanvasRenderer:
   m_ObjectHideFlags: 0

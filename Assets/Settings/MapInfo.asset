@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e336b62ec17264e91ca922d7309d2f, type: 3}
   m_Name: MapInfo
   m_EditorClassIdentifier: 
-  maxTurns: 99
+  maxTurns: 91
   currentTurn: 0
   loadMainMapSeconds: 1
+  langauge: 1

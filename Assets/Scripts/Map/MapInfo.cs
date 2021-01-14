@@ -17,6 +17,12 @@ namespace DHU2020.DGS.MiniGame.Map
         public int maxTurns = 99;
         [SerializeField] int currentTurn = 0;
         public float loadMainMapSeconds;
+        public enum Language
+        {
+            Japanese,
+            English
+        }
+        public Language langauge;
 
         public int GetCurrentTurn()
         {
@@ -31,6 +37,16 @@ namespace DHU2020.DGS.MiniGame.Map
         public int GetMaxTurns()
         {
             return maxTurns;
+        }
+
+        public void SetLanguage(Language selectedLanguage)
+        {
+            langauge = selectedLanguage;
+        }
+
+        public Language GetGameLanguage()
+        {
+            return langauge;
         }
 
         public void StartNewGame()

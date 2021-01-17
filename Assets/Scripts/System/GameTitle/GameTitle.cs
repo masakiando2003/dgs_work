@@ -14,12 +14,7 @@ namespace DHU2020.DGS.MiniGame.System
         public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f;
         public MapInfo mapInfo;
         public PlayerInfo playerInfo;
-<<<<<<< HEAD:Assets/Scripts/System/GameTitle.cs
-        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, optionCanvas;
-        //ネットワークゲームを選択肢で有効かするためインスペクタでsizeを3にしました。
-=======
         public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas, checkInputCanvas, optionCanvas;
->>>>>>> 43951ca69663d2c507bdee6572d674527126f8e1:Assets/Scripts/System/GameTitle/GameTitle.cs
         public GameObject[] menuItems;
         public Text startGameText;
         public KeyCode upKey, downKey;
@@ -167,8 +162,6 @@ namespace DHU2020.DGS.MiniGame.System
             optionCanvas.SetActive(true);
         }
 
-        //ネットワーク用のシーンに遷移するための関数です。
-        //基本的にNewGame関数からコピーしているので不備があれば直してもらって大丈夫です。
         private void NetworkGame()
         {
             canControl = false;

@@ -1779,24 +1779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  showStartGameTextTime: 3
-  fadeStartGameTextTime: 0.5
-  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
-  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
-  gameTitleOptionObject: {fileID: 1427097712}
-  gameTitleCanvas: {fileID: 1200191401}
-  introductionCanvas: {fileID: 1972136562}
-  optionCanvas: {fileID: 1093063567}
-  menuItems:
-  - {fileID: 977197205}
-  - {fileID: 766384806}
-  - {fileID: 2121778427}
-  startGameText: {fileID: 1251955324}
-  upKey: 273
-  downKey: 274
---- !u!1 &1374109747
-=======
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -1827,7 +1809,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 427067943}
   m_CullTransparentMesh: 0
 --- !u!1 &454540921
->>>>>>> 43951ca69663d2c507bdee6572d674527126f8e1
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

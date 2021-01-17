@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DHU2020.DGS.MiniGame.Setting;
+using DHU2020.DGS.MiniGame.Game;
+using UnityEngine.UI;
 
 
 namespace DHU2020.DGS.MiniGame.Yubisuma
@@ -15,6 +17,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public PlayerInfo playerInfo;
 
+        public GameInfo gameInfo;
+
         [Range(0,10)]
         public int maxTurn;
 
@@ -25,6 +29,9 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             get; private set;
         }
+        public int[] PlayerIDs;
+
+        public int[] loserPlayerIDs;
 
         public int PlayerNumber;
 
@@ -32,6 +39,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             get; private set;
         }
+
+        public GameObject ProgressBar;
 
         public int RemainingPlayer;
 
@@ -45,6 +54,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         }
 
         public float TurnSpan = 10f;
+
 
         public State CurrentState
         {
@@ -78,10 +88,15 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             PlayerNumber = 0;
             ChangeState(State.WaitForStart);
             Players = GameObject.FindGameObjectsWithTag("YubisumaPlayer");
+            PlayerIDs = new int[Players.Length];
             for(int i = 0; i < Players.Length;i++)
             {
                 Players[i].GetComponent<Player>().PlayerName.text = playerInfo.playerNames[i];
+                Players[i].GetComponent<Player>().PlayerID = playerInfo.GetPlayerID(Players[i].GetComponent<Player>().PlayerName.text);
+                PlayerIDs[i] = Players[i].GetComponent<Player>().PlayerID;
             }
+            loserPlayerIDs = new int[Players.Length - 1];
+
         }
 
         private void ChangeState(State state)
@@ -135,6 +150,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             SetDecidePlayer();
             GameController.Instance.ChangeState(State.Choose);
+            ProgressBar.SetActive(false);
             //Debug.Log(CurrentState + " From WaitForStart");
         }
 
@@ -162,6 +178,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         public void UpdateStateWaitForStart()
         {
             ChangeState(State.Choose);
+            ProgressBar.SetActive(true);
         }
 
         public void UpdateStateChoose()
@@ -170,7 +187,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             if (TurnSpan <= 0f)
             {
                 GameController.Instance.ChangeState(State.Calculate);
-                TurnSpan = 15f;
+                TurnSpan = 10f;
+                ProgressBar.SetActive(false);
             }
         }
 
@@ -207,6 +225,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             {
                 SetDecidePlayer();
                 GameController.Instance.ChangeState(State.Choose);
+                ProgressBar.SetActive(true);
             }
         }
 
@@ -218,6 +237,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 {
                     GameController.Instance.ChangeState(State.GameEnd);
                     Debug.Log(DecidePlayer + "Win");
+                    SetLoserPlayers(Players[i].GetComponent<Player>().PlayerID);
+                    SetWinner(Players[i].GetComponent<Player>().PlayerID);
                     break;
                 }
             }
@@ -242,6 +263,23 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             DecidePlayer = Players[PlayerNumber].name;
             Debug.Log(DecidePlayer);
             PlayerNumber++;
+        }
+
+        public void SetLoserPlayers(int Winner)
+        {
+            for(int i = 0; i < Players.Length; i++)
+            {
+                if (i != Winner)
+                {
+                    loserPlayerIDs[i] = PlayerIDs[i];
+                }
+            }
+        }
+
+        IEnumerator SetWinner(int playerID)
+        {
+            yield return new WaitForSeconds(3f);
+            gameInfo.SetMiniGameWinner("Yubisuma", playerID, loserPlayerIDs);
         }
 
         public void SetRemainingPlayer()

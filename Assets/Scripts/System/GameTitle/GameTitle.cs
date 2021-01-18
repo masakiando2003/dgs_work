@@ -11,15 +11,16 @@ namespace DHU2020.DGS.MiniGame.System
 {
     public class GameTitle : MonoBehaviour
     {
-        public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f;
+        public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f, controlHintsTextPosition = -480.0f;
         public MapInfo mapInfo;
         public PlayerInfo playerInfo;
-        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas, checkInputCanvas, optionCanvas;
+        public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas;
+        public GameObject checkInputCanvas, optionCanvas, creditCanvas;
         public GameObject[] menuItems;
-        public Text startGameText;
+        public Text startGameText, controlHintsText;
         public KeyCode upKey, downKey;
 
-        private bool canControl, enterGameFlag;
+        private bool canControl, enterGameFlag, creditFlag;
         private int menuItemIndex;
         private float startGameTimer;
 
@@ -28,6 +29,7 @@ namespace DHU2020.DGS.MiniGame.System
         {
             canControl = false;
             enterGameFlag = false;
+            creditFlag = false;
             menuItemIndex = 0;
             startGameTimer = 0f;
             gameTitleCanvas.SetActive(true);
@@ -35,13 +37,16 @@ namespace DHU2020.DGS.MiniGame.System
             checkInputCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
+            creditCanvas.SetActive(false);
             gameTitleOptionObject.SetActive(false);
+            controlHintsText.enabled = false;
         }
 
         public void EnableGameTitlePanel()
         {
             canControl = true;
             gameTitleOptionObject.SetActive(true);
+            controlHintsText.enabled = true;
         }
 
         // Update is called once per frame
@@ -57,7 +62,7 @@ namespace DHU2020.DGS.MiniGame.System
                 menuItemIndex = (menuItemIndex + 1 >= menuItems.Length) ? 0 : menuItemIndex + 1;
                 SelectMenu(menuItemIndex);
             }
-            else if((canControl) && Input.GetKeyDown(KeyCode.Return))
+            else if((canControl) && Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 switch (menuItemIndex)
                 {
@@ -70,6 +75,9 @@ namespace DHU2020.DGS.MiniGame.System
                         break;
                     case 2:
                         GameOptions();
+                        break;
+                    case 2:
+                        Credit();
                         break;
                 }
             }
@@ -89,6 +97,13 @@ namespace DHU2020.DGS.MiniGame.System
                 if (Input.anyKeyDown)
                 {
                     NewGame();
+                }
+            }
+            else if (creditFlag)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    SceneManager.LoadScene("GameTitle");
                 }
             }
         }
@@ -113,8 +128,10 @@ namespace DHU2020.DGS.MiniGame.System
         public void Introduction()
         {
             canControl = false;
+            creditFlag = false;
             gameTitleCanvas.SetActive(false);
             optionCanvas.SetActive(false);
+            creditCanvas.SetActive(false);
             setPlayerNameCanvas.SetActive(false);
             checkInputCanvas.SetActive(false);
             introductionCanvas.SetActive(true);
@@ -125,26 +142,31 @@ namespace DHU2020.DGS.MiniGame.System
         private void ShowStartGameText()
         {
             enterGameFlag = true;
+            creditFlag = false;
         }
 
         public void SetPlayerName()
         {
             canControl = false;
+            creditFlag = false;
             setPlayerNameCanvas.SetActive(true);
             checkInputCanvas.SetActive(false);
             gameTitleCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
+            creditCanvas.SetActive(false);
         }
 
         public void CheckPlayerInput()
         {
             canControl = false;
+            creditFlag = false;
             checkInputCanvas.SetActive(true);
             setPlayerNameCanvas.SetActive(false);
             gameTitleCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(false);
+            creditCanvas.SetActive(false);
         }
 
         private void NewGame()
@@ -157,9 +179,21 @@ namespace DHU2020.DGS.MiniGame.System
         private void GameOptions()
         {
             canControl = false;
+            creditFlag = false;
             gameTitleCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(true);
+            creditCanvas.SetActive(false);
+        }
+
+        private void Credit()
+        {
+            canControl = false;
+            creditFlag = true;
+            gameTitleCanvas.SetActive(false);
+            introductionCanvas.SetActive(false);
+            optionCanvas.SetActive(false);
+            creditCanvas.SetActive(true);
         }
 
         private void NetworkGame()

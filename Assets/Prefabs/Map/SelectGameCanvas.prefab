@@ -771,6 +771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154c6d8745496aa4e8a71c2c4dc4febd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: dca40a1fb3ef38c4eb48c13a3ddd3ab1, type: 2}
+  localeEN: {fileID: 11400000, guid: 807fb633aa8b31e429073ff9fddf5c1c, type: 2}
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   games:
   - {fileID: 8670485020094612276}
@@ -780,6 +783,8 @@ MonoBehaviour:
   loadGameTime: 2
   selectColor: {r: 1, g: 0, b: 0, a: 1}
   selectedGameText: {fileID: 6574413021347572946}
+  selectGameText: {fileID: 3449728132576350763}
+  randomGameText: {fileID: 3449728134362530168}
 --- !u!1 &3449728134182166214
 GameObject:
   m_ObjectHideFlags: 0

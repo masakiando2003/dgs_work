@@ -224,13 +224,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3aada584b3863469992c6b73609f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
   darumasanGameController: {fileID: 1800511832}
   ghostMessageText: {fileID: 1080338050}
   ghostFaceToRightImage: {fileID: 1281239125}
   ghostFaceToLeftImage: {fileID: 1833873296}
   ghostMessageRandomMinTimeFactor: 0.1
   ghostMessageRandomMaxTimeFactor: 1
-  ghostMessageToShow: "\u3060\u308B\u307E\u3055\u3093\u304C\u3053\u308D\u3093\u3060."
+  ghostMessageToShowJP: "\u3060\u308B\u307E\u3055\u3093\u304C\u3053\u308D\u3093\u3060."
+  ghostMessageToShowEN: DARUMASAN.
 --- !u!4 &72857134
 Transform:
   m_ObjectHideFlags: 0
@@ -2431,7 +2433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1097847773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2444,11 +2446,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bc429b5ffe08a42962ba38d56d3aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: fcf5fbde8803b8843ac61ec186c11efd, type: 2}
+  localeEN: {fileID: 11400000, guid: 07489c0f4adf22a4a83d0b2dfdefc338, type: 2}
   showStartGameTextTime: 3
   fadeStartGameTextTime: 0.5
   showStartGameText: {fileID: 1761800069}
+  howToPlayText: {fileID: 168093127}
   darumasanGameCanvas: {fileID: 1577399068}
   darumasanGameController: {fileID: 1800511832}
+  p1EnterButton: 97
+  p2EnterButton: 103
+  p3EnterButton: 108
+  p4EnterButton: 260
 --- !u!114 &1097847774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4721,7 +4731,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af128e47a4de334fbdcfe2546f0fbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalDistance: 100
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: fcf5fbde8803b8843ac61ec186c11efd, type: 2}
+  localeEN: {fileID: 11400000, guid: 07489c0f4adf22a4a83d0b2dfdefc338, type: 2}
+  goalDistance: 150
   runFactor: 2
   iconStartPosX: -600
   iconGoalPosX: 550
@@ -4764,9 +4777,15 @@ MonoBehaviour:
   - {fileID: 129505312}
   - {fileID: 1510734058}
   - {fileID: 360342628}
+  playerRemainingLabelText:
+  - {fileID: 6221189682123853019}
+  - {fileID: 760537763}
+  - {fileID: 1620367466}
+  - {fileID: 227298333}
   countDownTimeText: {fileID: 2321669729753573341}
   resultTitleText: {fileID: 608924756}
   resultText: {fileID: 1269313220}
+  goalLineText: {fileID: 408622611}
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9

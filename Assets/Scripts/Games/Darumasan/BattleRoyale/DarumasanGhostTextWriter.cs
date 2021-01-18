@@ -1,30 +1,47 @@
-﻿using System.Collections;
+﻿using DHU2020.DGS.MiniGame.Map;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static DHU2020.DGS.MiniGame.Darumasan.DarumasanGameController;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 
 namespace DHU2020.DGS.MiniGame.Darumasan
 {
     public class DarumasanGhostTextWriter : MonoBehaviour
     {
+        public MapInfo mapInfo;
         public DarumasanGameController darumasanGameController;
         public Text ghostMessageText;
         public Image ghostFaceToRightImage, ghostFaceToLeftImage;
         public float ghostMessageRandomMinTimeFactor = 0.1f, ghostMessageRandomMaxTimeFactor = 1f;
-        public string ghostMessageToShow;
+        public string ghostMessageToShowJP, ghostMessageToShowEN;
 
         private int characterIndex;
         private float ghostMessageTimer, ghostMessageTimerPerCharacter;
         private string ghostMessage;
         private bool showMessageFlag;
+        private Language gameLanguage;
 
         private void Start()
         {
+            Initialization();
+        }
+
+        private void Initialization()
+        {
+            gameLanguage = mapInfo.GetGameLanguage();
             ghostFaceToRightImage.enabled = true;
             ghostFaceToLeftImage.enabled = false;
             showMessageFlag = false;
-            ghostMessage = ghostMessageToShow;
+            if (gameLanguage == Language.Japanese)
+            {
+                ghostMessage = ghostMessageToShowJP;
+            }
+            else
+            {
+                ghostMessage = ghostMessageToShowEN;
+            }
             ghostMessageText.text = "";
             characterIndex = 0;
         }
@@ -65,7 +82,14 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         {
             ghostFaceToRightImage.enabled = true;
             ghostFaceToLeftImage.enabled = false;
-            ghostMessage = ghostMessageToShow;
+            if (gameLanguage == Language.Japanese)
+            {
+                ghostMessage = ghostMessageToShowJP;
+            }
+            else
+            {
+                ghostMessage = ghostMessageToShowEN;
+            }
             showMessageFlag = true;
         }
 

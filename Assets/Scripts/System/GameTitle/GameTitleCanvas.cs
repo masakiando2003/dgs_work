@@ -7,41 +7,47 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DHU2020.DGS.MiniGame.Map.MapInfo;
 
-public class GameTitleCanvas : MonoBehaviour
+namespace DHU2020.DGS.MiniGame.System
 {
-    public MapInfo mapInfo;
-    public Localization japaneseLocale, englishLocale;
-    public Text localGameText, networkGameText, optionText, gameTitleText;
-
-    // Start is called before the first frame update
-    void Start()
+    public class GameTitleCanvas : MonoBehaviour
     {
-        Language gameLanguage = mapInfo.GetGameLanguage();
-        if(gameLanguage == Language.Japanese)
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
+        public Text newGameText, creditText, optionText, gameTitleText, gameTitleControlHintsText;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            string gameTitle1 = japaneseLocale.GetLabelContent("GameTitle1");
-            string gameTitle2 = japaneseLocale.GetLabelContent("GameTitle2");
-            string gameTitle = gameTitle1 + Environment.NewLine + gameTitle2;
-            gameTitleText.text = gameTitle;
-            localGameText.text = japaneseLocale.GetLabelContent("LocalGame");
-            networkGameText.text = japaneseLocale.GetLabelContent("NetworkGame");
-            optionText.text = japaneseLocale.GetLabelContent("Option");
+            Language gameLanguage = mapInfo.GetGameLanguage();
+            if (gameLanguage == Language.Japanese)
+            {
+                string gameTitle1 = localeJP.GetLabelContent("GameTitle1");
+                string gameTitle2 = localeJP.GetLabelContent("GameTitle2");
+                string gameTitle = gameTitle1 + Environment.NewLine + gameTitle2;
+                gameTitleText.text = gameTitle;
+                newGameText.text = localeJP.GetLabelContent("NewGame");
+                optionText.text = localeJP.GetLabelContent("Option");
+                creditText.text = localeJP.GetLabelContent("Credit");
+                gameTitleControlHintsText.text = localeJP.GetLabelContent("ControlHints");
+            }
+            else
+            {
+                string gameTitle1 = localeEN.GetLabelContent("GameTitle1");
+                string gameTitle2 = localeEN.GetLabelContent("GameTitle2");
+                string gameTitle = gameTitle1 + Environment.NewLine + gameTitle2;
+                gameTitleText.text = gameTitle;
+                newGameText.text = localeEN.GetLabelContent("NewGame");
+                optionText.text = localeEN.GetLabelContent("Option");
+                creditText.text = localeEN.GetLabelContent("Credit");
+                gameTitleControlHintsText.text = localeEN.GetLabelContent("ControlHints");
+            }
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            string gameTitle1 = englishLocale.GetLabelContent("GameTitle1");
-            string gameTitle2 = englishLocale.GetLabelContent("GameTitle2");
-            string gameTitle = gameTitle1 + Environment.NewLine + gameTitle2;
-            gameTitleText.text = gameTitle;
-            localGameText.text = englishLocale.GetLabelContent("LocalGame");
-            networkGameText.text = englishLocale.GetLabelContent("NetworkGame");
-            optionText.text = englishLocale.GetLabelContent("Option");
+
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

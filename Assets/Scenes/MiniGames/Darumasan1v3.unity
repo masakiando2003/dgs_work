@@ -1655,7 +1655,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2090,7 +2090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1097847773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,11 +2103,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41df40badf83fae4ca28b57a0ee9eb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: e68249214adcffb45b2ab03199077b93, type: 2}
+  localeEN: {fileID: 11400000, guid: 1c7ac5e74deb33f4c828d002cd50ef30, type: 2}
   showStartGameTextTime: 3
   fadeStartGameTextTime: 0.5
   showStartGameText: {fileID: 1761800069}
+  howToPlayText: {fileID: 168093127}
   darumasanGameCanvas: {fileID: 1577399068}
   darumasan1v3GameController: {fileID: 1800511832}
+  p1EnterButton: 97
+  p2EnterButton: 103
+  p3EnterButton: 108
+  p4EnterButton: 260
 --- !u!114 &1097847774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2522,7 +2530,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -4267,7 +4275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2865ca21291b94da7e90e997719ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalDistance: 10
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: e68249214adcffb45b2ab03199077b93, type: 2}
+  localeEN: {fileID: 11400000, guid: 1c7ac5e74deb33f4c828d002cd50ef30, type: 2}
+  goalDistance: 100
   runFactor: 4
   iconStartPosX: -600
   iconGoalPosX: 550
@@ -4302,11 +4313,17 @@ MonoBehaviour:
   - {fileID: 3424204443918839120}
   - {fileID: 129505312}
   - {fileID: 1510734058}
+  playerRemainingLabelText:
+  - {fileID: 6221189682123853019}
+  - {fileID: 760537763}
+  - {fileID: 1620367466}
   countDownTimeText: {fileID: 2321669729753573341}
   resultTitleText: {fileID: 608924756}
   resultText: {fileID: 1269313220}
   remainingTimeText: {fileID: 1158333594}
+  remainingTimeLabelText: {fileID: 859008079}
   ghostPlayerNameText: {fileID: 1000562007}
+  goalLineText: {fileID: 408622611}
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   oneVsThreePlayerInfo: {fileID: 11400000, guid: 035cdd1196a09a444914e031be6e37d3,

@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd245846a4523040b61bfae17c2f17e, type: 3}
-  m_Name: GameTitleJapanese
+  m_Name: GameTitleJP
   m_EditorClassIdentifier: 
   labelName:
-  - LocalGame
-  - NetworkGame
+  - NewGame
+  - Credit
   - Option
   - GameTitle1
   - GameTitle2
+  - ControlHints
   labelText:
-  - "\u30ED\u30FC\u30AB\u30EB\u30B2\u30FC\u30E0"
-  - "\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u30B2\u30FC\u30E0"
+  - "\u30CB\u30E5\u30FC\u30B2\u30FC\u30E0"
+  - "\u30AF\u30EC\u30B8\u30C3\u30C8"
   - "\u30AA\u30D7\u30B7\u30E7\u30F3"
   - "\u5929\u4E0B\u592A\u5E73"
   - "~\u30DF\u30CB\u30B2\u30FC\u30E0\u30B7\u30EA\u30FC\u30BA~"
+  - "\u30AD\u30FC\u30DC\u30FC\u30C9\u2191 / \u2193: \u9078\u629E\u3001Enter\u30AD\u30FC:
+    \u6C7A\u5B9A "

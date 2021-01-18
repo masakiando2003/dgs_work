@@ -1,4 +1,5 @@
 ﻿using DHU2020.DGS.MiniGame.Game;
+using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
 using System;
 using System.Collections;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 using Random = UnityEngine.Random;
 
 namespace DHU2020.DGS.MiniGame.Kenkenpa
@@ -17,11 +19,13 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             get; private set;
         }
 
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public GameObject[] PlaerRouteAreas, PlayerStepBlockAreas;
         public KenkenpaPlayerController[] kenkenpaPlayerControllers;
         public GameObject kenkenpaIntroductionCanvas, kenkenpaGameCavnas, playerStepBlockPrefab;
-        public Text[] playerNameText, playerLapCountText;
-        public Text countDownTimeText, remainingTimeText, resultTitleText, resultText;
+        public Text[] playerNameText, playerLapCountText, playerLapLabelText;
+        public Text countDownTimeText, remainingTimeText, resultTitleText, resultText, timerLabelText;
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f;
@@ -43,6 +47,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         private readonly int lapMaxSteps = 8;
         private static GameState currentGameState;
         private List<string> winnerPlayerList = new List<string>();
+        private Language gameLanguage;
 
         private void Awake()
         {
@@ -62,6 +67,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
         private void Initialization()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
             playerLapCounts = new int[PlaerRouteAreas.Length];
             playerPosition = new int[PlaerRouteAreas.Length];
             losePlayers = new int[PlaerRouteAreas.Length];
@@ -71,9 +77,27 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                 playerPosition[playerIndex] = 0;
                 losePlayers[playerIndex] = 0;
                 playerNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
+                if (gameLanguage == Language.Japanese)
+                {
+                    playerLapLabelText[playerIndex].text = localeJP.GetLabelContent("Laps") + ":";
+                }
+                else
+                {
+                    playerLapLabelText[playerIndex].text = localeEN.GetLabelContent("Laps") + ":";
+                }
                 playerLapCountText[playerIndex].text = playerLapCounts[playerIndex].ToString();
                 string stepBlockNumberID = "Player"+(playerIndex+1)+"StepBlockNumber1Text";
                 GameObject.Find(stepBlockNumberID).GetComponent<Text>().color = Color.red;
+            }
+            if (gameLanguage == Language.Japanese)
+            {
+                timerLabelText.text = localeJP.GetLabelContent("RemainingTime") + ":";
+                resultTitleText.text = localeJP.GetLabelContent("Result") + ":";
+            }
+            else
+            {
+                timerLabelText.text = localeEN.GetLabelContent("RemainingTime") + ":";
+                resultTitleText.text = localeEN.GetLabelContent("Result") + ":";
             }
             resultTitleText.enabled = false;
             resultText.enabled = false;
@@ -328,7 +352,14 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             {
                 resultText.text += winnerPlayerList[i] + "\n";
             }
-            resultText.text += "勝ち!!!";
+            if(gameLanguage == Language.Japanese)
+            {
+                resultText.text += localeJP.GetLabelContent("Win") + "!!!";
+            }
+            else
+            {
+                resultText.text += localeEN.GetLabelContent("Win") + "!!!";
+            }
             StartCoroutine(WinGameSet());
         }
 
@@ -336,7 +367,15 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         {
             resultTitleText.enabled = true;
             resultText.enabled = true;
-            string drawText = "引き分け...";
+            string drawText;
+            if(gameLanguage == Language.Japanese)
+            {
+                drawText = localeJP.GetLabelContent("Draw")+"...";
+            }
+            else
+            {
+                drawText = localeEN.GetLabelContent("Draw") + "...";
+            }
             resultText.text = drawText;
             Instance.ChangeGameState(GameState.GameSet);
             StartCoroutine(DrawGameSet());

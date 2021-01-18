@@ -31,6 +31,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         public Image HandLeft, HandRight;
 
+        public int PlayerID;
+
         private float CheckTime = 1f;
         // Start is called before the first frame update
         void Start()

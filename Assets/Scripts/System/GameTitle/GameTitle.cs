@@ -64,7 +64,11 @@ namespace DHU2020.DGS.MiniGame.System
                     case 0:
                         SetPlayerName();
                         break;
+                        //ネットワークゲームに遷移します。
                     case 1:
+                        NetworkGame();
+                        break;
+                    case 2:
                         GameOptions();
                         break;
                 }
@@ -156,6 +160,13 @@ namespace DHU2020.DGS.MiniGame.System
             gameTitleCanvas.SetActive(false);
             introductionCanvas.SetActive(false);
             optionCanvas.SetActive(true);
+        }
+
+        private void NetworkGame()
+        {
+            canControl = false;
+            playerInfo.SetPlayersDefaultLife();
+            SceneManager.LoadScene("NetworkGameMainMap");
         }
 
         public void ReturnToMenu()

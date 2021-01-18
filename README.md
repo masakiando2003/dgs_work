@@ -8,6 +8,9 @@
 
 プロジェクトUnityバージョン: 2019.4.13f1
 
+必要なAsset(UnityのAsset Storeでダウンロードしてください。無料です。):
+Photon Pun2
+
 オススメツール:
 
 - Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)

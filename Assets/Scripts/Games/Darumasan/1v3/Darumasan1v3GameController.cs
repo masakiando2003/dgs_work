@@ -1,4 +1,5 @@
 ﻿using DHU2020.DGS.MiniGame.Game;
+using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
 using DHU2020.DGS.MiniGame.System;
 using System;
@@ -6,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 
 namespace DHU2020.DGS.MiniGame.Darumasan
 {
@@ -16,6 +18,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             get; private set;
         }
 
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public int goalDistance = 300, runFactor = 2;
         public int iconStartPosX = -600, iconGoalPosX = 600;
         public GameObject[] playerIcon;
@@ -25,8 +29,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public Image player1RightHandImage, player1LeftHandImage, player1StandImage, player1CaughtByGhostImage;
         public Image player2RightHandImage, player2LeftHandImage, player2StandImage, player2CaughtByGhostImage;
         public Image player3RightHandImage, player3LeftHandImage, player3StandImage, player3CaughtByGhostImage;
-        public Text[] playerNameText, playerRemainingDistanceText;
-        public Text countDownTimeText, resultTitleText, resultText, remainingTimeText, ghostPlayerNameText;
+        public Text[] playerNameText, playerRemainingDistanceText, playerRemainingLabelText;
+        public Text countDownTimeText, resultTitleText, resultText, remainingTimeText, remainingTimeLabelText, ghostPlayerNameText, goalLineText;
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
         public OneVSThreePlayerInfo oneVsThreePlayerInfo;
@@ -38,6 +42,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         private string winnerSide;
         [SerializeField] private int[] playerRemainingDistance, playerInputCount, playerIDs;
         private static GameState currentGameState;
+        private Language gameLanguage;
 
         public enum GameState
         {
@@ -68,6 +73,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
 
         private void Initialization()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
             playerRemainingDistance = new int[darumasan1v3PlayerControllers.Length];
             playerInputCount = new int[darumasan1v3PlayerControllers.Length];
             playerIDs = new int[darumasan1v3PlayerControllers.Length];
@@ -77,6 +83,14 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             ghostPlayerNameText.text = ghostPlayerName;
             for (int playerIndex = 0; playerIndex < darumasan1v3PlayerControllers.Length; playerIndex++)
             {
+                if (gameLanguage == Language.Japanese)
+                {
+                    playerRemainingLabelText[playerIndex].text = localeJP.GetLabelContent("Remaining") + ":";
+                }
+                else
+                {
+                    playerRemainingLabelText[playerIndex].text = localeEN.GetLabelContent("Remaining") + ":";
+                }
                 int playerID = oneVsThreePlayerInfo.GetThreePlayerSidePlayerID(playerIndex);
                 playerIDs[playerIndex] = playerID;
                 darumasan1v3PlayerControllers[playerIndex].SetThreePlayerSidePlayerID(playerID);
@@ -88,6 +102,18 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             }
             resultTitleText.enabled = false;
             resultText.enabled = false;
+            if (gameLanguage == Language.Japanese)
+            {
+                goalLineText.text = "←" + localeJP.GetLabelContent("GoalLine");
+                resultTitleText.text = localeJP.GetLabelContent("Result") + ":";
+                remainingTimeLabelText.text = localeJP.GetLabelContent("RemainingTime") + ":";
+            }
+            else
+            {
+                goalLineText.text = "←" + localeEN.GetLabelContent("GoalLine");
+                resultTitleText.text = localeEN.GetLabelContent("Result") + ":";
+                remainingTimeLabelText.text = localeEN.GetLabelContent("RemainingTime") + ":";
+            }
             darumansanIntroductionCanvas.SetActive(true);
             countDownTimer = startCountDownTime;
             remainingTimeText.text = Mathf.FloorToInt(remainingTime).ToString();

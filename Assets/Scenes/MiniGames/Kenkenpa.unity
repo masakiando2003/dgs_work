@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 490}
-  m_SizeDelta: {x: 300, y: 80}
+  m_AnchoredPosition: {x: 0, y: 490}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &38994906
 MonoBehaviour:
@@ -184,7 +184,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 50
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1228,6 +1228,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 469628150}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &469628154 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 364448484916813995, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+    type: 3}
+  m_PrefabInstance: {fileID: 469628150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &608924753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1981,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1006358677}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1006358681 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 364448484916813995, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1006358677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1054148401 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6005793071946607425, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
@@ -2007,11 +2031,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0291aec6d28c0104ca737bbb1ee70373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: 446513d772d39e04abe186a492b8a909, type: 2}
+  localeEN: {fileID: 11400000, guid: 35c983b5ab41e654ba5fc236a995e708, type: 2}
   showStartGameTextTime: 3
   fadeStartGameTextTime: 0.5
   showStartGameText: {fileID: 1761800069}
+  howToPlayText: {fileID: 168093127}
   kenkenpaGameCanvas: {fileID: 1577399068}
   kenkenpaGameController: {fileID: 1800511832}
+  p1HitButton1: 97
+  p1HitButton2: 115
+  p1HitButton3: 100
+  p1HitButton4: 119
+  p2HitButton1: 102
+  p2HitButton2: 103
+  p2HitButton3: 104
+  p2HitButton4: 116
+  p3HitButton1: 105
+  p3HitButton2: 106
+  p3HitButton3: 107
+  p3HitButton4: 108
+  p4HitButton1: 260
+  p4HitButton2: 261
+  p4HitButton3: 262
+  p4HitButton4: 264
 --- !u!114 &1097847774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2716,6 +2760,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee17ab304376044dac17a50c0da1078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: 446513d772d39e04abe186a492b8a909, type: 2}
+  localeEN: {fileID: 11400000, guid: 35c983b5ab41e654ba5fc236a995e708, type: 2}
   PlaerRouteAreas:
   - {fileID: 6005793072237259890}
   - {fileID: 1832747225}
@@ -2741,15 +2788,21 @@ MonoBehaviour:
   - {fileID: 882000109}
   - {fileID: 1497449843}
   - {fileID: 1098402352}
+  playerLapLabelText:
+  - {fileID: 6005793072237259891}
+  - {fileID: 1832747226}
+  - {fileID: 1006358681}
+  - {fileID: 469628154}
   countDownTimeText: {fileID: 2321669729753573341}
   remainingTimeText: {fileID: 164302905}
   resultTitleText: {fileID: 608924756}
   resultText: {fileID: 1269313220}
+  timerLabelText: {fileID: 38994906}
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
   startCountDownTime: 3.9
   hideCountDownTime: 1
-  remainingTime: 120
+  remainingTime: 20
   gameSetTime: 4
   startGameText: GO!
 --- !u!4 &1800511833
@@ -3331,6 +3384,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1832747222}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1832747226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 364448484916813995, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1832747222}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1908940159
 GameObject:
   m_ObjectHideFlags: 0
@@ -4173,3 +4238,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6005793072237259888}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6005793072237259891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 364448484916813995, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6005793072237259888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

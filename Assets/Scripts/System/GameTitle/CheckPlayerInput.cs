@@ -1,29 +1,37 @@
-﻿using DHU2020.DGS.MiniGame.Setting;
+﻿using DHU2020.DGS.MiniGame.Map;
+using DHU2020.DGS.MiniGame.Setting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 
 namespace DHU2020.DGS.MiniGame.System
 {
     public class CheckPlayerInput : MonoBehaviour
     {
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public GameTitle gameTitle;
         public PlayerInfo playerInfo;
         public Button[] playerConfirmInputButtons;
         public Button proceedButton;
         public KeyCode[] player1TestButtons, player2TestButtons, player3TestButtons, player4TestButtons;
-        public Text[] playerNameTexts, playerInputHintsTexts, playerInputTestAreaTexts;
-        public Text settingHintsText, proceedButtonText, testInputHintsText;
+        public Text[] playerNameTexts, playerInputHintsTexts, playerInputTestAreaTexts, playerInputKeybordTexts, playerInputJoystickTexts;
+        public Text[] playerLabelTexts, confirmedButtonText;
+        public Text checkPlayerInputHintsText, checkInputTestControlHintsTitle, checkInputTestAreaTitle;
+        public Text settingHintsText, startButtonText, backButtonText, testInputHintsText;
         public int numOfTestJoystickButtons;
         public string[] playerInputKeyboardHints, playerInputButtonsSymbols;
-        public string playerInputJoystickHints, choosedPlayerLabel, testInputHints, settingHints;
+        public string playerInputJoystickHints;
 
+        public string chosenPlayerLabel, testInputHints, settingHints;
         private int numOfPlayers, selectedPlayerID;
         private bool[] playerInputConfirmFlags;
         private bool isSelectingPlayers, playerInputTestFlag;
+        private Language gameLanguage;
 
         // Start is called before the first frame update
         void Start()
@@ -35,6 +43,48 @@ namespace DHU2020.DGS.MiniGame.System
         {
             numOfPlayers = playerInfo.GetPlayersCount();
             playerInputConfirmFlags = new bool[numOfPlayers];
+            selectedPlayerID = 1;
+            GameObject.Find("Player" + selectedPlayerID + "NameBackground").GetComponent<Image>().color = Color.black;
+            GameObject.Find("Player" + selectedPlayerID + "NameText").GetComponent<Text>().color = Color.white;
+            gameLanguage = mapInfo.GetGameLanguage();
+            if (gameLanguage == Language.Japanese)
+            {
+                checkPlayerInputHintsText.text = localeJP.GetLabelContent("CheckPlayerInputHints");
+                checkInputTestControlHintsTitle.text = localeJP.GetLabelContent("InputButtonsTitle");
+                checkInputTestAreaTitle.text = localeJP.GetLabelContent("InputTestTitle");
+                testInputHints = localeJP.GetLabelContent("TestInputHint");
+                chosenPlayerLabel = localeJP.GetLabelContent("ChosenPlayerHint");
+                startButtonText.text = localeJP.GetLabelContent("Start");
+                backButtonText.text = localeJP.GetLabelContent("Back");
+                settingHints = localeJP.GetLabelContent("SettingtHint");
+                startButtonText.text = localeJP.GetLabelContent("Start");
+                for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
+                {
+                    playerLabelTexts[playerIndex].text = localeJP.GetLabelContent("Player") + (playerIndex + 1);
+                    playerInputKeybordTexts[playerIndex].text = localeJP.GetLabelContent("Keyboard");
+                    playerInputJoystickTexts[playerIndex].text = localeJP.GetLabelContent("Joystick");
+                    confirmedButtonText[playerIndex].text = localeJP.GetLabelContent("Confirmed");
+                }
+            }
+            else
+            {
+                checkPlayerInputHintsText.text = localeEN.GetLabelContent("CheckPlayerInputHints");
+                checkInputTestControlHintsTitle.text = localeEN.GetLabelContent("InputButtonsTitle");
+                checkInputTestAreaTitle.text = localeEN.GetLabelContent("InputTestTitle");
+                testInputHints = localeEN.GetLabelContent("TestInputHint");
+                chosenPlayerLabel = localeEN.GetLabelContent("ChosenPlayerHint");
+                startButtonText.text = localeEN.GetLabelContent("Start");
+                backButtonText.text = localeEN.GetLabelContent("Back");
+                settingHints = localeEN.GetLabelContent("SettingtHint");
+                startButtonText.text = localeEN.GetLabelContent("Start");
+                for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
+                {
+                    playerLabelTexts[playerIndex].text = localeEN.GetLabelContent("Player") + (playerIndex + 1);
+                    playerInputKeybordTexts[playerIndex].text = localeEN.GetLabelContent("Keyboard");
+                    playerInputJoystickTexts[playerIndex].text = localeEN.GetLabelContent("Joystick");
+                    confirmedButtonText[playerIndex].text = localeEN.GetLabelContent("Confirmed");
+                }
+            }
             for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
             {
                 int playerID = playerIndex + 1;
@@ -59,15 +109,13 @@ namespace DHU2020.DGS.MiniGame.System
                 playerInputTestAreaTexts[playerIndex].text = "";
                 playerNameTexts[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
             }
-            selectedPlayerID = 1;
-            GameObject.Find("Player" + selectedPlayerID + "NameBackground").GetComponent<Image>().color = Color.black;
-            GameObject.Find("Player" + selectedPlayerID + "NameText").GetComponent<Text>().color = Color.white;
             isSelectingPlayers = true;
             playerInputTestFlag = false;
             settingHintsText.text = settingHints;
             testInputHintsText.text = "";
             proceedButton.interactable = false;
-            proceedButtonText.color = Color.gray;
+            startButtonText.color = Color.gray;
+
         }
 
         // Update is called once per frame
@@ -126,8 +174,16 @@ namespace DHU2020.DGS.MiniGame.System
         {
             int playerID = selectedPlayerID - 1;
 
-            testInputHintsText.text = choosedPlayerLabel + " " + playerInfo.GetPlayerName(playerID) + 
-                                        "。操作をテストしてください。" + testInputHints;
+            if(gameLanguage == Language.Japanese)
+            {
+                testInputHintsText.text = chosenPlayerLabel + " " + playerInfo.GetPlayerName(playerID) +
+                                            "。操作をテストしてください。" + testInputHints;
+            }
+            else
+            {
+                testInputHintsText.text = chosenPlayerLabel + " " + playerInfo.GetPlayerName(playerID) +
+                                            "。Please test the input。" + testInputHints;
+            }
 
             if (playerInfo.GetPlayerControllerInput(playerID) == PlayerControllerInput.Keyboard)
             {
@@ -239,13 +295,13 @@ namespace DHU2020.DGS.MiniGame.System
             if(playerReadyCounts == numOfPlayers)
             {
                 proceedButton.interactable = true;
-                proceedButtonText.color = Color.black;
+                startButtonText.color = Color.black;
                 proceedButton.enabled = true;
             }
             else
             {
                 proceedButton.interactable = false;
-                proceedButtonText.color = Color.gray;
+                startButtonText.color = Color.gray;
                 proceedButton.enabled = false;
             }
         }

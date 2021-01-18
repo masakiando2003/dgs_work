@@ -5,21 +5,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Game;
 using Random = UnityEngine.Random;
+using DHU2020.DGS.MiniGame.Map;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
+using DHU2020.DGS.MiniGame.Setting;
 
 namespace DHU2020.DGS.MiniGame.System
 {
     public class GameSelector : MonoBehaviour
     {
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public GameInfo gameInfo;
         public GameObject[] games;
         public float loadGameTime = 2f;
         public Color selectColor;
-        public Text selectedGameText;
+        public Text selectedGameText, selectGameText, randomGameText;
 
         private List<int> randomedGameIndexes = new List<int>();
         private int selectedGameIndex, defaultSelectGameIndex, originalSelectedGameIndex, gameIndex;
         private string selectedGame;
         private bool selectedGameFlag, selectRandomGameFlag;
+        private Language gameLanguage;
 
         // Start is called before the first frame update
         void Start()
@@ -29,6 +35,17 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void Initialize()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
+            if(gameLanguage == Language.Japanese)
+            {
+                selectGameText.text = localeJP.GetLabelContent("SelectAnyGame");
+                randomGameText.text = localeJP.GetLabelContent("Random");
+            }
+            else
+            {
+                selectGameText.text = localeEN.GetLabelContent("SelectAnyGame");
+                randomGameText.text = localeEN.GetLabelContent("Random");
+            }
             selectedGameIndex = gameIndex = defaultSelectGameIndex;
             defaultSelectGameIndex = 0;
             selectColor.a = 1f;
@@ -54,7 +71,14 @@ namespace DHU2020.DGS.MiniGame.System
                         GameObject.Find("Game" + (i + 1) + "Image").GetComponent<Image>().sprite = gameInfo.GetGameImage(randomGameIndex);
                         if (i == 0)
                         {
-                            selectedGameText.text = gameInfo.GetGameTitleJapanese(randomGameIndex);
+                            if(gameLanguage == Language.Japanese)
+                            {
+                                selectedGameText.text = gameInfo.GetGameTitleJapanese(randomGameIndex);
+                            }
+                            else
+                            {
+                                selectedGameText.text = gameInfo.GetGameTitleEnglish(randomGameIndex);
+                            }
                             selectedGame = gameInfo.GetGameTitleEnglish(randomGameIndex);
                         }
                         randomGameFlag = false;
@@ -109,7 +133,14 @@ namespace DHU2020.DGS.MiniGame.System
                 if (selectRandomGameFlag)
                 {
                     selectedGameIndex = Random.Range(0, games.Length);
-                    selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
+                    if (gameLanguage == Language.Japanese)
+                    {
+                        selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
+                    }
+                    else
+                    {
+                        selectedGameText.text = gameInfo.GetGameTitleEnglish(randomedGameIndexes[selectedGameIndex]);
+                    }
                     selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
                 }
                 if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
@@ -140,8 +171,17 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 GameObject.Find("Game" + (originalSelectedGameIndex + 1) + "Border").GetComponent<Image>().color = Color.black;
             }
-            selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
-            selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
+            if (gameLanguage == Language.Japanese)
+            {
+                selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
+                selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
+            }
+            else
+            {
+                string gameNameEN = gameInfo.GetGameTitleEnglish(randomedGameIndexes[selectedGameIndex]);
+                selectedGameText.text = gameNameEN;
+                selectedGame = gameNameEN;
+            }
         }
 
         public int GetSelectedGameIndex()
@@ -153,7 +193,14 @@ namespace DHU2020.DGS.MiniGame.System
         {
             GameObject.Find("RandomGameBorder").GetComponent<Image>().color = selectColor;
             GameObject.Find("Game" + (gameIndex + 1) + "Border").GetComponent<Image>().color = Color.black;
-            selectedGameText.text = "ランダム";
+            if (gameLanguage == Language.Japanese)
+            {
+                selectedGameText.text = localeJP.GetLabelContent("Random");
+            }
+            else
+            {
+                selectedGameText.text = localeEN.GetLabelContent("Random");
+            }
         }
 
         public float GetLoadGameTime()

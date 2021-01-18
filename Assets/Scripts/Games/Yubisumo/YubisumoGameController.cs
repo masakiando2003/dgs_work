@@ -1,4 +1,5 @@
 ﻿using DHU2020.DGS.MiniGame.Game;
+using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
 using DHU2020.DGS.MiniGame.System;
 using System;
@@ -6,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 
 namespace DHU2020.DGS.MiniGame.Yubisumo
 {
@@ -19,12 +21,14 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         public GameObject yubisumoIntroductionCanvas, yubisumoGameCanvas;
         public YubisumoPlayerController player1Controller, player2Controller;
         public KeyCode[] playerIDInputKeyCodes;
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public GameInfo gameInfo;
         public PVPPlayerInfo pvpPlayerInfo;
         public PlayerInfo playerInfo;
         public Slider playerStatusSlider;
-        public Text[] player1NameText, player2NameText;
-        public Text countDownTimeText, remainingTimeText, player1HitCountText, player2HitCountText, resultTitleText, resultText;
+        public Text[] player1NameText, player2NameText, playerLabelText, winText, wininningLineText;
+        public Text countDownTimeText, remainingTimeText, player1HitCountText, player2HitCountText, resultTitleText, resultText, timerLabel;
         public Image drawImage, player1AdvantageImage, player2AdvantageImage;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f;
         public string startGameText = "GO!";
@@ -32,6 +36,8 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
 
         private int player1ID, player2ID, player1HitCount, player2HitCount, winnerID;
         private float countDownTimer, remainingTimer;
+        private Language gameLanguage;
+
         public enum GameState
         {
             NotReady,
@@ -61,6 +67,41 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
 
         private void Initialization()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
+            if(gameLanguage == Language.Japanese)
+            {
+                timerLabel.text = localeJP.GetLabelContent("RemainingTime")+":";
+                resultTitleText.text = localeJP.GetLabelContent("Result") + ":";
+                for (int i = 0; i < playerLabelText.Length; i++)
+                {
+                    playerLabelText[i].text = localeJP.GetLabelContent("Player")+(i+1)+":";
+                }
+                for(int i = 0; i < wininningLineText.Length; i++)
+                {
+                    wininningLineText[i].text = localeJP.GetLabelContent("WinningLine");
+                }
+                for (int i = 0; i < winText.Length; i++)
+                {
+                    winText[i].text = localeJP.GetLabelContent("Win");
+                }
+            }
+            else
+            {
+                timerLabel.text = localeEN.GetLabelContent("RemainingTime") + ":";
+                resultTitleText.text = localeEN.GetLabelContent("Result") + ":";
+                for (int i = 0; i < playerLabelText.Length; i++)
+                {
+                    playerLabelText[i].text = localeEN.GetLabelContent("Player") + (i + 1) + ":";
+                }
+                for (int i = 0; i < wininningLineText.Length; i++)
+                {
+                    wininningLineText[i].text = localeEN.GetLabelContent("WinningLine");
+                }
+                for (int i = 0; i < winText.Length; i++)
+                {
+                    winText[i].text = localeEN.GetLabelContent("Win");
+                }
+            }
             Instance.ChangeGameState(GameState.NotReady);
             yubisumoIntroductionCanvas.SetActive(true);
             yubisumoGameCanvas.SetActive(false);
@@ -76,11 +117,25 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
 
             for (int i = 0; i < player1NameText.Length; i++)
             {
-                player1NameText[i].text = playerInfo.GetPlayerName(player1ID);
+                if(player1NameText[i].name == "Player1NameText2" && (gameLanguage == Language.English))
+                {
+                    player1NameText[i].text = playerInfo.GetPlayerName(player1ID)+"'s";
+                }
+                else
+                {
+                    player1NameText[i].text = playerInfo.GetPlayerName(player1ID);
+                }
             }
             for (int i = 0; i < player2NameText.Length; i++)
             {
-                player2NameText[i].text = playerInfo.GetPlayerName(player2ID);
+                if (player2NameText[i].name == "Player2NameText2" && (gameLanguage == Language.English))
+                {
+                    player2NameText[i].text = playerInfo.GetPlayerName(player2ID) + "'s";
+                }
+                else
+                {
+                    player2NameText[i].text = playerInfo.GetPlayerName(player2ID);
+                }
             }
 
             countDownTimer = startCountDownTime;
@@ -174,7 +229,15 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         {
             resultTitleText.enabled = true;
             resultText.enabled = true;
-            string drawText = "引き分け...";
+            string drawText;
+            if (gameLanguage == Language.Japanese)
+            {
+                drawText = localeJP.GetLabelContent("Draw")+"...";
+            }
+            else
+            {
+                drawText = localeEN.GetLabelContent("Draw") + "...";
+            }
             resultText.text = drawText;
             StartCoroutine(DrawGameSet());
         }
@@ -183,7 +246,14 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         {
             resultTitleText.enabled = true;
             resultText.enabled = true;
-            string winningText = "勝ち!";
+            string winningText;
+            if (gameLanguage == Language.Japanese)
+            {
+                winningText = localeJP.GetLabelContent("Win") + "...";
+            }
+            else{
+                winningText = localeEN.GetLabelContent("Win") + "...";
+            }
             resultText.text = (playerID == player1ID) ? player1NameText[0].text + winningText : player2NameText[0].text + winningText;
             StartCoroutine(SetWinner(playerID));
         }

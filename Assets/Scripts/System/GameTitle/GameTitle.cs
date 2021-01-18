@@ -76,7 +76,7 @@ namespace DHU2020.DGS.MiniGame.System
                     case 2:
                         GameOptions();
                         break;
-                    case 2:
+                    case 3:
                         Credit();
                         break;
                 }

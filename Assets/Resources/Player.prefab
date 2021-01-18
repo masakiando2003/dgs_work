@@ -53,6 +53,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8398316571992009942}
   - component: {fileID: 1848926593777382063}
+  - component: {fileID: 7111443032368314011}
+  - component: {fileID: 3943568177629179455}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -92,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aea4a0e6ea839f47b30f856cbbaf8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInfo: {fileID: 0}
-  gameInfo: {fileID: 0}
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   PlayerCrossesObjects:
   - {fileID: 8398316573212873252}
   - {fileID: 8398316573639139664}
@@ -103,6 +105,43 @@ MonoBehaviour:
   playerNameText: {fileID: 8398316573108706096}
   playerID: 0
   nextTurnKey: 0
+--- !u!114 &7111443032368314011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398316571992009943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 3943568177629179455}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3943568177629179455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398316571992009943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
 --- !u!1 &8398316572157472176
 GameObject:
   m_ObjectHideFlags: 0

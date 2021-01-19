@@ -249,9 +249,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             TotalCount = 0;
             for(int i = 0; i < Players.Length; i++)
             {
-                TotalCount += Players[i].GetComponentInChildren<Player>().Hand;
+                TotalCount += Players[i].GetComponent<Player>().Hand;
+                Debug.Log("TotalCount " + TotalCount);
             }
-            Debug.Log("TotalCount " + TotalCount);
+            
         }
 
         private void SetDecidePlayer()

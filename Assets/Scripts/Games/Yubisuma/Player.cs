@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DHU2020.DGS.MiniGame.Setting;
 
 namespace DHU2020.DGS.MiniGame.Yubisuma {
     public class Player : MonoBehaviour
@@ -34,6 +35,12 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         public int PlayerID;
 
         private float CheckTime = 1f;
+
+        public PlayerInfo playerInfo;
+
+        private PlayerInfo.PlayerControllerInput playerControllerInput;
+
+        public KeyCode Plus, Minus;
         // Start is called before the first frame update
         void Start()
         {
@@ -49,6 +56,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     DecideNextChoice();
                     break;
                 case GameController.State.Choose:
+                    CheckInputMethod();
                     NextTurn();
                     ResetHand();
                     SwitchHandImage();
@@ -70,6 +78,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             InitializeButton(NextHandChoice, transform.position.y + 80f,HandButton,HandCanvas);
             RemainingHand = 2;
             HandRight.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            if(playerInfo == null)
+            {
+                playerInfo = GameController.Instance.playerInfo;
+            }
         }
 
         private void InitializeButton(GameObject[] buttons,float yPos,Button button,Canvas canvas)
@@ -78,7 +90,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             {
                 buttons[i] = GameObject.Instantiate(button.gameObject);
                 buttons[i].transform.SetParent(canvas.transform);
-                //buttons[i].transform.position = new Vector2(transform.position.x + (float)i * 30,yPos);
                 buttons[i].GetComponentInChildren<Text>().text = i.ToString();
             }
         }
@@ -160,9 +171,40 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 Hand = RemainingHand;
             }
         }
+        private void CheckInputMethod()
+        {
+            playerControllerInput = playerInfo.GetPlayerControllerInput(PlayerID);
+        }
+        private void CheckInput(int PlayerID)
+        {
+            switch (PlayerID)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+        private void HandInput(PlayerInfo.PlayerControllerInput input)
+        {
+            switch (input)
+            {
+                case  PlayerInfo.PlayerControllerInput.Joystick:
 
+                    break;
+                case PlayerInfo.PlayerControllerInput.Keyboard:
+                    break;
+            }
+        }
 
+        private void CountChange()
+        {
 
+        }
         private void CheckCount()
         {
                 if (GameController.Instance.DecidePlayer == this.name)
@@ -177,9 +219,5 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 }
         }
 
-        private void Win()
-        {
-
-        }
     }
 }

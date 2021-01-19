@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Setting;
+using System;
 
 namespace DHU2020.DGS.MiniGame.Yubisuma {
     public class Player : MonoBehaviour
@@ -40,7 +41,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         private PlayerInfo.PlayerControllerInput playerControllerInput;
 
-        public KeyCode Plus, Minus;
+        public KeyCode HandPlus, HandMinus,CountPlus,CountMinus,CurrentInput;
         // Start is called before the first frame update
         void Start()
         {
@@ -56,7 +57,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     DecideNextChoice();
                     break;
                 case GameController.State.Choose:
-                    CheckInputMethod();
+                    CheckInput(PlayerID);
                     NextTurn();
                     ResetHand();
                     SwitchHandImage();
@@ -113,18 +114,18 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             switch (Hand)
             {
                 case 0:
-                    HandChange(CurledUpHand, CurledUpHand);
+                    SetHandImage(CurledUpHand, CurledUpHand);
                     break;
                 case 1:
-                    HandChange(CurledUpHand, ThumbsUpHand);
+                    SetHandImage(CurledUpHand, ThumbsUpHand);
                     break;
                 case 2:
-                    HandChange(ThumbsUpHand, ThumbsUpHand);
+                    SetHandImage(ThumbsUpHand, ThumbsUpHand);
                     break;
             }
         }
 
-        private void HandChange(Sprite Left,Sprite Right)
+        private void SetHandImage(Sprite Left,Sprite Right)
         {
             HandLeft.sprite = Left;
             HandRight.sprite = Right;
@@ -177,33 +178,137 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         }
         private void CheckInput(int PlayerID)
         {
+            CheckInputMethod();
+            if (playerControllerInput == PlayerInfo.PlayerControllerInput.Keyboard)
+            {
+                HandKeyboardInput(PlayerID);
+                CountKeyboardInput(PlayerID);
+                if (Input.anyKeyDown)
+                {
+                    foreach(KeyCode code in Enum.GetValues(typeof(KeyCode))){
+                        if (Input.GetKeyDown(code))
+                        {
+                            CurrentInput = code;
+                            break;
+                        }
+                    }
+                    HandChange(CurrentInput);
+                    CountChange(CurrentInput);
+                }
+            }
+        }
+
+
+        private void HandKeyboardInput(int PlayerID)
+        {
+                switch (PlayerID)
+                {
+                    case 0:
+                        HandPlus = KeyCode.A;
+                        HandMinus = KeyCode.Q;
+                        break;
+                    case 1:
+                        HandPlus = KeyCode.W;
+                        HandMinus = KeyCode.S;
+                        break;
+                    case 2:
+                        HandPlus = KeyCode.E;
+                        HandMinus = KeyCode.D;
+                        break;
+                    case 3:
+                        HandPlus = KeyCode.R;
+                        HandMinus = KeyCode.F;
+                        break;
+                }
+        }
+
+        private void CountKeyboardInput(int PlayerID)
+        {
             switch (PlayerID)
             {
                 case 0:
+                    CountPlus = KeyCode.T;
+                    CountMinus = KeyCode.G;
                     break;
                 case 1:
+                    CountPlus = KeyCode.Y;
+                    CountMinus = KeyCode.H;
                     break;
                 case 2:
+                    CountPlus = KeyCode.U;
+                    CountMinus = KeyCode.J;
                     break;
                 case 3:
+                    CountPlus = KeyCode.I;
+                    CountMinus = KeyCode.K;
                     break;
             }
         }
-        private void HandInput(PlayerInfo.PlayerControllerInput input)
+
+        private void HandChange(KeyCode CurrentInput)
         {
-            switch (input)
+            if (CurrentInput == HandPlus)
             {
-                case  PlayerInfo.PlayerControllerInput.Joystick:
-
-                    break;
-                case PlayerInfo.PlayerControllerInput.Keyboard:
-                    break;
+                if (Hand < 2)
+                {
+                    Hand++;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand - 1].GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    Hand = 0;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[NextCountChoice.Length - 1].GetComponent<Image>().color = Color.white;
+                }
+            }else if(CurrentInput == HandMinus)
+            {
+                if(Hand > 0)
+                {
+                    Hand--;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand + 1].GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    Hand = 2;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[0].GetComponent<Image>().color = Color.white;
+                }
             }
         }
-
-        private void CountChange()
+        private void CountChange(KeyCode CurrentInput)
         {
-
+            if (CurrentInput == CountPlus)
+            {
+                if (Count < 8)
+                {
+                    Count++;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count - 1].GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    Count = 0;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[NextCountChoice.Length - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (CurrentInput == CountMinus)
+            {
+                if (Count > 0)
+                {
+                    Count--;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count + 1].GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    Count = 8;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[0].GetComponent<Image>().color = Color.white;
+                }
+            }
         }
         private void CheckCount()
         {

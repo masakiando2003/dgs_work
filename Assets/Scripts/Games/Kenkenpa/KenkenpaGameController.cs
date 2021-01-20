@@ -29,6 +29,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f;
+        public float showResultSignTime = 1f, showRightBlockTime = 0.8f, showRightChosenBlockTime = 0.8f;
         public string startGameText = "GO!";
         public enum GameState
         {
@@ -88,6 +89,11 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                 playerLapCountText[playerIndex].text = playerLapCounts[playerIndex].ToString();
                 string stepBlockNumberID = "Player"+(playerIndex+1)+"StepBlockNumber1Text";
                 GameObject.Find(stepBlockNumberID).GetComponent<Text>().color = Color.red;
+                for (int j = 1; j <= lapMaxSteps; j++)
+                {
+                    GameObject.Find("Player" + (playerIndex + 1) + "StepBlockArea" + j + "Right").GetComponent<Image>().enabled = false;
+                    GameObject.Find("Player" + (playerIndex + 1) + "StepBlockArea" + j + "Wrong").GetComponent<Image>().enabled = false;
+                }
             }
             if (gameLanguage == Language.Japanese)
             {
@@ -273,6 +279,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             {
                 int currentPlayerPosition = GetPlayerPosition(playerIndex);
                 int playerID = playerIndex + 1;
+                int blockCount = 0;
                 GameObject currentStepBlock = GameObject.Find("Player" + playerID + "StepBlockArea" + currentPlayerPosition);
                 List<KeyCode> stepBlocksKeyCodes = new List<KeyCode>();
                 foreach (KenkenpaRandomStepBlock kpsb in currentStepBlock.GetComponentsInChildren<KenkenpaRandomStepBlock>())
@@ -280,12 +287,13 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                     if(kpsb.GetStepBlockKeyCode() != KeyCode.None)
                     {
                         stepBlocksKeyCodes.Add(kpsb.GetStepBlockKeyCode());
+                        blockCount++;
                     }
                 }
 
                 if (playerInputs.Count == stepBlocksKeyCodes.Count)
                 {
-                    if (PlayerInputAsSameAsStepBlockButton(playerIndex, playerInputs, stepBlocksKeyCodes))
+                    if (PlayerInputAsSameAsStepBlockButton(playerIndex, currentPlayerPosition-1, playerInputs, stepBlocksKeyCodes, blockCount))
                     {
                         PlayerPositionStepFoward(playerIndex);
                     }
@@ -399,7 +407,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             return currentGameState;
         }
 
-        private bool PlayerInputAsSameAsStepBlockButton(int playerIndex, List<KeyCode> playerInputs, List<KeyCode> stepBlocksKeyCodes)
+        private bool PlayerInputAsSameAsStepBlockButton(int playerIndex, int currentPlayerPosition, List<KeyCode> playerInputs, List<KeyCode> stepBlocksKeyCodes, int blockCount)
         {
             bool flag = false;
             int rightInputCount = 0;
@@ -407,10 +415,28 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             {
                 if (!playerInputs.Contains(k))
                 {
-                    break;
+                    //break;
                 }
                 else
                 {
+                    int playerID = playerIndex + 1;
+                    int step = currentPlayerPosition + 1;
+                    string areaID = "";
+                    if(blockCount == 1)
+                    {
+                        areaID = "Player"+ playerID + "StepSingleBlockArea"+ step;
+                    }
+                    else
+                    {
+                        areaID = "Player" + playerID + "StepDoubleBlockArea" + step;
+                    }
+                    foreach (KenkenpaRandomStepBlock kpsb in GameObject.Find(areaID).GetComponentsInChildren<KenkenpaRandomStepBlock>())
+                    {
+                        if (playerInputs.Contains(kpsb.GetStepBlockKeyCode()))
+                        {
+                            StartCoroutine(ShowRightChosenBlock(kpsb.gameObject.name));
+                        }
+                    }
                     rightInputCount++;
                 }
             }
@@ -422,7 +448,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         }
 
         // 途中でボタン入力を間違えてしまったら、最初のポジションに再開します
-        public void ResetPlayerPosition(int playerIndex)
+        public void ResetPlayerPosition(int playerIndex, int increaseLapFlag = 0)
         {
             int playerID = playerIndex + 1;
             int currentPosition = playerPosition[playerIndex];
@@ -433,6 +459,11 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             }
             string currentStepBlockID = "Player" + playerID + "StepBlockNumber"+ (blockID+1) + "Text";
             GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.black;
+            string wrongBlockName = "Player"+ playerID+"StepBlockArea"+ (blockID + 1) + "Wrong";
+            if(increaseLapFlag == 0)
+            {
+                StartCoroutine(ShowResultSign(wrongBlockName));
+            }
             playerPosition[playerIndex] = 0;
             string firstStepBlockID = "Player" + playerID + "StepBlockNumber1Text";
             GameObject.Find(firstStepBlockID).GetComponent<Text>().color = Color.red;
@@ -447,14 +478,37 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             int nextBlockPosition = (currentBlockPosition + 1) > lapMaxSteps ? 1 : (currentBlockPosition + 1);
             string currentStepBlockID = "Player" + playerID + "StepBlockNumber"+ currentBlockPosition + "Text";
             GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.black;
+            string rightBlockName = "Player" + playerID + "StepBlockArea" + currentBlockPosition + "Right";
+            StartCoroutine(ShowResultSign(rightBlockName));
             string nextStepBlockID = "Player" + playerID + "StepBlockNumber" + nextBlockPosition + "Text";
             GameObject.Find(nextStepBlockID).GetComponent<Text>().color = Color.red;
             if (playerCurrentStep >= lapMaxSteps)
             {
                 IncreasePlayerLapCount(playerIndex);
                 RandomPlayerStepBlock(playerIndex);
-                ResetPlayerPosition(playerIndex);
+                ResetPlayerPosition(playerIndex, 1);
             }
+        }
+
+        private IEnumerator ShowRightChosenBlock(string blockName)
+        {
+            GameObject.Find(blockName).GetComponentsInChildren<Image>()[1].color = Color.blue;
+            yield return new WaitForSeconds(showRightChosenBlockTime);
+            GameObject.Find(blockName).GetComponentsInChildren<Image>()[1].color = Color.white;
+        }
+
+        private IEnumerator ShowRightBlock(string rightBlockName)
+        {
+            GameObject.Find(rightBlockName).GetComponent<Image>().enabled = true;
+            yield return new WaitForSeconds(showRightBlockTime);
+            GameObject.Find(rightBlockName).GetComponent<Image>().enabled = false;
+        }
+
+        private IEnumerator ShowResultSign(string ResultBlockName)
+        {
+            GameObject.Find(ResultBlockName).GetComponent<Image>().enabled = true;
+            yield return new WaitForSeconds(showResultSignTime);
+            GameObject.Find(ResultBlockName).GetComponent<Image>().enabled = false;
         }
 
         public int GetPlayerPosition(int playerIndex)

@@ -1267,6 +1267,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player4StepBlockArea1Right
       objectReference: {fileID: 0}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6dd9bb4a982338d4cafe3da360b88d3a,
+        type: 3}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6054797042411044843, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
@@ -1719,7 +1730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e61b3f62008bd3a4c8d7007ab89059dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2364,6 +2375,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player3StepBlockArea1Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6dd9bb4a982338d4cafe3da360b88d3a,
+        type: 3}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6054797042411044843, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
@@ -4114,6 +4136,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2StepBlockArea1Right
       objectReference: {fileID: 0}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6dd9bb4a982338d4cafe3da360b88d3a,
+        type: 3}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6054797042411044843, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}
       propertyPath: m_Name
@@ -5313,6 +5346,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1StepBlockArea1Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6dd9bb4a982338d4cafe3da360b88d3a,
+        type: 3}
+    - target: {fileID: 6005793072642176873, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6054797042411044843, guid: ad90ae82de6a2354cacb7c6b7e65c33d,
         type: 3}

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 30740846}
   - component: {fileID: 30740845}
   m_Layer: 5
-  m_Name: Player2WinLineText2
+  m_Name: Player2WinLineText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30DC\u30BF\u30F3\u3092\u9023\u6253\u3057\u3066\u3001\u76F8\u624B\u306E\u89AA\u6307\u3092\u9023\u7D9A5\u79D2\u9593\u306B\u62BC\u3057\u7D9A\u3051\u305F\u3089\u52DD\u3061!\n\n\u753B\u9762\u4E0A\u306E\u30B2\u30FC\u30B8\u30D0\u30FC\u306F\u3001\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u72B6\u6CC1\u898B\u308C\u307E\u3059\u3002\n\n\u6B8B\u308A\u6642\u9593\u304C0\u306E\u5834\u5408\u5F15\u304D\u5206\u3051\u3067\u3059\u3002"
+  m_Text: "\u5236\u9650\u6642\u9593\u306B\u30DC\u30BF\u30F3\u3092\u9023\u6253\u3057\u3066\u3001\u76F8\u624B\u306E\u89AA\u6307\u3092\u62BC\u3057\u7D9A\u3051\u305F\u3089\u52DD\u3061\u307E\u3059\u3002\n\n\u753B\u9762\u4E0A\u306E\u30B2\u30FC\u30B8\u30D0\u30FC\u306F\u3001\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u72B6\u6CC1\u898B\u308C\u307E\u3059\u3002\n\n\u6B8B\u308A\u6642\u9593\u304C0\u306E\u5834\u5408\u5F15\u304D\u5206\u3051\u3067\u3059\u3002"
 --- !u!222 &269354310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1420,7 +1420,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 20, y: 490}
-  m_SizeDelta: {x: 300, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820255228
 MonoBehaviour:
@@ -1448,7 +1448,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 50
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2137,7 +2137,7 @@ GameObject:
   - component: {fileID: 1435992118}
   - component: {fileID: 1435992117}
   m_Layer: 5
-  m_Name: Player2AdvantageLineText
+  m_Name: Player2WinningLineText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2160,7 +2160,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: 440}
-  m_SizeDelta: {x: 240, y: 80}
+  m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435992117
 MonoBehaviour:
@@ -2347,7 +2347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a421b1be2862aad4eb6f6afddfd23772, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2482,11 +2482,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbcb16f9b38d0745b2eff084fbcf9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: f19dfa42c39bc404298d273f97e4da61, type: 2}
+  localeEN: {fileID: 11400000, guid: 00efdf1cf1c9baf45b9ec0176ec1911b, type: 2}
   showStartGameTextTime: 3
   fadeStartGameTextTime: 0.5
   showStartGameText: {fileID: 1958005436}
+  howToPlayText: {fileID: 421593104}
   yubisumoGameCanvas: {fileID: 637133916}
+  pvpPlayerInfo: {fileID: 11400000, guid: 98b4f8fcff03ba84583fd3e1b3453ef6, type: 2}
   yubisumoGameController: {fileID: 1666713691}
+  playerIDInputKeyCodes: 61000000670000006c00000004010000
 --- !u!1 &1585783146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,6 +2920,9 @@ MonoBehaviour:
   player1Controller: {fileID: 999486883}
   player2Controller: {fileID: 96115394}
   playerIDInputKeyCodes: 61000000670000006c00000004010000
+  mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
+  localeJP: {fileID: 11400000, guid: f19dfa42c39bc404298d273f97e4da61, type: 2}
+  localeEN: {fileID: 11400000, guid: 00efdf1cf1c9baf45b9ec0176ec1911b, type: 2}
   gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   pvpPlayerInfo: {fileID: 11400000, guid: 98b4f8fcff03ba84583fd3e1b3453ef6, type: 2}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
@@ -2926,12 +2935,22 @@ MonoBehaviour:
   - {fileID: 811892989}
   - {fileID: 2078987341}
   - {fileID: 1842902109}
+  playerLabelText:
+  - {fileID: 590795774}
+  - {fileID: 1614193707}
+  winText:
+  - {fileID: 1783169416}
+  - {fileID: 30740845}
+  wininningLineText:
+  - {fileID: 2003796583}
+  - {fileID: 1435992117}
   countDownTimeText: {fileID: 309608785}
   remainingTimeText: {fileID: 1323733735}
   player1HitCountText: {fileID: 1931043763}
   player2HitCountText: {fileID: 45874159}
   resultTitleText: {fileID: 1828566076}
   resultText: {fileID: 1637482556}
+  timerLabel: {fileID: 820255228}
   drawImage: {fileID: 754491149}
   player1AdvantageImage: {fileID: 1585783148}
   player2AdvantageImage: {fileID: 318447291}
@@ -2954,7 +2973,7 @@ GameObject:
   - component: {fileID: 1783169417}
   - component: {fileID: 1783169416}
   m_Layer: 5
-  m_Name: Player1WinLineText2
+  m_Name: Player1WinLineText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3167,7 +3186,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC2"
 --- !u!222 &1842902110
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3422,7 +3441,7 @@ GameObject:
   - component: {fileID: 2003796584}
   - component: {fileID: 2003796583}
   m_Layer: 5
-  m_Name: Player1AdvantageLineText
+  m_Name: Player1WinningLineText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3445,7 +3464,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 400, y: 440}
-  m_SizeDelta: {x: 240, y: 80}
+  m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2003796583
 MonoBehaviour:
@@ -3593,7 +3612,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+  m_Text: "\u30D7\u30EC\u30A4\u30E4\u30FC2"
 --- !u!222 &2078987342
 CanvasRenderer:
   m_ObjectHideFlags: 0

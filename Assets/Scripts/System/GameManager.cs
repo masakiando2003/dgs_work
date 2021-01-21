@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DHU2020.DGS.MiniGame.Map;
 using UnityEngine.SceneManagement;
 using DHU2020.DGS.MiniGame.Setting;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 
 namespace DHU2020.DGS.MiniGame.System
 {
@@ -18,21 +19,24 @@ namespace DHU2020.DGS.MiniGame.System
         {
             get; private set;
         }
-
+        
         public PlayerInfo playerInfo;
         public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public GameObject[] players;
-        public Text[] playerNames;
+        public Text[] playerNames, turnLabels, playerStatusLabels;
+        public Text winnerTitleText, congradulationText, drawTitleText, drawContentText, retryText;
         public int numOfWinningPlayers = 1;
   
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
 
-        public GameObject turnCanvas, selectGameCanvas, selectGameTypeCanvas, selectGhostPlayerCanvas, winnerCanvas, PVPSelectPlayerCanvas;
+        public GameObject turnCanvas, selectGameCanvas, selectGameTypeCanvas, selectGhostPlayerCanvas, winnerCanvas, drawGameCanvas, PVPSelectPlayerCanvas;
         public CanvasGroup turnCanvasGroup, selectGameCanvasGroup, winnerCanvasGroup;
-        public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f;
+        public float showCanvasTime = 1f, canvasFadeInSpeed = 3f, canvasFadeOutSpeed = 3f, changeCanvasTime = 3f;
 
         private int remainingPlayers, currentTurn, maxTurns, selectedPlayerID;
-        [SerializeField] private List<int> PVPPlayerIDs = new List<int>();
+        private List<int> PVPPlayerIDs = new List<int>();
+        private Language gameLanguage;
 
         // Start is called before the first frame update
         void Start()
@@ -64,6 +68,40 @@ namespace DHU2020.DGS.MiniGame.System
                 players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
             }
             CheckWinningStatus();
+
+            gameLanguage = mapInfo.GetGameLanguage();
+            if(gameLanguage == Language.Japanese)
+            {
+                for(int i = 0; i < turnLabels.Length; i++)
+                {
+                    turnLabels[i].text = localeJP.GetLabelContent("Turn");
+                }
+                for(int i = 0; i < playerStatusLabels.Length; i++)
+                {
+                    playerStatusLabels[i].text = localeJP.GetLabelContent("Status")+":";
+                }
+                winnerTitleText.text = localeJP.GetLabelContent("Winner") + ":";
+                congradulationText.text = localeJP.GetLabelContent("Congradulation") + "!";
+                drawTitleText.text = localeJP.GetLabelContent("Result") + ":";
+                drawContentText.text = localeJP.GetLabelContent("Draw") + "...";
+                retryText.text = localeJP.GetLabelContent("Retry") + "...";
+            }
+            else
+            {
+                for (int i = 0; i < turnLabels.Length; i++)
+                {
+                    turnLabels[i].text = localeEN.GetLabelContent("Turn");
+                }
+                for (int i = 0; i < playerStatusLabels.Length; i++)
+                {
+                    playerStatusLabels[i].text = localeEN.GetLabelContent("Status")+":";
+                }
+                winnerTitleText.text = localeEN.GetLabelContent("Winner") + ":";
+                congradulationText.text = localeEN.GetLabelContent("Congradulation") + "!";
+                drawTitleText.text = localeEN.GetLabelContent("Result") + ":";
+                drawContentText.text = localeEN.GetLabelContent("Draw") + "...";
+                retryText.text = localeEN.GetLabelContent("Retry") + "...";
+            }
         }
 
         // Update is called once per frame
@@ -128,30 +166,66 @@ namespace DHU2020.DGS.MiniGame.System
 
         void Winner()
         {
-            /*
-            List<int> winnerPlayerIDs = new List<int>();
-            List<string> winnerPlayerNames = new List<string>();
-            */
             for (int i = 0; i < players.Length; i++)
             {
                 if (players[i].GetComponentInChildren<PlayerStatusManager>().IsAlive())
                 {
-                    /*
-                    winnerPlayerIDs.Add(players[i].GetComponentInChildren<PlayerStatusManager>().PlayerID);
-                    winnerPlayerNames.Add(players[i].GetComponentInChildren<PlayerStatusManager>().PlayerName);
-                    */
                     StartCoroutine(ShowWinner(i));
                     break;
                 }
             }
         }
 
-        IEnumerator ShowWinner(int playerIndex)
+        IEnumerator ShowWinner(int winnerPlayerIndex)
         {
             winnerCanvas.SetActive(true);
-            winnerText.text = playerNames[playerIndex].GetComponent<Text>().text;
+            winnerText.text = playerNames[winnerPlayerIndex].GetComponent<Text>().text;
             yield return StartCoroutine(CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 1f, 0f, canvasFadeOutSpeed));
 
+        }
+
+        IEnumerator ShowWinners(List<int> winnerPlayerIDs)
+        {
+            string winnerPlayerIDs_str = "";
+            for(int i = 0; i < winnerPlayerIDs.Count; i++)
+            {
+                winnerPlayerIDs_str += winnerPlayerIDs[i];
+                if(i <= winnerPlayerIDs.Count - 1)
+                {
+                    winnerPlayerIDs_str += Environment.NewLine;
+                }
+            }
+            winnerCanvas.SetActive(true);
+            winnerText.text = winnerPlayerIDs_str;
+            yield return new WaitForSeconds(changeCanvasTime);
+            SceneManager.LoadScene("GameTitle");
+        }
+
+        IEnumerator DrawGame()
+        {
+            drawGameCanvas.SetActive(true);
+            yield return new WaitForSeconds(changeCanvasTime);
+            SceneManager.LoadScene("GameTitle");
+        }
+
+        void CheckWinners()
+        {
+            List<int> winnerPlayerIDs = new List<int>();
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i].GetComponentInChildren<PlayerStatusManager>().IsAlive())
+                {
+                    winnerPlayerIDs.Add(i);
+                }
+            }
+            if(winnerPlayerIDs.Count == players.Length)
+            {
+                StartCoroutine(DrawGame());
+            }
+            else
+            {
+                StartCoroutine(ShowWinners(winnerPlayerIDs));
+            }
         }
 
         public void CheckWinningStatus()
@@ -165,7 +239,9 @@ namespace DHU2020.DGS.MiniGame.System
             }
             else if(currentTurn >= maxTurns)
             {
-                // TODO: 一人だけ勝利するか、残っている全員勝利するか、後ほど決めます
+                // 残っている全員勝利する
+                // 全員まだ生きているなら引き分けになります
+                Invoke("CheckWinners", showCanvasTime);
             }
             else
             {
@@ -175,7 +251,6 @@ namespace DHU2020.DGS.MiniGame.System
                 {
                     players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(true);
                 }
-                //StartCoroutine(ShowTurnCanvas());
                 Invoke("ShowTurnCanvas", showCanvasTime);
             }
         }
@@ -191,25 +266,6 @@ namespace DHU2020.DGS.MiniGame.System
             currentTurnText.text = currentTurn.ToString();
             Invoke("HideTurnCanvas", showCanvasTime);
         }
-
-        /*
-        IEnumerator ShowTurnCanvas()
-        {
-            turnCanvas.SetActive(true);
-            yield return CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 0f, 1f, canvasFadeInSpeed);
-            StartCoroutine(HideTurnCanvas());
-        }*/
-
-            /*
-        IEnumerator HideTurnCanvas()
-        {
-            yield return StartCoroutine(CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 1f, 0f, canvasFadeOutSpeed));
-            turnCanvas.SetActive(false);
-            currentTurnText.text = currentTurn.ToString();
-            //FindObjectOfType<PlayerStatusManager>().SetPlayingAnimation(false);
-            //StartCoroutine(ShowSelectGameCanvas());
-            Invoke("ShowSelectGameCanvas", 2f);
-        }*/
 
         void HideTurnCanvas()
         {
@@ -241,15 +297,6 @@ namespace DHU2020.DGS.MiniGame.System
                 }
             }
         }
-
-        /*
-        IEnumerator ShowSelectGameCanvas()
-        {
-            selectGameCanvas.SetActive(true);
-            yield return CanvasFadeEffect.FadeCanvas(selectGameCanvasGroup, 0f, 1f, canvasFadeInSpeed);
-            selectGamePlayerText.text = playerNames[currentTurn % players.Length].GetComponent<Text>().text;
-        }
-        */
 
         public void SelectedAllPlayers()
         {

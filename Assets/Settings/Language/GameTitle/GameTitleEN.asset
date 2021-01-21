@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd245846a4523040b61bfae17c2f17e, type: 3}
-  m_Name: GameTitleEnglish
+  m_Name: GameTitleEN
   m_EditorClassIdentifier: 
   labelName:
-  - LocalGame
-  - NetworkGame
+  - NewGame
+  - Credit
   - Option
   - GameTitle1
   - GameTitle2
+  - ControlHints
   labelText:
-  - Local Game
-  - Network Game
+  - New Game
+  - Credit
   - Option
   - Tin Ha Tai Ping
   - ~Mini Game Series~
+  - "Keyboard\u2191 / \u2193: Select\u3001Enter Key: Decide"

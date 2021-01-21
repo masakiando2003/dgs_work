@@ -625,18 +625,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224319382}
   m_CullTransparentMesh: 0
---- !u!1 &270990866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1151478696986392256, guid: ac7d72b4b2b1bc8468073392bddac97c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1151478697256765650}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &270990871 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 1151478696986392261, guid: ac7d72b4b2b1bc8468073392bddac97c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1151478697256765650}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &271058640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,7 +1431,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531929873
 GameObject:
@@ -3108,7 +3096,7 @@ RectTransform:
   - {fileID: 106431761}
   - {fileID: 1204843881}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3217,14 +3205,14 @@ MonoBehaviour:
   currentTurnText: {fileID: 1762387567}
   maxTurnsText: {fileID: 507305699}
   turnCanvasTurnText: {fileID: 1833367772}
-  selectGamePlayerText: {fileID: 2125251263}
+  selectGamePlayerText: {fileID: 0}
   winnerText: {fileID: 8353012117493796327}
   turnCanvas: {fileID: 371133062}
-  selectGameCanvas: {fileID: 270990866}
+  selectGameCanvas: {fileID: 0}
   winnerCanvas: {fileID: 8353012117306720189}
   PVPSelectPlayerCanvas: {fileID: 1024055299}
   turnCanvasGroup: {fileID: 371133067}
-  selectGameCanvasGroup: {fileID: 270990871}
+  selectGameCanvasGroup: {fileID: 0}
   winnerCanvasGroup: {fileID: 8353012117306720176}
   showCanvasTime: 1
   canvasFadeInSpeed: 3
@@ -3428,7 +3416,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 960, y: -540}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 1921, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391664218
 MonoBehaviour:
@@ -3897,18 +3885,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559464344}
   m_CullTransparentMesh: 0
---- !u!114 &1588896144 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8869904872490513208, guid: ac7d72b4b2b1bc8468073392bddac97c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1151478697256765650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1680428119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,18 +4231,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017295674}
   m_CullTransparentMesh: 0
---- !u!114 &2125251263 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1151478697363475053, guid: ac7d72b4b2b1bc8468073392bddac97c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1151478697256765650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1151478697256765650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4277,7 +4241,7 @@ PrefabInstance:
     - target: {fileID: 270990872, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}
       propertyPath: selectedGameText
       value: 
-      objectReference: {fileID: 1588896144}
+      objectReference: {fileID: 0}
     - target: {fileID: 270990872, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}
       propertyPath: loadGameTime
       value: 1
@@ -4416,6 +4380,62 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: "\u306F\u3044\u305A\u308C\u306E\u30B2\u30FC\u30E0\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728132921283249, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8452863a170a45e48bd43ac2a763f3fa,
+        type: 3}
+    - target: {fileID: 3449728133888993581, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993582, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 188979565, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}

@@ -8,11 +8,18 @@
 
 プロジェクトUnityバージョン: 2019.4.13f1
 
+必要なAsset(UnityのAsset Storeでダウンロードしてください。無料です。):
+- Photon Pun2
+
 オススメツール:
 
 - Github Desktop(Windows) / Tortoise Git(Windows) / SourceTree(MAC)
 - Visual Studio Community 2017 以降
 - Unity Hub
+
+『"GetReferenceNearestTargetFrameworkTask"タスクが見つかりませんでした』の解決方法:
+
+https://kotaeta.com/67659117
 
 
 Git初心者向けのチュートリアル(Windows + TortoiseGit + Putty Generator):

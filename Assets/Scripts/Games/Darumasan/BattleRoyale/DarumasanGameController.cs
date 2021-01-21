@@ -1,10 +1,12 @@
 ﻿using DHU2020.DGS.MiniGame.Game;
+using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
 using Random = UnityEngine.Random;
 
 namespace DHU2020.DGS.MiniGame.Darumasan
@@ -16,6 +18,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             get; private set;
         }
 
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public int goalDistance = 300, runFactor = 2;
         public int iconStartPosX = -600, iconGoalPosX = 600;
         public GameObject[] playerIcon;
@@ -26,8 +30,8 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public Image player2RightHandImage, player2LeftHandImage, player2StandImage, player2CaughtByGhostImage;
         public Image player3RightHandImage, player3LeftHandImage, player3StandImage, player3CaughtByGhostImage;
         public Image player4RightHandImage, player4LeftHandImage, player4StandImage, player4CaughtByGhostImage;
-        public Text[] playerNameText, playerRemainingDistanceText;
-        public Text countDownTimeText, resultTitleText, resultText;
+        public Text[] playerNameText, playerRemainingDistanceText, playerRemainingLabelText;
+        public Text countDownTimeText, resultTitleText, resultText, goalLineText;
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f, ghostWatchPlayerTime = 3f;
@@ -37,6 +41,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         private float countDownTimer, ghostWatchPlayerTimer;
         private int[] playerRemainingDistance, playerInputCount;
         private static GameState currentGameState;
+        private Language gameLanguage;
 
         public enum GameState
         {
@@ -67,17 +72,36 @@ namespace DHU2020.DGS.MiniGame.Darumasan
 
         private void Initialization()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
             playerRemainingDistance = new int[playerInfo.GetPlayersCount()];
             playerInputCount = new int[playerInfo.GetPlayersCount()];
             for (int playerIndex = 0; playerIndex < playerInfo.GetPlayersCount(); playerIndex++)
             {
                 playerNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
+                if(gameLanguage == Language.Japanese)
+                {
+                    playerRemainingLabelText[playerIndex].text = localeJP.GetLabelContent("Remaining") +":";
+                }
+                else
+                {
+                    playerRemainingLabelText[playerIndex].text = localeEN.GetLabelContent("Remaining") + ":";
+                }
                 playerRemainingDistanceText[playerIndex].text = goalDistance.ToString();
                 playerInputCount[playerIndex] = 0;
                 playerRemainingDistance[playerIndex] = goalDistance;
             }
             resultTitleText.enabled = false;
             resultText.enabled = false;
+            if (gameLanguage == Language.Japanese)
+            {
+                goalLineText.text = "←" + localeJP.GetLabelContent("GoalLine");
+                resultTitleText.text = localeJP.GetLabelContent("Result") + ":";
+            }
+            else
+            {
+                goalLineText.text = "←" + localeEN.GetLabelContent("GoalLine");
+                resultTitleText.text = localeEN.GetLabelContent("Result") + ":";
+            }
             darumansanIntroductionCanvas.SetActive(true);
             countDownTimer = startCountDownTime;
             ghostWatchPlayerTimer = 0;

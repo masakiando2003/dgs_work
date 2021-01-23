@@ -21,6 +21,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         //NextCountChoice用のint
         public int Count;
+
+        private int COUNT_MAX = 8;
         //NextHandChoice用のint 
         public int Hand;
 
@@ -39,6 +41,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         public PlayerInfo playerInfo;
 
+        public PlayerInputInfo playerInputInfo;
+
+        public List<KeyCode> PlayerKeyCodes;
+
         private PlayerInfo.PlayerControllerInput playerControllerInput;
 
         public KeyCode HandPlus, HandMinus,CountPlus,CountMinus,CurrentInput;
@@ -53,8 +59,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         {
             switch (GameController.Instance.CurrentState)
             {
-                case GameController.State.WaitForStart:
+                case GameController.State.Introduction:
+                    break;
+                case GameController.State.Prepare:
                     DecideNextChoice();
+                    SetInputButtons();
                     break;
                 case GameController.State.Choose:
                     CheckInput(PlayerID);
@@ -71,6 +80,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 case GameController.State.GameEnd:
                     break;
             }
+            
         }
 
         private void Initialize()
@@ -100,15 +110,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         }
 
-        /*private void DecreaseHand()
-        {
-            RemainingHand--;
-            if (RemainingHand == 0)
-            {
-                Win();
-            }
-        }
-        */
         private void SwitchHandImage()
         {
             switch (Hand)
@@ -129,6 +130,15 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         {
             HandLeft.sprite = Left;
             HandRight.sprite = Right;
+        }
+
+        private void SetInputButtons()
+        {
+            PlayerKeyCodes = playerInputInfo.GetPlayerKeyCodes(PlayerID);
+            HandPlus = PlayerKeyCodes[0];
+            HandMinus = PlayerKeyCodes[2];
+            CountPlus = PlayerKeyCodes[1];
+            CountMinus = PlayerKeyCodes[3];
         }
 
         private void DecideNextChoice()
@@ -183,8 +193,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
             if (playerControllerInput == PlayerInfo.PlayerControllerInput.Keyboard)
             {
-                HandKeyboardInput(PlayerID);
-                CountKeyboardInput(PlayerID);
                 if (Input.anyKeyDown)
                 {
                     foreach(KeyCode code in Enum.GetValues(typeof(KeyCode))){
@@ -197,56 +205,13 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     HandChange(CurrentInput);
                     CountChange(CurrentInput);
                 }
-            }
-        }
-
-
-        private void HandKeyboardInput(int PlayerID)
-        {
-                switch (PlayerID)
-                {
-                    case 0:
-                        HandPlus = KeyCode.A;
-                        HandMinus = KeyCode.Q;
-                        break;
-                    case 1:
-                        HandPlus = KeyCode.W;
-                        HandMinus = KeyCode.S;
-                        break;
-                    case 2:
-                        HandPlus = KeyCode.E;
-                        HandMinus = KeyCode.D;
-                        break;
-                    case 3:
-                        HandPlus = KeyCode.R;
-                        HandMinus = KeyCode.F;
-                        break;
-                }
-        }
-
-        private void CountKeyboardInput(int PlayerID)
-        {
-            switch (PlayerID)
+            }else if(playerControllerInput == PlayerInfo.PlayerControllerInput.Joystick)
             {
-                case 0:
-                    CountPlus = KeyCode.T;
-                    CountMinus = KeyCode.G;
-                    break;
-                case 1:
-                    CountPlus = KeyCode.Y;
-                    CountMinus = KeyCode.H;
-                    break;
-                case 2:
-                    CountPlus = KeyCode.U;
-                    CountMinus = KeyCode.J;
-                    break;
-                case 3:
-                    CountPlus = KeyCode.I;
-                    CountMinus = KeyCode.K;
-                    break;
+                JoyStickControl();
             }
-        }
 
+        }
+        
         private void HandChange(KeyCode CurrentInput)
         {
             if (CurrentInput == HandPlus)
@@ -288,6 +253,46 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 }
             }
         }
+        private void JoyStickControl()
+        {
+            if (Input.GetButtonDown("Fire3"))
+            {
+                if (Hand > 0)
+                {
+                    Hand--;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Fire1"))
+            {
+                if (Hand < RemainingHand)
+                {
+                    Hand++;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Fire2"))
+            {
+                if (Count > 0)
+                {
+                    Count--;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Jump"))
+            {
+                if (Count < 8)
+                {
+                    Count++;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+        }
+
         private void CheckCount()
         {
                 if (GameController.Instance.DecidePlayer == this.name)

@@ -46,7 +46,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public enum State
         {
-            WaitForStart,
+            Introduction,
+            Prepare,
             Choose,
             Calculate,
             Check,
@@ -55,6 +56,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public float TurnSpan = 10f;
 
+
+        public bool IntroductionFlag;
+
+        public Canvas IntroductionCanvas,GameCanvas;
 
         public State CurrentState
         {
@@ -86,7 +91,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         private void Initialize()
         {
             PlayerNumber = 0;
-            ChangeState(State.WaitForStart);
+            ChangeState(State.Introduction);
             Players = GameObject.FindGameObjectsWithTag("YubisumaPlayer");
             PlayerIDs = new int[Players.Length];
             for(int i = 0; i < Players.Length;i++)
@@ -103,8 +108,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             switch (state)
             {
-                case State.WaitForStart:
-                    StartStateWaitForStart();
+                case State.Introduction:
+                    StartStateIntroduction();
+                    break;
+                case State.Prepare:
+                    StartStatePrepare();
                     break;
                 case State.Choose:
                     StartStateChoose();
@@ -128,8 +136,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             switch (CurrentState)
             {
-                case State.WaitForStart:
-                    UpdateStateWaitForStart();
+                case State.Introduction:
+                    UpdateStateIntroduction();
+                    break;
+                case State.Prepare:
+                    UpdateStatePrepare();
                     break;
                 case State.Choose:
                     UpdateStateChoose();
@@ -146,12 +157,17 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             //Debug.Log(CurrentState);
         }
 
-        public void StartStateWaitForStart()
+        public void StartStateIntroduction()
+        {
+            IntroductionFlag = false;
+        }
+
+        public void StartStatePrepare()
         {
             SetDecidePlayer();
             GameController.Instance.ChangeState(State.Choose);
             ProgressBar.SetActive(false);
-            //Debug.Log(CurrentState + " From WaitForStart");
+            //Debug.Log(CurrentState + " From Prepare");
         }
 
 
@@ -175,7 +191,22 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         }
 
-        public void UpdateStateWaitForStart()
+        public void UpdateStateIntroduction()
+        {
+            if(YubisumaIntroduction.Instance.CurrentState == YubisumaIntroduction.IntroductionState.ReadyForStart)
+            {
+                ChangeState(State.Prepare);
+                IntroductionCanvas.gameObject.SetActive(false);
+                GameCanvas.gameObject.SetActive(true);
+            }
+            else
+            {
+                IntroductionCanvas.gameObject.SetActive(true);
+                GameCanvas.gameObject.SetActive(false);
+            }
+        }
+
+        public void UpdateStatePrepare()
         {
             ChangeState(State.Choose);
             ProgressBar.SetActive(true);
@@ -290,6 +321,54 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             RemainingPlayer = Players.Length;
         }
 
-
+        private void InputCheck()
+        {
+            if (Input.GetKeyDown("joystick button 0"))
+            {
+                Debug.Log("button0");
+            }
+            if (Input.GetKeyDown("joystick button 1"))
+            {
+                Debug.Log("button1");
+            }
+            if (Input.GetKeyDown("joystick button 2"))
+            {
+                Debug.Log("button2");
+            }
+            if (Input.GetKeyDown("joystick button 3"))
+            {
+                Debug.Log("button3");
+            }
+            if (Input.GetKeyDown("joystick button 4"))
+            {
+                Debug.Log("button4");
+            }
+            if (Input.GetKeyDown("joystick button 5"))
+            {
+                Debug.Log("button5");
+            }
+            if (Input.GetKeyDown("joystick button 6"))
+            {
+                Debug.Log("button6");
+            }
+            if (Input.GetKeyDown("joystick button 7"))
+            {
+                Debug.Log("button7");
+            }
+            if (Input.GetKeyDown("joystick button 8"))
+            {
+                Debug.Log("button8");
+            }
+            if (Input.GetKeyDown("joystick button 9"))
+            {
+                Debug.Log("button9");
+            }
+            float hori = Input.GetAxis("Horizontal");
+            float vert = Input.GetAxis("Vertical");
+            if ((hori != 0) || (vert != 0))
+            {
+                Debug.Log("stick:" + hori + "," + vert);
+            }
+        }
     }
 }

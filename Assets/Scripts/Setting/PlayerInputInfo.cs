@@ -16,7 +16,10 @@ namespace DHU2020.DGS.MiniGame.Setting
         public KeyCode Player2HitButton1=KeyCode.F, Player2HitButton2=KeyCode.T, Player2HitButton3=KeyCode.G, Player2HitButton4=KeyCode.H;
         public KeyCode Player3HitButton1=KeyCode.J, Player3HitButton2=KeyCode.I, Player3HitButton3=KeyCode.K, Player3HitButton4=KeyCode.L;
         public KeyCode Player4HitButton1=KeyCode.Alpha4, Player4HitButton2=KeyCode.Alpha5, Player4HitButton3=KeyCode.Alpha6, Player4HitButton4=KeyCode.Alpha8;
+        
         public List<KeyCode> PlayerKeyCodes = new List<KeyCode>();
+
+
 
         public List<KeyCode> GetPlayerKeyCodes(int PlayerID)
         {

@@ -55,7 +55,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CountCanvas: {fileID: 4934552205637728304}
   HandCanvas: {fileID: 2127111073734485090}
-  SpriteCanvas: {fileID: 0}
   CountButton: {fileID: 3171079492032904883, guid: 0efa634551b3b2648acb6ca94de601c7,
     type: 3}
   HandButton: {fileID: 2687636097200666952, guid: b4a1c8e0f14632b4e83c6bdb845e7a5f,
@@ -82,6 +81,13 @@ MonoBehaviour:
   PlayerName: {fileID: 2859921263099808846}
   HandLeft: {fileID: 2622955799722309358}
   HandRight: {fileID: 5419482543644627933}
+  PlayerID: 0
+  playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
+  HandPlus: 0
+  HandMinus: 0
+  CountPlus: 0
+  CountMinus: 0
+  CurrentInput: 0
 --- !u!222 &4226805078090672666
 CanvasRenderer:
   m_ObjectHideFlags: 0

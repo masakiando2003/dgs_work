@@ -236,7 +236,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 if (Players[i].GetComponent<Player>().RemainingHand == 0)
                 {
                     GameController.Instance.ChangeState(State.GameEnd);
-                    Debug.Log(DecidePlayer + "Win");
+                    Debug.Log(DecidePlayer + " Win / PlayerID: " + Players[i].GetComponent<Player>().PlayerID);
                     SetLoserPlayers(Players[i].GetComponent<Player>().PlayerID);
                     SetWinner(Players[i].GetComponent<Player>().PlayerID);
                     break;
@@ -268,11 +268,13 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public void SetLoserPlayers(int Winner)
         {
-            for(int i = 0; i < Players.Length; i++)
+            int j = 0;
+            for (int i = 0; i < Players.Length; i++)
             {
                 if (i != Winner)
                 {
-                    loserPlayerIDs[i] = PlayerIDs[i];
+                    loserPlayerIDs[j] = PlayerIDs[i];
+                    j++;
                 }
             }
         }

@@ -8,7 +8,7 @@ using System;
 namespace DHU2020.DGS.MiniGame.Yubisuma {
     public class Player : MonoBehaviour
     {
-        public Canvas CountCanvas,HandCanvas,SpriteCanvas;
+        public Canvas CountCanvas,HandCanvas;
         //カウント用のボタン
         public Button CountButton;
         //手のボタン
@@ -179,6 +179,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         private void CheckInput(int PlayerID)
         {
             CheckInputMethod();
+            NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+            NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
             if (playerControllerInput == PlayerInfo.PlayerControllerInput.Keyboard)
             {
                 HandKeyboardInput(PlayerID);
@@ -249,17 +251,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         {
             if (CurrentInput == HandPlus)
             {
-                if (Hand < 2)
+                if (Hand < RemainingHand)
                 {
                     Hand++;
                     NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
                     NextHandChoice[Hand - 1].GetComponent<Image>().color = Color.white;
-                }
-                else
-                {
-                    Hand = 0;
-                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
-                    NextHandChoice[NextCountChoice.Length - 1].GetComponent<Image>().color = Color.white;
                 }
             }else if(CurrentInput == HandMinus)
             {
@@ -268,12 +264,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     Hand--;
                     NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
                     NextHandChoice[Hand + 1].GetComponent<Image>().color = Color.white;
-                }
-                else
-                {
-                    Hand = 2;
-                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
-                    NextHandChoice[0].GetComponent<Image>().color = Color.white;
                 }
             }
         }
@@ -287,12 +277,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
                     NextCountChoice[Count - 1].GetComponent<Image>().color = Color.white;
                 }
-                else
-                {
-                    Count = 0;
-                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
-                    NextCountChoice[NextCountChoice.Length - 1].GetComponent<Image>().color = Color.white;
-                }
             }
             else if (CurrentInput == CountMinus)
             {
@@ -301,12 +285,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     Count--;
                     NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
                     NextCountChoice[Count + 1].GetComponent<Image>().color = Color.white;
-                }
-                else
-                {
-                    Count = 8;
-                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
-                    NextCountChoice[0].GetComponent<Image>().color = Color.white;
                 }
             }
         }

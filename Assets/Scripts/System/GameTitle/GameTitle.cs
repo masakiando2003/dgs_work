@@ -70,13 +70,13 @@ namespace DHU2020.DGS.MiniGame.System
                         SetPlayerName();
                         break;
                         //ネットワークゲームに遷移します。
-                    case 1:
+                    /*case 1:
                         NetworkGame();
-                        break;
-                    case 2:
+                        break;*/
+                    case 1:
                         GameOptions();
                         break;
-                    case 3:
+                    case 2:
                         Credit();
                         break;
                 }

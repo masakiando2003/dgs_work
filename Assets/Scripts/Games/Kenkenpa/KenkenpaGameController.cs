@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static DHU2020.DGS.MiniGame.Map.MapInfo;
+using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 using Random = UnityEngine.Random;
 
 namespace DHU2020.DGS.MiniGame.Kenkenpa
@@ -29,7 +30,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public GameInfo gameInfo;
         public PlayerInfo playerInfo;
         public float startCountDownTime = 3.9f, hideCountDownTime = 1f, remainingTime = 20.9f, gameSetTime = 2f;
-        public float showResultSignTime = 1f, showRightBlockTime = 0.8f, showRightChosenBlockTime = 0.8f;
+        public float showResultSignTime = 1f, showRightBlockTime = 0.8f, showRightChosenBlockTime = 0.8f, newLapSeconds = 0.8f;
         public string startGameText = "GO!";
         public enum GameState
         {
@@ -194,6 +195,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         private void RandomPlayerStepBlock(int playerIndex)
         {
             List<KeyCode> playerButtons = kenkenpaPlayerControllers[playerIndex].GetPlayerButtons();
+            PlayerControllerInput playerInput = playerInfo.GetPlayerControllerInput(playerIndex);
             for (int step = 1; step <= lapMaxSteps; step++)
             {
                 int randomBlockPattern = Random.Range(0, 2); // シングルブロックまたはダブルブロック
@@ -230,7 +232,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                     case 0:
                         KenkenpaRandomStepBlock randomSingleBlock = GameObject.Find("Player" + (playerIndex + 1) + "StepSingleBlockArea" + step + "Block").
                             GetComponent<KenkenpaRandomStepBlock>();
-                        randomSingleBlock.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
+                        randomSingleBlock.SetStepBlockKeyCode(playerButtons[randomButtonNum], randomButtonNum, playerInput);
                         foreach (Image img in doubleBlockArea.GetComponentsInChildren<Image>())
                         {
                             img.enabled = false;
@@ -247,10 +249,10 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                     case 1:
                         KenkenpaRandomStepBlock randomDoubleBlock1 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block1").
                                     GetComponent<KenkenpaRandomStepBlock>();
-                        randomDoubleBlock1.SetStepBlockKeyCode(playerButtons[randomButtonNum]);
+                        randomDoubleBlock1.SetStepBlockKeyCode(playerButtons[randomButtonNum], randomButtonNum, playerInput);
                         KenkenpaRandomStepBlock randomDoubleBlock2 = GameObject.Find("Player" + (playerIndex + 1) + "StepDoubleBlockArea" + step + "Block2").
                             GetComponent<KenkenpaRandomStepBlock>();
-                        randomDoubleBlock2.SetStepBlockKeyCode(playerButtons[randomButtonNum2]);
+                        randomDoubleBlock2.SetStepBlockKeyCode(playerButtons[randomButtonNum2], randomButtonNum2, playerInput);
                         foreach (Image img in singleBlockArea.GetComponentsInChildren<Image>())
                         {
                             img.enabled = false;
@@ -484,10 +486,16 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             GameObject.Find(nextStepBlockID).GetComponent<Text>().color = Color.red;
             if (playerCurrentStep >= lapMaxSteps)
             {
-                IncreasePlayerLapCount(playerIndex);
-                RandomPlayerStepBlock(playerIndex);
-                ResetPlayerPosition(playerIndex, 1);
+                StartCoroutine(NewLap(playerIndex));
             }
+        }
+
+        private IEnumerator NewLap(int playerIndex)
+        {
+            yield return new WaitForSeconds(newLapSeconds);
+            IncreasePlayerLapCount(playerIndex);
+            RandomPlayerStepBlock(playerIndex);
+            ResetPlayerPosition(playerIndex, 1);
         }
 
         private IEnumerator ShowRightChosenBlock(string blockName)

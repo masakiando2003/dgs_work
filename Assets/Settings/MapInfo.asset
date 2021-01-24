@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MapInfo
   m_EditorClassIdentifier: 
   maxTurns: 10
-  currentTurn: 10
+  currentTurn: 0
   loadMainMapSeconds: 1
   langauge: 1

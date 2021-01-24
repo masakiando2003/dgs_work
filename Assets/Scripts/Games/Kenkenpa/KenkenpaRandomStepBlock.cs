@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Setting.PlayerInfo;
 
 namespace DHU2020.DGS.MiniGame.Kenkenpa
 {
     public class KenkenpaRandomStepBlock : MonoBehaviour
     {
-        [SerializeField] KeyCode stepBlockKeyCode;
+        public Text stepBlockText;
+        public Image stepBlockCircleImage, stepBlockSquareImage, stepBlockCrossImage, stepBlockTriangleImage;
+        private KeyCode stepBlockKeyCode;
 
-        public void SetStepBlockKeyCode(KeyCode keyCode)
+        public void SetStepBlockKeyCode(KeyCode keyCode, int keyCodeIndex = -1, PlayerControllerInput playerInput = PlayerControllerInput.Keyboard)
         {
             stepBlockKeyCode = keyCode;
-            ShowKeyCodeText();
+            if(playerInput == PlayerControllerInput.Keyboard)
+            {
+                ShowKeyCodeText(keyCode);
+            }
+            else
+            {
+                ShowKeyCodeImage(keyCodeIndex);
+            }
         }
 
         public KeyCode GetStepBlockKeyCode()
@@ -20,11 +30,38 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             return stepBlockKeyCode;
         }
 
-        private void ShowKeyCodeText()
+        private void ShowKeyCodeText(KeyCode keyCode)
         {
-            string stepBlockKeyCodeString = stepBlockKeyCode.ToString();
+            stepBlockCircleImage.enabled = false;
+            stepBlockSquareImage.enabled = false;
+            stepBlockCrossImage.enabled = false;
+            stepBlockTriangleImage.enabled = false;
+            string stepBlockKeyCodeString = keyCode.ToString();
             stepBlockKeyCodeString = stepBlockKeyCodeString.Replace("Keypad", "");
-            GetComponentInChildren<Text>().text = stepBlockKeyCodeString;
+            stepBlockText.text = stepBlockKeyCodeString;
+        }
+
+        private void ShowKeyCodeImage(int keyCodeIndex)
+        {
+            stepBlockCircleImage.enabled = false;
+            stepBlockSquareImage.enabled = false;
+            stepBlockCrossImage.enabled = false;
+            stepBlockTriangleImage.enabled = false;
+            switch (keyCodeIndex)
+            {
+                case 0:
+                    stepBlockSquareImage.enabled = true;
+                    break;
+                case 1:
+                    stepBlockCrossImage.enabled = true;
+                    break;
+                case 2:
+                    stepBlockCircleImage.enabled = true;
+                    break;
+                case 3:
+                    stepBlockTriangleImage.enabled = true;
+                    break;
+            }
         }
     }
 }

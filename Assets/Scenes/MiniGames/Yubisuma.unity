@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
-  gameInfo: {fileID: 0}
+  gameInfo: {fileID: 11400000, guid: 339119d2991d3384e9ac1bcd6fa16562, type: 2}
   maxTurn: 0
   Players:
   - {fileID: 211898775}
@@ -1890,7 +1890,7 @@ MonoBehaviour:
   fadeStartGameTextTime: 0.5
   ControlText: {fileID: 1170700812}
   HowToPlayText: {fileID: 91898329}
-  YubisumaGameCanvas: {fileID: 1968868710}
+  YubisumaGameCanvas: {fileID: 1833300290}
 --- !u!1 &2044880304
 GameObject:
   m_ObjectHideFlags: 0

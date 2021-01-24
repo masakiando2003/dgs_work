@@ -19,7 +19,7 @@ namespace DHU2020.DGS.MiniGame.System
         public GameObject[] games;
         public float loadGameTime = 2f;
         public Color selectColor;
-        public Text selectedGameText, selectGameText, randomGameText;
+        public Text selectedGameText, selectGameText, randomGameText, selectGameHintText;
 
         private List<int> randomedGameIndexes = new List<int>();
         private int selectedGameIndex, defaultSelectGameIndex, originalSelectedGameIndex, gameIndex;
@@ -40,11 +40,13 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 selectGameText.text = localeJP.GetLabelContent("SelectAnyGame");
                 randomGameText.text = localeJP.GetLabelContent("Random");
+                selectGameHintText.text = localeJP.GetLabelContent("SelectGameHintText");
             }
             else
             {
                 selectGameText.text = localeEN.GetLabelContent("SelectAnyGame");
                 randomGameText.text = localeEN.GetLabelContent("Random");
+                selectGameHintText.text = localeEN.GetLabelContent("SelectGameHintText");
             }
             selectedGameIndex = gameIndex = defaultSelectGameIndex;
             defaultSelectGameIndex = 0;

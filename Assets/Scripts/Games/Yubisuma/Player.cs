@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DHU2020.DGS.MiniGame.Setting;
+using System;
 
 namespace DHU2020.DGS.MiniGame.Yubisuma {
     public class Player : MonoBehaviour
     {
-        public Canvas CountCanvas,HandCanvas,SpriteCanvas;
+        public Canvas CountCanvas,HandCanvas;
         //カウント用のボタン
         public Button CountButton;
         //手のボタン
@@ -19,6 +21,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         //NextCountChoice用のint
         public int Count;
+
+        private int COUNT_MAX = 8;
         //NextHandChoice用のint 
         public int Hand;
 
@@ -34,6 +38,16 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         public int PlayerID;
 
         private float CheckTime = 1f;
+
+        public PlayerInfo playerInfo;
+
+        public PlayerInputInfo playerInputInfo;
+
+        public List<KeyCode> PlayerKeyCodes;
+
+        private PlayerInfo.PlayerControllerInput playerControllerInput;
+
+        public KeyCode HandPlus, HandMinus,CountPlus,CountMinus,CurrentInput;
         // Start is called before the first frame update
         void Start()
         {
@@ -45,10 +59,14 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
         {
             switch (GameController.Instance.CurrentState)
             {
-                case GameController.State.WaitForStart:
+                case GameController.State.Introduction:
+                    break;
+                case GameController.State.Prepare:
                     DecideNextChoice();
+                    SetInputButtons();
                     break;
                 case GameController.State.Choose:
+                    CheckInput(PlayerID);
                     NextTurn();
                     ResetHand();
                     SwitchHandImage();
@@ -62,6 +80,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 case GameController.State.GameEnd:
                     break;
             }
+            
         }
 
         private void Initialize()
@@ -70,6 +89,10 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             InitializeButton(NextHandChoice, transform.position.y + 80f,HandButton,HandCanvas);
             RemainingHand = 2;
             HandRight.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            if(playerInfo == null)
+            {
+                playerInfo = GameController.Instance.playerInfo;
+            }
         }
 
         private void InitializeButton(GameObject[] buttons,float yPos,Button button,Canvas canvas)
@@ -78,7 +101,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             {
                 buttons[i] = GameObject.Instantiate(button.gameObject);
                 buttons[i].transform.SetParent(canvas.transform);
-                //buttons[i].transform.position = new Vector2(transform.position.x + (float)i * 30,yPos);
                 buttons[i].GetComponentInChildren<Text>().text = i.ToString();
             }
         }
@@ -88,35 +110,35 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         }
 
-        /*private void DecreaseHand()
-        {
-            RemainingHand--;
-            if (RemainingHand == 0)
-            {
-                Win();
-            }
-        }
-        */
         private void SwitchHandImage()
         {
             switch (Hand)
             {
                 case 0:
-                    HandChange(CurledUpHand, CurledUpHand);
+                    SetHandImage(CurledUpHand, CurledUpHand);
                     break;
                 case 1:
-                    HandChange(CurledUpHand, ThumbsUpHand);
+                    SetHandImage(CurledUpHand, ThumbsUpHand);
                     break;
                 case 2:
-                    HandChange(ThumbsUpHand, ThumbsUpHand);
+                    SetHandImage(ThumbsUpHand, ThumbsUpHand);
                     break;
             }
         }
 
-        private void HandChange(Sprite Left,Sprite Right)
+        private void SetHandImage(Sprite Left,Sprite Right)
         {
             HandLeft.sprite = Left;
             HandRight.sprite = Right;
+        }
+
+        private void SetInputButtons()
+        {
+            PlayerKeyCodes = playerInputInfo.GetPlayerKeyCodes(PlayerID);
+            HandPlus = PlayerKeyCodes[0];
+            HandMinus = PlayerKeyCodes[2];
+            CountPlus = PlayerKeyCodes[1];
+            CountMinus = PlayerKeyCodes[3];
         }
 
         private void DecideNextChoice()
@@ -160,8 +182,116 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 Hand = RemainingHand;
             }
         }
+        private void CheckInputMethod()
+        {
+            playerControllerInput = playerInfo.GetPlayerControllerInput(PlayerID);
+        }
+        private void CheckInput(int PlayerID)
+        {
+            CheckInputMethod();
+            NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+            NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+            if (playerControllerInput == PlayerInfo.PlayerControllerInput.Keyboard)
+            {
+                if (Input.anyKeyDown)
+                {
+                    foreach(KeyCode code in Enum.GetValues(typeof(KeyCode))){
+                        if (Input.GetKeyDown(code))
+                        {
+                            CurrentInput = code;
+                            break;
+                        }
+                    }
+                    HandChange(CurrentInput);
+                    CountChange(CurrentInput);
+                }
+            }else if(playerControllerInput == PlayerInfo.PlayerControllerInput.Joystick)
+            {
+                JoyStickControl();
+            }
 
-
+        }
+        
+        private void HandChange(KeyCode CurrentInput)
+        {
+            if (CurrentInput == HandPlus)
+            {
+                if (Hand < RemainingHand)
+                {
+                    Hand++;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand - 1].GetComponent<Image>().color = Color.white;
+                }
+            }else if(CurrentInput == HandMinus)
+            {
+                if(Hand > 0)
+                {
+                    Hand--;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+        }
+        private void CountChange(KeyCode CurrentInput)
+        {
+            if (CurrentInput == CountPlus)
+            {
+                if (Count < 8)
+                {
+                    Count++;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (CurrentInput == CountMinus)
+            {
+                if (Count > 0)
+                {
+                    Count--;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+        }
+        private void JoyStickControl()
+        {
+            if (Input.GetButtonDown("Fire3"))
+            {
+                if (Hand > 0)
+                {
+                    Hand--;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Fire1"))
+            {
+                if (Hand < RemainingHand)
+                {
+                    Hand++;
+                    NextHandChoice[Hand].GetComponent<Image>().color = Color.blue;
+                    NextHandChoice[Hand - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Fire2"))
+            {
+                if (Count > 0)
+                {
+                    Count--;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count + 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else if (Input.GetButtonDown("Jump"))
+            {
+                if (Count < 8)
+                {
+                    Count++;
+                    NextCountChoice[Count].GetComponent<Image>().color = Color.blue;
+                    NextCountChoice[Count - 1].GetComponent<Image>().color = Color.white;
+                }
+            }
+        }
 
         private void CheckCount()
         {
@@ -177,9 +307,5 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 }
         }
 
-        private void Win()
-        {
-
-        }
     }
 }

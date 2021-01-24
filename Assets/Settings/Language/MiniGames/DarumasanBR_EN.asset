@@ -13,16 +13,29 @@ MonoBehaviour:
   m_Name: DarumasanBR_EN
   m_EditorClassIdentifier: 
   labelName:
-  - HowToPlay
+  - Title
   - PressAnyButton
   - Remaining
   - GoalLine
   - Result
   - Win
+  - Description
+  - Controls
+  - GameRule
+  - ControlTitle
   labelText:
-  - How To Play Yubisumo
+  - How To Play Darumasan
   - Please press run button from any players
   - Goal
   - Goal Line
   - Result
   - Wins
+  - 'The players move their characters by pressing a single button repeatedly. The
+    winner is the fastest player to reach the demon._Time after time, the demon will
+    chant "Daruma-san ga Koronda" (which will be shown on the screen)._The players
+    have to stop moving as soon as the demon finishes its chanting and turns around,
+    otherwise they will be sent back to the starting line._Protip: Do not hesitate
+    to start running again when the demon begins chanting a new line.'
+  - 'Controls: Keyboard C'
+  - 'How To Play: Keyboard R'
+  - Controls of Darumasan

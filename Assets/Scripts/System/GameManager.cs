@@ -189,7 +189,7 @@ namespace DHU2020.DGS.MiniGame.System
             string winnerPlayerIDs_str = "";
             for(int i = 0; i < winnerPlayerIDs.Count; i++)
             {
-                winnerPlayerIDs_str += winnerPlayerIDs[i];
+                winnerPlayerIDs_str += playerInfo.GetPlayerName(winnerPlayerIDs[i]);
                 if(i <= winnerPlayerIDs.Count - 1)
                 {
                     winnerPlayerIDs_str += Environment.NewLine;
@@ -296,11 +296,6 @@ namespace DHU2020.DGS.MiniGame.System
                     }
                 }
             }
-        }
-
-        public void SelectedAllPlayers()
-        {
-            Debug.Log("SelectedAllPlayers");
         }
 
         public void EnterGame()

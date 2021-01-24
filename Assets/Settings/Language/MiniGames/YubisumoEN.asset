@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YubisumoEN
   m_EditorClassIdentifier: 
   labelName:
-  - HowToPlay
+  - Title
   - PressAnyButton
   - RemainingTime
   - Player
@@ -21,6 +21,10 @@ MonoBehaviour:
   - Win
   - WinningLine
   - Draw
+  - Description
+  - Controls
+  - GameRule
+  - ControlTitle
   labelText:
   - How To Play Yubisumo
   - Please press hit button from any players
@@ -30,3 +34,10 @@ MonoBehaviour:
   - Wins
   - Winning Line
   - Draw
+  - The players have to repeatedly press a single button within the time limit. A
+    player wins when they manage to hold down their opponent's thumb._The gauge on
+    the screen shows each player's statistics._The match will result in a draw when
+    the remaining time is fully depleted.
+  - 'Controls: Keyboard C'
+  - 'How To Play: Keyboard R'
+  - Controls of Yubisumo

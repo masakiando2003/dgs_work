@@ -13,7 +13,7 @@ namespace DHU2020.DGS.MiniGame.System
     {
         public MapInfo mapInfo;
         public Localization localeJP, localeEN;
-        public Text pressAnyButtonText;
+        public Text pressAnyButtonText, descriptionText;
 
         private Language gameLangauge;
 
@@ -28,10 +28,12 @@ namespace DHU2020.DGS.MiniGame.System
             gameLangauge = mapInfo.GetGameLanguage();
             if(gameLangauge == Language.Japanese)
             {
+                descriptionText.text = localeJP.GetLabelContent("Description").Replace("_", Environment.NewLine);
                 pressAnyButtonText.text = localeJP.GetLabelContent("PressAnyButton");
             }
             else
             {
+                descriptionText.text = localeEN.GetLabelContent("Description").Replace("_", Environment.NewLine);
                 pressAnyButtonText.text = localeEN.GetLabelContent("PressAnyButton");
             }
         }

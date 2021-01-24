@@ -16,5 +16,10 @@ MonoBehaviour:
   - Description
   - PressAnyButton
   labelText:
-  - 
-  - Please press any button from any players
+  - "Tin Ha Tai Ping:__A traditional Hong Kong game that can be played with a pen
+    and a piece of paper._The players first draw a big\u300C\u7530\u300Dshape on
+    the paper and then fill each square with\u300C\u5929\u4E0B\u592A\u5E73\u300D._A
+    winner will be decided every round by Rock Paper Scissors. The winner can choose
+    to either attack their opponent or defense their base._The game ends when a player's
+    base has been completely destroyed (when a player has lost all of their \u5929\u4E0B\u592A\u5E73)."
+  - Please press any button on keyboard

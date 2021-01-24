@@ -13,18 +13,35 @@ MonoBehaviour:
   m_Name: Darumasan1v3_EN
   m_EditorClassIdentifier: 
   labelName:
-  - HowToPlay
+  - Title
   - PressAnyButton
   - Remaining
   - GoalLine
   - Result
   - Win
   - RemainingTime
+  - Description
+  - Controls
+  - GameRule
+  - ControlTitle
+  - Players
+  - GhostPlayer
   labelText:
-  - How To Play Yubisumo 1 vs 3
+  - How To Play Darumasan 1 vs 3
   - Please press run button from any players
   - Goal
   - Goal Line
   - Result
   - Wins
   - Remaining Time
+  - 'Player as the demon: Chants "Daruma-san ga Koronda" by repeatedly pressing a
+    single button. _Once the full sentence is displayed, the player is unable to
+    continue chanting for a short while until the sentence has completely vanished.__Other
+    players: Move by pressing a single button repeatedly._All three win when anyone
+    of them reaches the demon within the time limit. The demon wins when the time
+    limit is reached.'
+  - 'Controls: Keyboard C'
+  - 'How To Play: Keyboard R'
+  - Controls of Darumasan 1v3
+  - Players
+  - Ghost Player

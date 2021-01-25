@@ -20,7 +20,6 @@ namespace DHU2020.DGS.MiniGame.Setting
         public List<KeyCode> PlayerKeyCodes = new List<KeyCode>();
 
 
-
         public List<KeyCode> GetPlayerKeyCodes(int PlayerID)
         {
             PlayerKeyCodes.Clear();
@@ -52,6 +51,32 @@ namespace DHU2020.DGS.MiniGame.Setting
                     break;
             }
             return PlayerKeyCodes;
+        }
+
+        public string Player1JoyStick1 = "Fire1", Player1JoyStick2 = "Fire2", Player1JoyStick3 = "Fire3", Player1JoyStick4 = "Jump";
+        public string Player2JoyStick1 = "JoyStick4", Player2JoyStick2 = "JoyStick5", Player2JoyStick3 = "JoyStick6", Player2JoyStick4 = "JoyStick7";
+
+        public List<string> PlayerJoySticks = new List<string>();
+
+        public List<string> GetPlayerJoySticks(int PlayerID)
+        {
+            PlayerJoySticks.Clear();
+            switch (PlayerID)
+            {
+                case 0:
+                    PlayerJoySticks.Add(Player1JoyStick1);
+                    PlayerJoySticks.Add(Player1JoyStick2);
+                    PlayerJoySticks.Add(Player1JoyStick3);
+                    PlayerJoySticks.Add(Player1JoyStick4);
+                    break;
+                case 1:
+                    PlayerJoySticks.Add(Player2JoyStick1);
+                    PlayerJoySticks.Add(Player2JoyStick2);
+                    PlayerJoySticks.Add(Player2JoyStick3);
+                    PlayerJoySticks.Add(Player2JoyStick4);
+                    break;
+            }
+            return PlayerJoySticks;
         }
     }
 }

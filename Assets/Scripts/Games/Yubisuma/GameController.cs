@@ -204,7 +204,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             if(YubisumaIntroduction.Instance.CurrentState == YubisumaIntroduction.IntroductionState.ReadyForStart)
             {
-                ChangeState(State.Prepare);
                 IntroductionCanvas.gameObject.SetActive(false);
                 GameCanvas.gameObject.SetActive(true);
             }
@@ -213,12 +212,16 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 IntroductionCanvas.gameObject.SetActive(true);
                 GameCanvas.gameObject.SetActive(false);
             }
+            if (GameCanvas.isActiveAndEnabled)
+            {
+                ChangeState(State.Prepare);
+            }
         }
 
         public void UpdateStatePrepare()
         {
-            ChangeState(State.Choose);
             ProgressBar.SetActive(true);
+            ChangeState(State.Choose);
         }
 
         public void UpdateStateChoose()

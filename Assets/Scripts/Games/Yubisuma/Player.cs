@@ -64,13 +64,12 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             switch (GameController.Instance.CurrentState)
             {
                 case GameController.State.Introduction:
-                    CheckInputMethod();
                     break;
                 case GameController.State.Prepare:
                     DecideNextChoice();
-                    SetInputButtons();
                     break;
                 case GameController.State.Choose:
+                    SetInputButtons();
                     CheckInput(PlayerID);
                     NextTurn();
                     ResetHand();
@@ -85,6 +84,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 case GameController.State.GameEnd:
                     break;
             }
+            Debug.Log(GameController.Instance.CurrentState);
         }
 
         private void Initialize()
@@ -97,6 +97,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             {
                 playerInfo = GameController.Instance.playerInfo;
             }
+            CheckInputMethod();
         }
 
         private void InitializeButton(GameObject[] buttons,float yPos,Button button,Canvas canvas)
@@ -109,10 +110,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
             }
         }
 
-        private void InitializeImage()
-        {
-
-        }
 
         private void SwitchHandImage()
         {
@@ -138,7 +135,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
 
         private void SetInputButtons()
         {
-            CheckInputMethod();
             if (playerControllerInput == PlayerInfo.PlayerControllerInput.Keyboard)
             {
                 PlayerKeyCodes = playerInputInfo.GetPlayerKeyCodes(PlayerID);
@@ -146,10 +142,12 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                 HandMinus = PlayerKeyCodes[0];
                 CountPlus = PlayerKeyCodes[1];
                 CountMinus = PlayerKeyCodes[2];
-                Debug.Log(PlayerKeyCodes);
-            }else if(playerControllerInput == PlayerInfo.PlayerControllerInput.Joystick)
+                
+            }
+            if (playerControllerInput == PlayerInfo.PlayerControllerInput.Joystick)
             {
                 PlayerJoySticks = playerInputInfo.GetPlayerJoySticks(PlayerID);
+                
             }
         }
 

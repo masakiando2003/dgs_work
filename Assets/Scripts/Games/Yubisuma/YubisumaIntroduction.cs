@@ -17,12 +17,13 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         public MapInfo mapInfo;
         public Localization localeJP, localeEN;
         public float showStartGameTextTime = 3f, fadeStartGameTextTime = 0.5f;
-        public Text ControlText, HowToPlayText;
+        public Text ControlText, HowToPlayText,PressText;
         public GameObject YubisumaGameCanvas;
         private Localization CurrentLocale;
 
-        private bool Flag;
+        private float alpha;
         private MapInfo.Language gameLanguage;
+        private Color color;
 
         public enum IntroductionState
         {
@@ -47,6 +48,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         void Start()
         {
             Initialize();
+            color = PressText.color;
         }
 
         // Update is called once per frame
@@ -58,6 +60,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 {
                     HowToPlayText.gameObject.SetActive(true);
                     ControlText.gameObject.SetActive(false);
+                    PressText.text = "Press Any Button To Continue";
                     if (Input.anyKeyDown)
                     {
                         CurrentState = IntroductionState.Control;
@@ -66,6 +69,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 {
                     HowToPlayText.gameObject.SetActive(false);
                     ControlText.gameObject.SetActive(true);
+                    PressText.text = "Press Any Button To Start";
                     if (Input.anyKeyDown)
                     {
                         if (Input.GetKeyDown(KeyCode.Backspace))
@@ -78,6 +82,9 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                         }
                     }
                 }
+                color.a = alpha;
+                PressText.color = color;
+                alpha = Mathf.Sin(Time.time) / 2 + 0.5f;
             }
         }
 

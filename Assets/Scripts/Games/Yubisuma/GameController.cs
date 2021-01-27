@@ -56,10 +56,16 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public float TurnSpan = 10f;
 
+        private float span;
+
 
         public bool IntroductionFlag;
 
         public Canvas IntroductionCanvas,GameCanvas;
+
+        public Text WinnerText;
+
+        private int WinnerID;
 
         public State CurrentState
         {
@@ -101,7 +107,9 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 PlayerIDs[i] = Players[i].GetComponent<Player>().PlayerID;
             }
             loserPlayerIDs = new int[Players.Length - 1];
-
+            span = TurnSpan;
+            WinnerText.gameObject.SetActive(false);
+            WinnerID = 100;
         }
 
         private void ChangeState(State state)
@@ -152,6 +160,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                     UpdateStateCheck();
                     break;
                 case State.GameEnd:
+                    UpdateStateGameEnd();
                     break;
             }
             //Debug.Log(CurrentState);
@@ -214,11 +223,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public void UpdateStateChoose()
         {
-            TurnSpan -= Time.deltaTime;
-            if (TurnSpan <= 0f)
+            span -= Time.deltaTime;
+            if (span <= 0f)
             {
                 GameController.Instance.ChangeState(State.Calculate);
-                TurnSpan = 10f;
+                span = TurnSpan;
                 ProgressBar.SetActive(false);
             }
         }
@@ -238,7 +247,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
 
         public void UpdateStateGameEnd()
         {
-
+            WinnerText.gameObject.SetActive(true);
+            WinnerText.text = playerInfo.GetPlayerName(WinnerID) + " Win";
         }
 
         
@@ -269,7 +279,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                     GameController.Instance.ChangeState(State.GameEnd);
                     Debug.Log(DecidePlayer + " Win / PlayerID: " + Players[i].GetComponent<Player>().PlayerID);
                     SetLoserPlayers(Players[i].GetComponent<Player>().PlayerID);
-                    SetWinner(Players[i].GetComponent<Player>().PlayerID);
+                    WinnerID = Players[i].GetComponent<Player>().PlayerID;
+                    SetWinner(WinnerID);
                     break;
                 }
             }

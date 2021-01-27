@@ -2130,6 +2130,14 @@ PrefabInstance:
       value: "\u5DE6\u30AD\u30FC / \u53F3\u30AD\u30FC: \u30DF\u30CB\u30B2\u30FC\u30E0\u3092\u9078\u3076,
         Enter\u30AD\u30FC: \u9078\u629E\u3059\u308B"
       objectReference: {fileID: 0}
+    - target: {fileID: 1484271840, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1484271840, guid: ac7d72b4b2b1bc8468073392bddac97c, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 44997721042097741, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}
       propertyPath: selectGameHintText
@@ -2139,6 +2147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SelectGameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449728133888993578, guid: ac7d72b4b2b1bc8468073392bddac97c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3449728133888993581, guid: ac7d72b4b2b1bc8468073392bddac97c,
         type: 3}

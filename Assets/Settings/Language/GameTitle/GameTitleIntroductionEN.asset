@@ -15,6 +15,9 @@ MonoBehaviour:
   labelName:
   - Description
   - PressAnyButton
+  - HowToPlay
+  - Introduction
+  - GameRule
   labelText:
   - "Tin Ha Tai Ping:__A traditional Hong Kong game that can be played with a pen
     and a piece of paper._The players first draw a big\u300C\u7530\u300Dshape on
@@ -23,3 +26,13 @@ MonoBehaviour:
     to either attack their opponent or defense their base._The game ends when a player's
     base has been completely destroyed (when a player has lost all of their \u5929\u4E0B\u592A\u5E73)."
   - Please press any button on keyboard
+  - 'Keyboard C: How To Play'
+  - 'Keyboard R: About Tin Ha Tai Ping'
+  - 'How to play:__For each round, the specified player has to select a minigame
+    they wish to play. There are three game modes to choose form: battle royale,
+    1 vs 3, and 1 vs 1. In 1 vs 3 and 1 vs 1, players will be directed to a screen
+    where they can decide their teammate(s).__The winner(s) of a minigame will be
+    given a life point, whereas the loser(s) will lose one life point. When a player''s
+    life point reaches zero, they are eliminated from the game.__When the maximum
+    number of turns is reached, all players who are still alive win. In case none
+    of the players has yet been eliminated, the game will end in a draw.'

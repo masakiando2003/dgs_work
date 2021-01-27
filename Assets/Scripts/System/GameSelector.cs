@@ -22,9 +22,10 @@ namespace DHU2020.DGS.MiniGame.System
         public Text selectedGameText, selectGameText, randomGameText, selectGameHintText;
 
         private List<int> randomedGameIndexes = new List<int>();
-        private int selectedGameIndex, defaultSelectGameIndex, originalSelectedGameIndex, gameIndex;
+        private int playerIndex, selectedGameIndex, defaultSelectGameIndex, originalSelectedGameIndex, gameIndex;
+        private float controlFlowHorizontal, controlFlowVertical;
         private string selectedGame;
-        private bool selectedGameFlag, selectRandomGameFlag;
+        private bool selectedGameFlag, selectRandomGameFlag, leftAxisDown, rightAxisDown, upAxisDown, downAxisDown;
         private Language gameLanguage;
 
         // Start is called before the first frame update
@@ -35,6 +36,13 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void Initialize()
         {
+            playerIndex = 0;
+            controlFlowHorizontal = 0;
+            controlFlowVertical = 0;
+            leftAxisDown = false;
+            rightAxisDown = false;
+            upAxisDown = false;
+            downAxisDown = false;
             gameLanguage = mapInfo.GetGameLanguage();
             if(gameLanguage == Language.Japanese)
             {
@@ -97,27 +105,73 @@ namespace DHU2020.DGS.MiniGame.System
         // Update is called once per frame
         void Update()
         {
-            if(selectedGameFlag == true) { return; }
+            if (selectedGameFlag == true) { return; }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetAxis("P" + (playerIndex+1) + "Vertical") > 0 && !upAxisDown)
+            {
+                upAxisDown = true;
+                StartCoroutine(JoystickAxisMoved("up"));
+
+            }
+            else if (Input.GetAxis("P" + (playerIndex + 1) + "Vertical") == 0)
+            {
+                upAxisDown = false;
+            }
+
+            if (Input.GetAxis("P" + (playerIndex + 1) + "Vertical") < 0 && !downAxisDown)
+            {
+                downAxisDown = true;
+                StartCoroutine(JoystickAxisMoved("down"));
+
+            }
+            else if (Input.GetAxis("P" + (playerIndex + 1) + "Vertical") == 0)
+            {
+                downAxisDown = false;
+            }
+
+            if (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") > 0 && !rightAxisDown)
+            {
+                rightAxisDown = true;
+                StartCoroutine(JoystickAxisMoved("right"));
+
+            }
+            else if (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 0)
+            {
+                rightAxisDown = false;
+            }
+
+            if (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") < 0 && !leftAxisDown)
+            {
+                leftAxisDown = true;
+                StartCoroutine(JoystickAxisMoved("left"));
+
+            }
+            else if (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 0)
+            {
+                leftAxisDown = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) )
             {
                 if (!selectRandomGameFlag)
                 {
                     originalSelectedGameIndex = gameIndex;
                     gameIndex = ((gameIndex - 1) < 0) ? games.Length - 1 : gameIndex - 1;
                     SelectGame(gameIndex);
+                    controlFlowHorizontal = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) )
             {
                 if (!selectRandomGameFlag)
                 {
                     originalSelectedGameIndex = gameIndex;
                     gameIndex = ((gameIndex + 1) >= games.Length) ? 0 : gameIndex + 1;
                     SelectGame(gameIndex);
+                    controlFlowHorizontal = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) )
             {
                 selectRandomGameFlag = !selectRandomGameFlag;
                 if (selectRandomGameFlag)
@@ -128,8 +182,10 @@ namespace DHU2020.DGS.MiniGame.System
                 {
                     SelectGame(gameIndex);
                 }
+                controlFlowVertical = 0;
             }
-            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || 
+                     Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
             {
                 selectedGameFlag = true;
                 if (selectRandomGameFlag)
@@ -213,6 +269,38 @@ namespace DHU2020.DGS.MiniGame.System
         public string GetGameTitle()
         {
             return selectedGame;
+        }
+
+        public void SetChooseGamePlayerIndex(int player)
+        {
+            playerIndex = player;
+        }
+
+        private IEnumerator JoystickAxisMoved(string axisName)
+        {
+            switch (axisName)
+            {
+                case "up":
+                    upAxisDown = true;
+                    yield return new WaitForEndOfFrame();
+                    upAxisDown = false;
+                    break;
+                case "down":
+                    downAxisDown = true;
+                    yield return new WaitForEndOfFrame();
+                    downAxisDown = false;
+                    break;
+                case "left":
+                    leftAxisDown = true;
+                    yield return new WaitForEndOfFrame();
+                    leftAxisDown = false;
+                    break;
+                case "right":
+                    rightAxisDown = true;
+                    yield return new WaitForEndOfFrame();
+                    rightAxisDown = false;
+                    break;
+            }
         }
     }
 }

@@ -157,7 +157,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 gameRuleText.text = localeEN.GetLabelContent("GameRule");
                 if (playerInfo.GetPlayerControllerInput(player1ID) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    player1ControlText.text = "Keyboard: Press" + player1RunButton.ToString() + "rapidly = Run";
+                    player1ControlText.text = "Keyboard: Press " + player1RunButton.ToString() + " rapidly = Run";
                 }
                 else
                 {
@@ -165,7 +165,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 if (playerInfo.GetPlayerControllerInput(player2ID) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    player2ControlText.text = "Keyboard: Press" + player2RunButton.ToString() + "rapidly = Run";
+                    player2ControlText.text = "Keyboard: Press " + player2RunButton.ToString() + " rapidly = Run";
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 if (playerInfo.GetPlayerControllerInput(player3ID) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    player3ControlText.text = "Keyboard: Press" + player3RunButton.ToString() + "rapidly = Run";
+                    player3ControlText.text = "Keyboard: Press " + player3RunButton.ToString() + " rapidly = Run";
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 if (playerInfo.GetPlayerControllerInput(ghostPlayerID) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    ghostPlayerControlText.text = "Keyboard: Press" + ghostPlayerHitButton.ToString() + " = Show letter once per time on the screen";
+                    ghostPlayerControlText.text = "Keyboard: Press " + ghostPlayerHitButton.ToString() + " = Show letter once per time on the screen";
                 }
                 else
                 {

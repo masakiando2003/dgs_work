@@ -22,7 +22,7 @@ namespace DHU2020.DGS.MiniGame.System
         public Color selectColor;
         public Image randomPlayerBorder;
         public Text[] playerNamesText;
-        public Text playerNameTextJP, playerNameTextEN, selectGhostTextJP, selectGhostTextEN, randomPlayerText, randomedPlayerText;
+        public Text playerNameTextJP, playerNameTextEN, selectGhostTextJP, selectGhostTextEN, randomPlayerText, randomedPlayerText, selectHintText;
         
         private int playerIndex, numOfPlayers, selectGhostPlayerFromPlayer, selectedGhostPlayerIndex, originalSelectedGhostPlayerIndex, selectedGameIndex;
         private bool selectedGhostPlayer, selectRandomGhostPlayerFlag;
@@ -42,12 +42,14 @@ namespace DHU2020.DGS.MiniGame.System
                 playerNameTextEN.enabled = false;
                 selectGhostTextEN.enabled = false;
                 randomPlayerText.text = "ランダム";
+                selectHintText.text = "左/右キー: 相手を選択します、Enterキー: 決定";
             }
             else
             {
                 playerNameTextJP.enabled = false;
                 selectGhostTextJP.enabled = false;
                 randomPlayerText.text = "Random";
+                selectHintText.text = "Left/Right Key: Select rival player, Enter Key: Decide";
             }
             selectedGhostPlayerIndex = 0;
             selectGhostPlayerFromPlayer = 0;
@@ -74,7 +76,7 @@ namespace DHU2020.DGS.MiniGame.System
         {
             if (selectedGhostPlayer) { return; }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == -1))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 if (!selectRandomGhostPlayerFlag)
                 {
@@ -83,7 +85,7 @@ namespace DHU2020.DGS.MiniGame.System
                     SelectGhost();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 1))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 if (!selectRandomGhostPlayerFlag)
                 {
@@ -92,7 +94,7 @@ namespace DHU2020.DGS.MiniGame.System
                     SelectGhost();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Vertical") != 0))
+            else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if(selectRandomGhostPlayerFlag == true)
                 {
@@ -112,8 +114,7 @@ namespace DHU2020.DGS.MiniGame.System
                     SelectGhost();
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || 
-                    Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
+            else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 if (selectRandomGhostPlayerFlag)
                 {

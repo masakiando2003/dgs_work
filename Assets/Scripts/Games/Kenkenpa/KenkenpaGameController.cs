@@ -460,7 +460,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                 blockID = lapMaxSteps - 1;
             }
             string currentStepBlockID = "Player" + playerID + "StepBlockNumber"+ (blockID+1) + "Text";
-            GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.black;
+            GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.white;
             string wrongBlockName = "Player"+ playerID+"StepBlockArea"+ (blockID + 1) + "Wrong";
             if(increaseLapFlag == 0)
             {
@@ -479,7 +479,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             int currentBlockPosition = playerPosition[playerIndex] > lapMaxSteps ? lapMaxSteps : playerPosition[playerIndex];
             int nextBlockPosition = (currentBlockPosition + 1) > lapMaxSteps ? 1 : (currentBlockPosition + 1);
             string currentStepBlockID = "Player" + playerID + "StepBlockNumber"+ currentBlockPosition + "Text";
-            GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.black;
+            GameObject.Find(currentStepBlockID).GetComponent<Text>().color = Color.white;
             string rightBlockName = "Player" + playerID + "StepBlockArea" + currentBlockPosition + "Right";
             StartCoroutine(ShowResultSign(rightBlockName));
             string nextStepBlockID = "Player" + playerID + "StepBlockNumber" + nextBlockPosition + "Text";

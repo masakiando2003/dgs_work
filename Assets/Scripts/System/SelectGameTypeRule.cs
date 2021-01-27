@@ -18,13 +18,13 @@ namespace DHU2020.DGS.MiniGame.Setting
         public GameInfo gameInfo;
         public Color selectColor;
         public MapInfo mapInfo;
-        public Text battleRoyaleText, randomText;
+        public float loadGameTime = 2f;
+        public Text battleRoyaleText, randomText, selectGameTypeRuleHintText;
         public Text playerNameTextJP, gameNameTextJP, descriptionTextJP, randomGameTypeTextJP;
         public Text playerNameTextEN, gameNameTextEN, descriptionTextEN, randomGameTypeTextEN;
 
         private int selectedGameIndex, selectRuleTypeID, playerIndex;
         private string displayPlayerName, gameName, sceneName;
-        private float loadGameTime;
         private bool selectedGameTypeFlag;
         private Language gameLanguage;
 
@@ -37,7 +37,6 @@ namespace DHU2020.DGS.MiniGame.Setting
         {
             playerIndex = 0;
             selectRuleTypeID = 0;
-            loadGameTime = FindObjectOfType<GameSelector>().GetLoadGameTime();
             selectedGameTypeFlag = false;
             playerNameTextJP.text = "";
             gameNameTextJP.text = "";
@@ -54,6 +53,7 @@ namespace DHU2020.DGS.MiniGame.Setting
                 randomGameTypeTextEN.enabled = false;
                 battleRoyaleText.text = "バトルロイヤル";
                 randomText.text = "ランダム";
+                selectGameTypeRuleHintText.text = "左/右キー: ルールを選択します、Enterキー: 決定";
             }
             else
             {
@@ -63,6 +63,7 @@ namespace DHU2020.DGS.MiniGame.Setting
                 randomGameTypeTextJP.enabled = false;
                 battleRoyaleText.text = "Battle Royale";
                 randomText.text = "Random";
+                selectGameTypeRuleHintText.text = "Left/Right Key: Select game rule, Enter Key: Decide";
             }
         }
 
@@ -86,11 +87,11 @@ namespace DHU2020.DGS.MiniGame.Setting
                 gameNameTextEN.text = gameName;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == -1))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 selectRuleTypeID = ((selectRuleTypeID - 1) < 0) ? 2 : selectRuleTypeID - 1;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 1))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 selectRuleTypeID = ((selectRuleTypeID + 1) > 2) ? 0 : selectRuleTypeID + 1;
             }
@@ -114,8 +115,7 @@ namespace DHU2020.DGS.MiniGame.Setting
                     break;
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) ||
-                Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 selectedGameTypeFlag = true;
                 switch (selectRuleTypeID)

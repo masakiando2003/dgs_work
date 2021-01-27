@@ -121,6 +121,11 @@ namespace DHU2020.DGS.MiniGame.System
         // Update is called once per frame
         void Update()
         {
+            for(int playerIndex = 0; playerIndex < playerNameTexts.Length; playerIndex++)
+            {
+                playerNameTexts[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
+            }
+
             if (isSelectingPlayers == true)
             {
                 SelectPlayer();

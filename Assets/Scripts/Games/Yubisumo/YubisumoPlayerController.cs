@@ -13,9 +13,9 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         public PlayerInfo playerInfo;
         public YubisumoGameController yubisumoGameController;
 
-        private int hitCount, playerID;
+        [SerializeField] private int hitCount, playerID;
         private PlayerControllerInput playerInputMethod;
-        private KeyCode hitKeyCode;
+        [SerializeField] KeyCode hitKeyCode;
 
         // Start is called before the first frame update
         void Start()

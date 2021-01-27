@@ -54,11 +54,14 @@ namespace DHU2020.DGS.MiniGame.Setting
         public void SetPlayerName(int index, string playerName)
         {
             playerNames[index] = playerName;
+            PlayerPrefs.SetString("Player" + (index + 1) + "Name", playerName);
         }
 
         public string GetPlayerName(int index)
         {
-            return playerNames[index];
+            string playerName = PlayerPrefs.GetString("Player" + (index + 1) + "Name");
+            //return playerNames[index];
+            return playerName;
         }
         
         public int GetPlayerID(string name)
@@ -79,22 +82,26 @@ namespace DHU2020.DGS.MiniGame.Setting
             {
                 playerLifes.Add(defaultLife);
                 playerMaxLifes.Add(defaultLife);
+                PlayerPrefs.SetInt("Player" + (i + 1) + "Life", defaultLife);
             }
         }
 
         public void IncreaseLife(int playerIndex, int life=1)
         {
             playerLifes[playerIndex] = (playerLifes[playerIndex] + life > defaultLife) ? defaultLife : playerLifes[playerIndex] + life;
+            PlayerPrefs.SetInt("Player" + (playerIndex + 1) + "Life", playerLifes[playerIndex]);
         }
 
         public void DecreaseLife(int playerIndex, int life=1)
         {
             playerLifes[playerIndex] = (playerLifes[playerIndex] - life <= 0) ? 0 : playerLifes[playerIndex] - life;
+            PlayerPrefs.SetInt("Player" + (playerIndex + 1) + "Life", playerLifes[playerIndex]);
         }
 
         public void SetCurrentLifeToMaxLife(int playerIndex)
         {
             playerLifes[playerIndex] = playerMaxLifes[playerIndex];
+            PlayerPrefs.SetInt("Player" + (playerIndex + 1) + "Life", playerLifes[playerIndex]);
         }
 
         public int GetMaxLife(int playerIndex)
@@ -104,17 +111,32 @@ namespace DHU2020.DGS.MiniGame.Setting
 
         public int GetCurrentLife(int playerIndex)
         {
-            return playerLifes[playerIndex];
+            return PlayerPrefs.GetInt("Player" + (playerIndex + 1) + "Life");
+            // return playerLifes[playerIndex];
         }
 
         public void SetPlayerControllerInput(int index, PlayerControllerInput input)
         {
             playerControllerInputs[index] = input;
+            PlayerPrefs.SetString("Player" + (index + 1) + "ControllerInput", input.ToString());
         }
 
         public PlayerControllerInput GetPlayerControllerInput(int index)
         {
-            return playerControllerInputs[index];
+            string controllerInput = PlayerPrefs.GetString("Player" + (index + 1) + "ControllerInput");
+            if(controllerInput == "Keyboard")
+            {
+                return PlayerControllerInput.Keyboard;
+            }
+            else if (controllerInput == "Joystick")
+            {
+                return PlayerControllerInput.Joystick;
+            }
+            else
+            {
+                return PlayerControllerInput.Keyboard;
+            }
+            //return playerControllerInputs[index];
         }
 
         public int GetPlayersCount()

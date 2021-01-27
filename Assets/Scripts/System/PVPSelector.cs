@@ -1,26 +1,33 @@
 ﻿using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
 using DHU2020.DGS.MiniGame.System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DHU2020.DGS.MiniGame.Map.MapInfo;
+using Random = UnityEngine.Random;
 
 namespace DHU2020.DGS.MiniGame.System
 {
     public class PVPSelector : MonoBehaviour
     {
+        public MapInfo mapInfo;
+        public Localization localeJP, localeEN;
         public PlayerInfo playerInfo;
         public PVPPlayerInfo pvpPlayerInfo;
         public GameObject[] players;
-        public Text[] playerNames, rivalPlayerNames;
-        public Text randomedPlayerText;
+        public Text[] playerNamesText, rivalPlayerNamesText;
+        public Text randomedPlayerText, selectPlayerText, selectPlayerHintText;
         public Color selectColor;
         public float enterGameTime = 1f;
+        public List<string> playersName;
 
         private string selectedRivalPlayerName;
         private int playerIndex, selectedRivalPlayerID, originalSelectedRivalPlayerID;
         private bool selectedRivalPlayerFlag;
+        private Language gameLanguage;
 
         // Start is called before the first frame update
         void Start()
@@ -30,6 +37,17 @@ namespace DHU2020.DGS.MiniGame.System
 
         private void Initialization()
         {
+            gameLanguage = mapInfo.GetGameLanguage();
+            if (gameLanguage == Language.Japanese)
+            {
+                selectPlayerText.text = localeJP.GetLabelContent("SelectRival");
+                selectPlayerHintText.text = localeJP.GetLabelContent("SelectHint");
+            }
+            else
+            {
+                selectPlayerText.text = localeEN.GetLabelContent("SelectRival");
+                selectPlayerHintText.text = localeEN.GetLabelContent("SelectHint");
+            }
             playerIndex = 0;
             selectColor.a = 1f;
             GameObject.Find("FirstPlayerBorder").GetComponent<Image>().color = selectColor;
@@ -42,37 +60,36 @@ namespace DHU2020.DGS.MiniGame.System
         {
             if(selectedRivalPlayerFlag) { return; }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == -1))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
-                selectedRivalPlayerID = ((selectedRivalPlayerID - 1) < 0) ? rivalPlayerNames.Length : selectedRivalPlayerID - 1;
+                selectedRivalPlayerID = ((selectedRivalPlayerID - 1) < 0) ? rivalPlayerNamesText.Length : selectedRivalPlayerID - 1;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 1))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
-                selectedRivalPlayerID = ((selectedRivalPlayerID + 1) >= rivalPlayerNames.Length+1) ? 0 : selectedRivalPlayerID + 1;
+                selectedRivalPlayerID = ((selectedRivalPlayerID + 1) >= rivalPlayerNamesText.Length+1) ? 0 : selectedRivalPlayerID + 1;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
-            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) ||
-                     Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 selectedRivalPlayerFlag = true;
                 int selectedPlayerID = FindObjectOfType<GameManager>().GetSelectedPlayerID();
                 // ランダムの場合
-                if (selectedRivalPlayerID == rivalPlayerNames.Length)
+                if (selectedRivalPlayerID == rivalPlayerNamesText.Length)
                 {
                     bool randomFinishedFlag = false;
                     while (!randomFinishedFlag)
                     {
-                        int randomedRivalID = Random.Range(0, playerNames.Length);
-                        Debug.Log("randomedRivalID: "+ randomedRivalID);
+                        int randomedRivalID = Random.Range(0, playerNamesText.Length);
+                        //Debug.Log("randomedRivalID: "+ randomedRivalID);
                         if (randomedRivalID != selectedPlayerID && players[randomedRivalID].GetComponent<PlayerStatusManager>().IsAlive())
                         {
                             selectedRivalPlayerID = randomedRivalID;
-                            selectedRivalPlayerName = playerInfo.GetPlayerName(selectedRivalPlayerID);
+                            selectedRivalPlayerName = playersName[selectedRivalPlayerID];
                             randomedPlayerText.text = selectedRivalPlayerName;
                             randomFinishedFlag = true;
                         }
@@ -82,7 +99,10 @@ namespace DHU2020.DGS.MiniGame.System
                 {
                     selectedRivalPlayerName = playerInfo.GetPlayerName(selectedRivalPlayerID);
                 }
-                pvpPlayerInfo.SetPlayerID(selectedPlayerID, playerInfo.GetPlayerID(selectedRivalPlayerName));
+                string selectRivalPlayerName = playersName[selectedRivalPlayerID];
+                pvpPlayerInfo.SetPlayerID(playerIndex, playerInfo.GetPlayerID(selectRivalPlayerName));
+                //Debug.Log("selectedRivalPlayerID: " + selectedRivalPlayerID + ", selectRivalPlayerName: " + selectRivalPlayerName + ", RivalIndex: "+playersName.FindIndex(s => s == selectedRivalPlayerName));
+                //Debug.Log("selectedRivalPlayerID: " + selectedRivalPlayerID + ", selectedRivalPlayerName: " + selectedRivalPlayerName);
                 StartCoroutine(EnterGame());
             }
         }
@@ -97,11 +117,13 @@ namespace DHU2020.DGS.MiniGame.System
         {
             selectedRivalPlayerFlag = false;
             int selectedPlayerID = FindObjectOfType<GameManager>().GetSelectedPlayerID();
-            for (int i = 0, j = 0; i < playerNames.Length; i++)
+            playersName.Clear();
+            for (int i = 0, j = 0; i < playerNamesText.Length; i++)
             {
-                if(i != selectedPlayerID)
+                if (i != selectedPlayerID)
                 {
-                    rivalPlayerNames[j].text = playerNames[i].text;
+                    rivalPlayerNamesText[j].text = playerNamesText[i].text;
+                    playersName.Add(playerInfo.GetPlayerName(i));
                     j++;
                 }
             }
@@ -149,6 +171,7 @@ namespace DHU2020.DGS.MiniGame.System
         public void SetPVPSelectorPlayerIndex(int player)
         {
             playerIndex = player;
+            //Debug.Log("Player Index: "+playerIndex);
         }
     }
 }

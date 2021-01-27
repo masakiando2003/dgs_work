@@ -24,8 +24,8 @@ namespace DHU2020.DGS.MiniGame.System
         public MapInfo mapInfo;
         public Localization localeJP, localeEN;
         public GameObject[] players;
-        public Text[] playerNames, turnLabels, playerStatusLabels;
-        public Text winnerTitleText, congradulationText, drawTitleText, drawContentText, retryText;
+        public Text[] playerNames, turnLabels, playerStatusLabels, playerLifeTexts;
+        public Text winnerTitleText, congradulationText, drawTitleText, drawContentText, retryText, remainingPlayersText;
         public int numOfWinningPlayers = 1;
   
         public Text currentTurnText, maxTurnsText, turnCanvasTurnText, selectGamePlayerText, winnerText;
@@ -66,6 +66,7 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 playerNames[i].GetComponent<Text>().text = playerInfo.GetPlayerName(i);
                 players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
+                playerLifeTexts[i].text = playerInfo.GetCurrentLife(i).ToString();
             }
             CheckWinningStatus();
 
@@ -117,6 +118,7 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 case "PVPSelectPlayerCanvas":
                     PVPSelectPlayerCanvas.SetActive(true);
+                    PVPSelectPlayerCanvas.GetComponent<PVPSelector>().SetPVPSelectorPlayerIndex(selectedPlayerID);
                     PVPSelectPlayerCanvas.GetComponent<PVPSelector>().InitializeRivalPlayerList();
                     for (int i = 0; i < players.Length; i++)
                     {
@@ -160,11 +162,12 @@ namespace DHU2020.DGS.MiniGame.System
             remainingPlayers = 0;// 一旦リセットします
             for (int i = 0; i < players.Length; i++)
             {
-                if (players[i].GetComponent<PlayerStatusManager>().IsAlive())
+                if (playerInfo.GetCurrentLife(i) > 0)
                 {
                     remainingPlayers++;
                 }
             }
+            remainingPlayersText.text = remainingPlayers.ToString();
 
             return remainingPlayers;
         }

@@ -32,21 +32,36 @@ namespace DHU2020.DGS.MiniGame.Map
         public void SetMaxTurns(int turns)
         {
             maxTurns = turns;
+            PlayerPrefs.SetInt("MaxTurns", maxTurns);
         }
 
         public int GetMaxTurns()
         {
+            int maxTurns = PlayerPrefs.GetInt("MaxTurns");
             return maxTurns;
         }
 
         public void SetLanguage(Language selectedLanguage)
         {
             langauge = selectedLanguage;
+            PlayerPrefs.SetString("GameLanguage", selectedLanguage.ToString());
         }
 
         public Language GetGameLanguage()
         {
-            return langauge;
+            string gameLanguage = PlayerPrefs.GetString("GameLanguage");
+            if(gameLanguage == "Japanese")
+            {
+                return Language.Japanese;
+            }
+            else if (gameLanguage == "English")
+            {
+                return Language.English;
+            }
+            else
+            {
+                return langauge;
+            }
         }
 
         public void StartNewGame()

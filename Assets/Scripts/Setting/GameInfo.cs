@@ -1,5 +1,6 @@
 ﻿using DHU2020.DGS.MiniGame.Map;
 using DHU2020.DGS.MiniGame.Setting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,7 @@ namespace DHU2020.DGS.MiniGame.Game
 
         public string GetGameSceneNameByJapaneseName(string japaneseName)
         {
-            int gameIndex = UnityEditor.ArrayUtility.IndexOf(gameTitlesJapanese, japaneseName);
+            int gameIndex = Array.IndexOf(gameTitlesJapanese, japaneseName);
             return gameTitlesEnglish[gameIndex];
         }
 
@@ -67,7 +68,7 @@ namespace DHU2020.DGS.MiniGame.Game
 
         private int GetGameIDByGameName(string gameName)
         {
-            return UnityEditor.ArrayUtility.IndexOf(gameTitlesEnglish, gameName);
+            return Array.IndexOf(gameTitlesEnglish, gameName);
         }
 
         public void SetMiniGameWinner(string miniGame, int playerID, int[] rivalIDs = null, List<int> winnerPlayerIDs = null)

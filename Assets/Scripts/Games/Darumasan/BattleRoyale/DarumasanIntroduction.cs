@@ -102,7 +102,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 if (playerInfo.GetPlayerControllerInput(1) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    player2ControlText.text = "Keyboard: Press" + p2EnterButton.ToString() + "rapidly = Run";
+                    player2ControlText.text = "Keyboard: Press " + p2EnterButton.ToString() + " rapidly = Run";
                 }
                 else
                 {
@@ -110,7 +110,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 if (playerInfo.GetPlayerControllerInput(2) == PlayerInfo.PlayerControllerInput.Keyboard)
                 {
-                    player3ControlText.text = "Keyboard: Press" + p3EnterButton.ToString() + "rapidly = Run";
+                    player3ControlText.text = "Keyboard: Press " + p3EnterButton.ToString() + " rapidly = Run";
                 }
                 else
                 {

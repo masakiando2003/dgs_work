@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583c340c8f0cdfe4d9b531ab90003889, type: 3}
+  m_Name: PlayerInputInfo
+  m_EditorClassIdentifier: 
+  Player1HitButton1: 97
+  Player1HitButton2: 119
+  Player1HitButton3: 115
+  Player1HitButton4: 100
+  Player2HitButton1: 102
+  Player2HitButton2: 116
+  Player2HitButton3: 103
+  Player2HitButton4: 104
+  Player3HitButton1: 106
+  Player3HitButton2: 105
+  Player3HitButton3: 107
+  Player3HitButton4: 108
+  Player4HitButton1: 52
+  Player4HitButton2: 53
+  Player4HitButton3: 54
+  Player4HitButton4: 56
+  PlayerKeyCodes: 

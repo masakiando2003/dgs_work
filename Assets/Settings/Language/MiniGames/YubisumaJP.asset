@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd245846a4523040b61bfae17c2f17e, type: 3}
+  m_Name: YubisumaJP
+  m_EditorClassIdentifier: 
+  labelName:
+  - HowToPlay
+  - Rule1
+  - Rule2
+  - Rule3
+  - Control
+  - Keyboard
+  - KeyboardSetting1
+  - KeyboardSetting2
+  - JoyStick
+  - JoyStickSetting
+  labelText:
+  - "\u904A\u3073\u65B9:"
+  - "\u9078\u629E\u3055\u308C\u305F\u30D7\u30EC\u30A4\u30E4\u30FC\u306F\uFF10\uFF5E\uFF18\u307E\u3067\u306E\u6570\u5B57\u3092\u9078\u3073\u307E\u3059"
+  - "\u305D\u308C\u305E\u308C\u306E\u30D7\u30EC\u30A4\u30E4\u30FC\u304C\u4E0A\u3052\u305F\u3086\u3073\u306E\u5408\u8A08\u304C\u9078\u629E\u3055\u308C\u305F\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u6307\u5B9A\u3057\u305F\u6570\u5B57\u3068\u304A\u306A\u3058\u3060\u3068\u9078\u629E\u3055\u308C\u305F\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u3086\u3073\u304C\u6E1B\u308A\u307E\u3059"
+  - "\u3086\u3073\u304C\u6700\u521D\u306B\u306A\u304F\u306A\u3063\u305F\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u52DD\u5229\u3067\u3059\u3002"
+  - "\u64CD\u4F5C:"
+  - "\u30AD\u30FC\u30DC\u30FC\u30C9:"
+  - Player1:AWSD,Player2:FTGH
+  - Player3:JIKL,Player4:4856
+  - "\u30B8\u30E7\u30A4\u30B9\u30C6\u30A3\u30C3\u30AF:"
+  - "\u25A1\u25B3\u3007\u2715"

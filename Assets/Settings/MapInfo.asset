@@ -15,4 +15,4 @@ MonoBehaviour:
   maxTurns: 10
   currentTurn: 0
   loadMainMapSeconds: 1
-  langauge: 1
+  langauge: 0

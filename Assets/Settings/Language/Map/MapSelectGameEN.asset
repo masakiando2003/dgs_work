@@ -19,4 +19,4 @@ MonoBehaviour:
   labelText:
   - please select one of the following games
   - Random
-  - 'Left Key / Right Key / Up Key / Down Key: Select Mini Game, Enter Key: Decide'
+  - 'Keyboard Up / Down / Left / Right: Select Mini Game, Enter Key : Proceed'

@@ -17,10 +17,11 @@ namespace DHU2020.DGS.MiniGame.System
         public GameObject gameTitleOptionObject, gameTitleCanvas, introductionCanvas, setPlayerNameCanvas;
         public GameObject checkInputCanvas, optionCanvas, creditCanvas;
         public GameObject[] menuItems;
-        public Text startGameText, controlHintsText;
-        public KeyCode upKey, downKey;
+        public GameTitleIntroduction gameTitleIntroduction;
+        public Text startGameText, startGameText2, controlHintsText, toGameRuleText, toIntroductionText;
+        public KeyCode upKey, downKey, introductionKeyCode, howToPlayKeyCode;
 
-        private bool canControl, enterGameFlag, creditFlag;
+        private bool canControl, enterGameFlag, creditFlag, introductionFlag;
         private int menuItemIndex;
         private float startGameTimer;
 
@@ -30,6 +31,7 @@ namespace DHU2020.DGS.MiniGame.System
             canControl = false;
             enterGameFlag = false;
             creditFlag = false;
+            introductionFlag = false;
             menuItemIndex = 0;
             startGameTimer = 0f;
             gameTitleCanvas.SetActive(true);
@@ -40,6 +42,8 @@ namespace DHU2020.DGS.MiniGame.System
             creditCanvas.SetActive(false);
             gameTitleOptionObject.SetActive(false);
             controlHintsText.enabled = false;
+            toGameRuleText.enabled = false;
+            toIntroductionText.enabled = false;
         }
 
         public void EnableGameTitlePanel()
@@ -83,18 +87,30 @@ namespace DHU2020.DGS.MiniGame.System
             }
             else if (enterGameFlag)
             {
+                toGameRuleText.enabled = true;
+                toIntroductionText.enabled = true;
                 startGameTimer = startGameTimer + Time.deltaTime;
                 if (startGameTimer >= 0.5)
                 {
                     startGameText.CrossFadeAlpha(1f, fadeStartGameTextTime, false);
+                    startGameText2.CrossFadeAlpha(1f, fadeStartGameTextTime, false);
                 }
                 if (startGameTimer >= 1)
                 {
                     startGameText.CrossFadeAlpha(0f, fadeStartGameTextTime, false);
+                    startGameText2.CrossFadeAlpha(0f, fadeStartGameTextTime, false);
                     startGameTimer = 0;
                 }
-
-                if (Input.anyKeyDown)
+                
+                if (introductionFlag && Input.GetKeyDown(KeyCode.C))
+                {
+                    gameTitleIntroduction.ActivateCanvas(GameTitleIntroduction.Canvas.HowToPlay);
+                }
+                else if (introductionFlag && Input.GetKeyDown(KeyCode.R))
+                {
+                    gameTitleIntroduction.ActivateCanvas(GameTitleIntroduction.Canvas.Introduction);
+                }
+                else if (Input.anyKeyDown)
                 {
                     NewGame();
                 }
@@ -129,6 +145,7 @@ namespace DHU2020.DGS.MiniGame.System
         {
             canControl = false;
             creditFlag = false;
+            introductionFlag = true;
             gameTitleCanvas.SetActive(false);
             optionCanvas.SetActive(false);
             creditCanvas.SetActive(false);
@@ -136,6 +153,7 @@ namespace DHU2020.DGS.MiniGame.System
             checkInputCanvas.SetActive(false);
             introductionCanvas.SetActive(true);
             startGameText.CrossFadeAlpha(0f, 0f, false);
+            startGameText2.CrossFadeAlpha(0f, 0f, false);
             Invoke("ShowStartGameText", showStartGameTextTime);
         }
 

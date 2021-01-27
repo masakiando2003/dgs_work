@@ -19,12 +19,18 @@ namespace DHU2020.DGS.MiniGame.System
         public float enterGameTime = 1f;
 
         private string selectedRivalPlayerName;
-        private int selectedRivalPlayerID, originalSelectedRivalPlayerID;
+        private int playerIndex, selectedRivalPlayerID, originalSelectedRivalPlayerID;
         private bool selectedRivalPlayerFlag;
 
         // Start is called before the first frame update
         void Start()
         {
+            Initialization();
+        }
+
+        private void Initialization()
+        {
+            playerIndex = 0;
             selectColor.a = 1f;
             GameObject.Find("FirstPlayerBorder").GetComponent<Image>().color = selectColor;
             randomedPlayerText.text = "";
@@ -36,21 +42,22 @@ namespace DHU2020.DGS.MiniGame.System
         {
             if(selectedRivalPlayerFlag) { return; }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == -1))
             {
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
                 selectedRivalPlayerID = ((selectedRivalPlayerID - 1) < 0) ? rivalPlayerNames.Length : selectedRivalPlayerID - 1;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 1))
             {
                 originalSelectedRivalPlayerID = selectedRivalPlayerID;
                 // ランダムプレイヤー機能も含める
                 selectedRivalPlayerID = ((selectedRivalPlayerID + 1) >= rivalPlayerNames.Length+1) ? 0 : selectedRivalPlayerID + 1;
                 SelectRivalPlayer(selectedRivalPlayerID);
             }
-            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) ||
+                     Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
             {
                 selectedRivalPlayerFlag = true;
                 int selectedPlayerID = FindObjectOfType<GameManager>().GetSelectedPlayerID();
@@ -137,6 +144,11 @@ namespace DHU2020.DGS.MiniGame.System
 
             GameObject.Find(playerNo + "PlayerBorder").GetComponent<Image>().color = selectColor;
             GameObject.Find(originalPlayerNo + "PlayerBorder").GetComponent<Image>().color = Color.black;
+        }
+
+        public void SetPVPSelectorPlayerIndex(int player)
+        {
+            playerIndex = player;
         }
     }
 }

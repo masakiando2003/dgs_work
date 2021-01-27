@@ -126,7 +126,10 @@ namespace DHU2020.DGS.MiniGame.System
                 case "SelectGameTypeCanvas":
                     selectGameTypeCanvas.SetActive(true);
                     selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetPlayerName(selectedPlayerID);
+                    selectGameCanvas.GetComponent<GameSelector>().SetChooseGamePlayerIndex(selectedPlayerID);
                     selectedGameIndex = selectGameCanvas.GetComponent<GameSelector>().GetSelectedGameIndex();
+
+                    selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetChooseGameTypeRulePlayerIndex(selectedPlayerID);
                     selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetSelectedGameIndex(selectedGameIndex);
                     selectGameTypeCanvas.GetComponent<SelectGameTypeRule>().SetGameNameText(selectedGameIndex);
                     for (int i = 0; i < players.Length; i++)
@@ -136,9 +139,16 @@ namespace DHU2020.DGS.MiniGame.System
                     break;
                 case "SelectGhostPlayerCanvas":
                     selectGhostPlayerCanvas.SetActive(true);
+                    selectGameCanvas.GetComponent<GameSelector>().SetChooseGamePlayerIndex(selectedPlayerID);
                     selectedGameIndex = selectGameCanvas.GetComponent<GameSelector>().GetSelectedGameIndex();
+
+                    selectGhostPlayerCanvas.GetComponent<SelectGhostPlayer>().SetSelectGhostPlayerPlayerIndex(selectedPlayerID);
                     selectGhostPlayerCanvas.GetComponent<SelectGhostPlayer>().SetSelectedGameIndex(selectedGameIndex);
                     selectGhostPlayerCanvas.GetComponent<SelectGhostPlayer>().SetGhostPlayerFromPlayer(selectedPlayerID);
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        players[i].GetComponent<PlayerStatusManager>().SetPlayingAnimation(false);
+                    }
                     break;
                 default:
                     break;

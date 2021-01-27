@@ -22,7 +22,7 @@ namespace DHU2020.DGS.MiniGame.Setting
         public Text playerNameTextJP, gameNameTextJP, descriptionTextJP, randomGameTypeTextJP;
         public Text playerNameTextEN, gameNameTextEN, descriptionTextEN, randomGameTypeTextEN;
 
-        private int selectedGameIndex, selectRuleTypeID;
+        private int selectedGameIndex, selectRuleTypeID, playerIndex;
         private string displayPlayerName, gameName, sceneName;
         private float loadGameTime;
         private bool selectedGameTypeFlag;
@@ -35,6 +35,7 @@ namespace DHU2020.DGS.MiniGame.Setting
 
         private void Initialization()
         {
+            playerIndex = 0;
             selectRuleTypeID = 0;
             loadGameTime = FindObjectOfType<GameSelector>().GetLoadGameTime();
             selectedGameTypeFlag = false;
@@ -85,11 +86,11 @@ namespace DHU2020.DGS.MiniGame.Setting
                 gameNameTextEN.text = gameName;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == -1))
             {
                 selectRuleTypeID = ((selectRuleTypeID - 1) < 0) ? 2 : selectRuleTypeID - 1;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("P" + (playerIndex + 1) + "Horizontal") == 1))
             {
                 selectRuleTypeID = ((selectRuleTypeID + 1) > 2) ? 0 : selectRuleTypeID + 1;
             }
@@ -113,7 +114,8 @@ namespace DHU2020.DGS.MiniGame.Setting
                     break;
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) ||
+                Input.GetButtonDown("P" + (playerIndex + 1) + "DecideButton"))
             {
                 selectedGameTypeFlag = true;
                 switch (selectRuleTypeID)
@@ -196,6 +198,11 @@ namespace DHU2020.DGS.MiniGame.Setting
         {
             yield return new WaitForSeconds(loadGameTime);
             SceneManager.LoadScene(selectedGame);
+        }
+
+        public void SetChooseGameTypeRulePlayerIndex(int player)
+        {
+            playerIndex = player;
         }
     }
 }

@@ -69,7 +69,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     DecideNextChoice();
                     break;
                 case GameController.State.Choose:
-                    SetInputButtons();
                     CheckInput(PlayerID);
                     NextTurn();
                     ResetHand();
@@ -85,6 +84,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma {
                     break;
             }
             Debug.Log(GameController.Instance.CurrentState);
+        }
+
+        private void OnEnable()
+        {
+            SetInputButtons();
         }
 
         private void Initialize()

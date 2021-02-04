@@ -21,7 +21,7 @@ namespace DHU2020.DGS.MiniGame.System
         public KeyCode[] player1TestButtons, player2TestButtons, player3TestButtons, player4TestButtons;
         public Text[] playerNameTexts, playerInputHintsTexts, playerInputTestAreaTexts, playerInputKeybordTexts, playerInputJoystickTexts;
         public Text[] playerLabelTexts, confirmedButtonText;
-        public Text checkPlayerInputHintsText, checkInputTestControlHintsTitle, checkInputTestAreaTitle;
+        public Text checkPlayerInputHintsText, checkInputTestControlHintsTitle, checkInputTestAreaTitle, playerInputTypeText;
         public Text settingHintsText, startButtonText, backButtonText, testInputHintsText;
         public int numOfTestJoystickButtons;
         public string[] playerInputKeyboardHints, playerInputButtonsSymbols;
@@ -58,6 +58,7 @@ namespace DHU2020.DGS.MiniGame.System
                 backButtonText.text = localeJP.GetLabelContent("Back");
                 settingHints = localeJP.GetLabelContent("SettingtHint");
                 startButtonText.text = localeJP.GetLabelContent("Start");
+                playerInputTypeText.text = localeJP.GetLabelContent("PlayerInputType");
                 for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                 {
                     playerLabelTexts[playerIndex].text = localeJP.GetLabelContent("Player") + (playerIndex + 1);
@@ -77,6 +78,7 @@ namespace DHU2020.DGS.MiniGame.System
                 backButtonText.text = localeEN.GetLabelContent("Back");
                 settingHints = localeEN.GetLabelContent("SettingtHint");
                 startButtonText.text = localeEN.GetLabelContent("Start");
+                playerInputTypeText.text = localeEN.GetLabelContent("PlayerInputType");
                 for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++)
                 {
                     playerLabelTexts[playerIndex].text = localeEN.GetLabelContent("Player") + (playerIndex + 1);

@@ -17,7 +17,7 @@ namespace DHU2020.DGS.MiniGame.System
         public Localization localeJP, localeEN;
         public PlayerInfo playerInfo;
         public PVPPlayerInfo pvpPlayerInfo;
-        public GameObject[] players;
+        public GameObject[] players, playerCross;
         public Text[] playerNamesText, rivalPlayerNamesText;
         public Text randomedPlayerText, selectPlayerText, selectPlayerHintText;
         public Color selectColor;
@@ -28,6 +28,7 @@ namespace DHU2020.DGS.MiniGame.System
         private int playerIndex, selectedRivalPlayerID, originalSelectedRivalPlayerID;
         private bool selectedRivalPlayerFlag;
         private Language gameLanguage;
+        [SerializeField] private List<int> playersLife;
 
         // Start is called before the first frame update
         void Start()
@@ -48,11 +49,14 @@ namespace DHU2020.DGS.MiniGame.System
                 selectPlayerText.text = localeEN.GetLabelContent("SelectRival");
                 selectPlayerHintText.text = localeEN.GetLabelContent("SelectHint");
             }
-            playerIndex = 0;
             selectColor.a = 1f;
             GameObject.Find("FirstPlayerBorder").GetComponent<Image>().color = selectColor;
             randomedPlayerText.text = "";
             selectedRivalPlayerFlag = false;
+            for(int i = 0; i < playerCross.Length; i++)
+            {
+                playerCross[i].SetActive(false);
+            }
         }
 
         // Update is called once per frame
@@ -97,7 +101,14 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 else
                 {
-                    selectedRivalPlayerName = playerInfo.GetPlayerName(selectedRivalPlayerID);
+                    string selectedRivalPlayerName = playersName[selectedRivalPlayerID];
+                    int rivalPlayerID = playerInfo.GetPlayerID(selectedRivalPlayerName);
+                    int playerLife = playerInfo.GetCurrentLife(rivalPlayerID);
+                    if (playerLife <= 0)
+                    {
+                        selectedRivalPlayerFlag = false;
+                        return;
+                    }
                 }
                 string selectRivalPlayerName = playersName[selectedRivalPlayerID];
                 pvpPlayerInfo.SetPlayerID(playerIndex, playerInfo.GetPlayerID(selectRivalPlayerName));
@@ -122,8 +133,13 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 if (i != selectedPlayerID)
                 {
+                    playersLife.Add(playerInfo.GetCurrentLife(i));
                     rivalPlayerNamesText[j].text = playerNamesText[i].text;
                     playersName.Add(playerInfo.GetPlayerName(i));
+                    if (playerInfo.GetCurrentLife(i) <= 0)
+                    {
+                        playerCross[j].SetActive(true);
+                    }
                     j++;
                 }
             }
@@ -132,7 +148,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         public void SelectRivalPlayer(int selectedPlayerID)
         {
-            string playerNo = "", originalPlayerNo;
+            string playerNo, originalPlayerNo;
             switch (selectedPlayerID)
             {
                 case 0:
@@ -171,7 +187,7 @@ namespace DHU2020.DGS.MiniGame.System
         public void SetPVPSelectorPlayerIndex(int player)
         {
             playerIndex = player;
-            //Debug.Log("Player Index: "+playerIndex);
+            Debug.Log("Player Index 2: " + playerIndex);
         }
     }
 }

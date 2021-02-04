@@ -34,12 +34,14 @@ MonoBehaviour:
   - Wins
   - Draw
   - Laps
-  - Press the corresponded button(s) displayed on the screen._A player is immediately
+  - 'Press the corresponded button(s) displayed on the screen._A player is immediately
     sent back to the starting point when they press the wrong button(s)._When a player
     reaches the goal, a lap is counted for them and they are returned to the starting
     point._When the remaining time is fully depleted, the player(s) with the most
     completed laps win(s) (up to three playes)._In case all players finish with the
-    same number of completed laps, the match will result in a draw.
+    same number of completed laps, the match will result in a draw._Hint: For two
+    buttons, do not press in the same time.Instead press the button in the left block
+    before right block.'
   - 'Control: Keyboard C'
   - 'How To Play: Keyboard R'
   - Controls of Kenkenpa

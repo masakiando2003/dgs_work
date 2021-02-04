@@ -19,6 +19,7 @@ namespace DHU2020.DGS.MiniGame.System
         {
             player1ID = firstPlayerID;
             player2ID = secondPlayerID;
+            Debug.Log("Player1ID: "+player1ID+", Player2ID: "+player2ID);
             PlayerPrefs.SetInt("PVPPlayer1ID", player1ID);
             PlayerPrefs.SetInt("PVPPlayer2ID", player2ID);
         }

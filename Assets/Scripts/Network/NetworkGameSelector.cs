@@ -92,7 +92,7 @@ namespace DHU2020.DGS.MiniGame.Network
                 selectedGameFlag = true;
                 if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
                 {
-                    FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
+                    FindObjectOfType<GameManager>().ActivateCanvas("PVPSelectPlayerCanvas");
                 }
                 else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.ThreePlayers)
                 {

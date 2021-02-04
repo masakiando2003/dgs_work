@@ -11,16 +11,22 @@ namespace DHU2020.DGS.MiniGame.Darumasan
     {
         public Darumasan1v3GameController darumasan1v3GameController;
         public PlayerInfo playerInfo;
-        public int playerID;
         public float playerStandTimer = 0.9f;
+        public int playerID;
 
         private bool playerIsRunning;
         [SerializeField] private KeyCode runKeyCodeKeyboard;
         private PlayerControllerInput playerInputMethod;
         private float playerInputTimer;
+        private int playerLife;
 
         // Start is called before the first frame update
         void Start()
+        {
+            Initialization();
+        }
+
+        private void Initialization()
         {
             playerIsRunning = false;
             playerInputMethod = playerInfo.GetPlayerControllerInput(playerID);
@@ -37,6 +43,9 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 return;
             }
 
+            playerLife = playerInfo.GetCurrentLife(playerID);
+            if (playerLife <= 0) { return; }
+
             if (playerInputMethod == PlayerControllerInput.Keyboard)
             {
                 if (Input.GetKeyDown(runKeyCodeKeyboard))
@@ -52,10 +61,10 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 }
                 else
                 {
-                    playerInputTimer -= Time.deltaTime;
-                    if (playerInputTimer <= 0f)
+                    playerInputTimer += Time.deltaTime;
+                    if (playerInputTimer >= playerStandTimer)
                     {
-                        playerInputTimer += playerStandTimer;
+                        playerInputTimer = 0;
                         darumasan1v3GameController.PlayerStand(playerID);
                     }
                 }

@@ -232,7 +232,7 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
             string drawText;
             if (gameLanguage == Language.Japanese)
             {
-                drawText = localeJP.GetLabelContent("Draw")+"...";
+                drawText = localeJP.GetLabelContent("Draw") + "...";
             }
             else
             {
@@ -249,10 +249,10 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
             string winningText;
             if (gameLanguage == Language.Japanese)
             {
-                winningText = localeJP.GetLabelContent("Win") + "...";
+                winningText = localeJP.GetLabelContent("Win") + "!";
             }
             else{
-                winningText = localeEN.GetLabelContent("Win") + "...";
+                winningText = localeEN.GetLabelContent("Win") + "!";
             }
             resultText.text = (playerID == player1ID) ? player1NameText[0].text + winningText : player2NameText[0].text + winningText;
             StartCoroutine(SetWinner(playerID));
@@ -310,6 +310,7 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
 
             if (count_difference >= winnerHitCount)
             {
+                drawImage.enabled = false;
                 if (player1HitCount > player2HitCount)
                 {
                     Instance.ChangeGameState(GameState.Player1WIN);

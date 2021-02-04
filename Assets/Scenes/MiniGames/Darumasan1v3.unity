@@ -871,8 +871,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasan1v3GameController: {fileID: 1800511832}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
-  playerID: 1
   playerStandTimer: 1.2
+  playerID: 0
   runKeyCodeKeyboard: 103
 --- !u!1 &261535082
 GameObject:
@@ -1334,8 +1334,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasan1v3GameController: {fileID: 1800511832}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
-  playerID: 0
   playerStandTimer: 1.2
+  playerID: 0
   runKeyCodeKeyboard: 97
 --- !u!1 &408622609
 GameObject:
@@ -4666,8 +4666,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darumasan1v3GameController: {fileID: 1800511832}
   playerInfo: {fileID: 11400000, guid: 628423bf3d347204982e689c5acfa0ff, type: 2}
-  playerID: 2
   playerStandTimer: 1.2
+  playerID: 0
   runKeyCodeKeyboard: 108
 --- !u!1 &1558860006
 GameObject:
@@ -5487,7 +5487,7 @@ MonoBehaviour:
   mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
   localeJP: {fileID: 11400000, guid: e68249214adcffb45b2ab03199077b93, type: 2}
   localeEN: {fileID: 11400000, guid: 1c7ac5e74deb33f4c828d002cd50ef30, type: 2}
-  goalDistance: 75
+  goalDistance: 50
   runFactor: 4
   iconStartPosX: -600
   iconGoalPosX: 550
@@ -5495,6 +5495,10 @@ MonoBehaviour:
   - {fileID: 408902893}
   - {fileID: 1123450421}
   - {fileID: 989862861}
+  playerArea:
+  - {fileID: 1054148400}
+  - {fileID: 659607741}
+  - {fileID: 1110190871}
   darumansanIntroductionCanvas: {fileID: 1097847772}
   darumansanGameCavnas: {fileID: 1577399068}
   darumasan1v3PlayerControllers:

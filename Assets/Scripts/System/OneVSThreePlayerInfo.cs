@@ -18,20 +18,24 @@ namespace DHU2020.DGS.MiniGame.System
         public void SetOnePlayerSidePlayerID(int playerID)
         {
             onePlayerSidePlayerID = playerID;
+            PlayerPrefs.SetInt("onePlayerSidePlayerID", onePlayerSidePlayerID);
         }
 
         public void SetThreePlayerSidePlayerIDs(int index, int playerID)
         {
             threePlayerSidePlayerIDs[index] = playerID;
+            PlayerPrefs.SetInt("threePlayerSidePlayerIDs"+index, playerID);
         }
 
         public int GetOnePlayerSidePlayerID()
         {
+            //return PlayerPrefs.GetInt("onePlayerSidePlayerID");
             return onePlayerSidePlayerID;
         }
 
         public int GetThreePlayerSidePlayerID(int index)
         {
+            //return PlayerPrefs.GetInt("threePlayerSidePlayerIDs" + index);
             return threePlayerSidePlayerIDs[index];
         }
     }

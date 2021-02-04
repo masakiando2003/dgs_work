@@ -22,7 +22,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
         public MapInfo mapInfo;
         public Localization localeJP, localeEN;
-        public GameObject[] PlaerRouteAreas, PlayerStepBlockAreas;
+        public GameObject[] PlaerRouteAreas, PlayerStepBlockAreas, PlayerCrossImages;
         public KenkenpaPlayerController[] kenkenpaPlayerControllers;
         public GameObject kenkenpaIntroductionCanvas, kenkenpaGameCavnas, playerStepBlockPrefab;
         public Text[] playerNameText, playerLapCountText, playerLapLabelText;
@@ -79,6 +79,12 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
                 playerPosition[playerIndex] = 0;
                 losePlayers[playerIndex] = 0;
                 playerNameText[playerIndex].text = playerInfo.GetPlayerName(playerIndex);
+                PlayerCrossImages[playerIndex].SetActive(false);
+                int playerLife = playerInfo.GetCurrentLife(playerIndex);
+                if(playerLife <= 0)
+                {
+                    PlayerCrossImages[playerIndex].SetActive(true);
+                }
                 if (gameLanguage == Language.Japanese)
                 {
                     playerLapLabelText[playerIndex].text = localeJP.GetLabelContent("Laps") + ":";

@@ -43,6 +43,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
 
         private void ShowKeyCodeImage(int keyCodeIndex)
         {
+            stepBlockText.enabled = false;
             stepBlockCircleImage.enabled = false;
             stepBlockSquareImage.enabled = false;
             stepBlockCrossImage.enabled = false;

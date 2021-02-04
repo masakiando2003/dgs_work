@@ -25,6 +25,7 @@ MonoBehaviour:
   - ChosenPlayerHint
   - TestInputHint
   - SettingtHint
+  - PlayerInputType
   labelText:
   - Please check players' controller input.
   - Input Buttons
@@ -39,3 +40,4 @@ MonoBehaviour:
   - 'Enter Key: Select player'
   - 'Left Key / Right Key: Choose input method, Enter Key: Test player controller
     input'
+  - Input Method

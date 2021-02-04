@@ -17,7 +17,7 @@ namespace DHU2020.DGS.MiniGame.System
         public Localization localeJP, localeEN;
         public GameInfo gameInfo;
         public GameObject[] games;
-        public float loadGameTime = 2f;
+        public float loadGameTime = 2f, randomGameTime = 1.5f, activateCanvasTime = 1.5f;
         public Color selectColor;
         public Text selectedGameText, selectGameText, randomGameText, selectGameHintText;
 
@@ -190,20 +190,11 @@ namespace DHU2020.DGS.MiniGame.System
                 selectedGameFlag = true;
                 if (selectRandomGameFlag)
                 {
-                    selectedGameIndex = Random.Range(0, games.Length);
-                    if (gameLanguage == Language.Japanese)
-                    {
-                        selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
-                    }
-                    else
-                    {
-                        selectedGameText.text = gameInfo.GetGameTitleEnglish(randomedGameIndexes[selectedGameIndex]);
-                    }
-                    selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
+                    StartCoroutine(SelectRandomGameFromRandomedGames());
                 }
                 if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.PVP)
                 {
-                    FindObjectOfType<GameManager>().ActiviatCanvas("PVPSelectPlayerCanvas");
+                    FindObjectOfType<GameManager>().ActivateCanvas("PVPSelectPlayerCanvas");
                 }
                 else if (gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.ThreePlayers)
                 {
@@ -214,9 +205,25 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 else if(gameInfo.GetGameType(randomedGameIndexes[selectedGameIndex]) == GameInfo.GameType.MultipleType)
                 {
-                    FindObjectOfType<GameManager>().ActiviatCanvas("SelectGameTypeCanvas");
+                    FindObjectOfType<GameManager>().ActivateCanvas("SelectGameTypeCanvas");
                 }
             }
+        }
+
+        private IEnumerator SelectRandomGameFromRandomedGames()
+        {
+            selectedGameIndex = Random.Range(0, games.Length);
+            if (gameLanguage == Language.Japanese)
+            {
+                selectedGameText.text = gameInfo.GetGameTitleJapanese(randomedGameIndexes[selectedGameIndex]);
+                selectedGame = gameInfo.GetGameSceneNameByJapaneseName(selectedGameText.text);
+            }
+            else
+            {
+                selectedGameText.text = gameInfo.GetGameTitleEnglish(randomedGameIndexes[selectedGameIndex]);
+                selectedGame = gameInfo.GetGameTitleEnglish(randomedGameIndexes[selectedGameIndex]);
+            }
+            yield return new WaitForSeconds(randomGameTime);
         }
 
         public void SelectGame(int gameIndex)

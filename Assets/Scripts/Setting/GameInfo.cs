@@ -28,6 +28,7 @@ namespace DHU2020.DGS.MiniGame.Game
         };
         public GameType[] gameType;
         public Sprite[] gameImage;
+        public int kenkenpaTime, yubisumoTime, darumasanTime, darumasanDistance;
 
         public string GetGameTitleJapanese(int index)
         {
@@ -126,6 +127,50 @@ namespace DHU2020.DGS.MiniGame.Game
                 }
             }
             mapInfo.ProceedNextTurn();
+        }
+
+        public void SetKenkenpaTime(int seconds)
+        {
+            kenkenpaTime = seconds;
+            PlayerPrefs.SetInt("KenkenpaTime", kenkenpaTime);
+        }
+
+        public void SetYubisumoTime(int seconds)
+        {
+            yubisumoTime = seconds;
+            PlayerPrefs.SetInt("YubisumoTime", kenkenpaTime);
+        }
+
+        public void SetDarumasanTime(int seconds)
+        {
+            darumasanTime = seconds;
+            PlayerPrefs.SetInt("DarumasanTime", kenkenpaTime);
+        }
+
+        public void SetDarumasanDistance(int distance)
+        {
+            darumasanDistance = distance;
+            PlayerPrefs.SetInt("DarumasanDisntance", darumasanDistance);
+        }
+
+        public int GetKenkenpaTime()
+        {
+            return kenkenpaTime;
+        }
+
+        public int GetYubisumoTime()
+        {
+            return yubisumoTime;
+        }
+
+        public int GetDarumasanTime()
+        {
+            return darumasanTime;
+        }
+
+        public int GetDarumasanDistance()
+        {
+            return darumasanDistance;
         }
     }
 }

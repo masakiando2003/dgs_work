@@ -15,6 +15,7 @@ namespace DHU2020.DGS.MiniGame.System
         public Localization japaneseLocale, englishLocale;
         public MapInfo mapInfo;
         public Slider maxTurnSlider;
+        public GameObject gameRuleCanvas;
         public GameTitle gameTitle;
         public Text[] optionLabels;
         public Text maxTurnLabel, langaugeLabel, saveLabel, titleLabel, maxTurnText, settingHints;
@@ -22,7 +23,7 @@ namespace DHU2020.DGS.MiniGame.System
         private Language selectedLanguage;
         private int maxTurn, defaultMaxTurn, selectedOptionIndex;
         private string setMaxTurnsHints, setLanguageHints, saveHints, titleHints;
-        private bool changeMaxTurnFlag, changeLanguageFlag;
+        private bool changeMaxTurnFlag, changeLanguageFlag, gameRuleFlag;
 
         // Start is called before the first frame update
         void Start()
@@ -34,6 +35,7 @@ namespace DHU2020.DGS.MiniGame.System
         {
             changeMaxTurnFlag = false;
             changeLanguageFlag = false;
+            gameRuleFlag = false;
             defaultMaxTurn = mapInfo.GetMaxTurns();
             maxTurn = defaultMaxTurn;
             maxTurnSlider.value = maxTurn;
@@ -89,6 +91,16 @@ namespace DHU2020.DGS.MiniGame.System
             changeLanguageFlag = false;
         }
 
+        private void EnableGameRuleSettingFlag()
+        {
+            gameRuleFlag = true;
+        }
+
+        private void DisbleGameRuleSettingFlag()
+        {
+            gameRuleFlag = false;
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -108,6 +120,10 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 SetLanguage();
             }
+            if (gameRuleFlag)
+            {
+                GameRuleSetting();
+            }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 switch (selectedOptionIndex)
@@ -126,11 +142,11 @@ namespace DHU2020.DGS.MiniGame.System
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                maxTurn = (maxTurn -1 < 10) ? 10 : maxTurn - 1;
+                maxTurn = (maxTurn -1 < mapInfo.GetMinTurns()) ? mapInfo.GetMinTurns() : maxTurn - 1;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                maxTurn = (maxTurn + 1 > 99) ? 99 : maxTurn + 1;
+                maxTurn = (maxTurn + 1 > mapInfo.GetMaxTurns()) ? mapInfo.GetMaxTurns() : maxTurn + 1;
             }
             maxTurnSlider.value = maxTurn;
             maxTurnText.text = maxTurn.ToString();
@@ -151,6 +167,18 @@ namespace DHU2020.DGS.MiniGame.System
                     ShowLanguage("Japanese");
                 }
             }
+        }
+
+        private void GameRuleSetting()
+        {
+            changeMaxTurnFlag = false;
+            changeLanguageFlag = false;
+            gameRuleCanvas.SetActive(true);
+        }
+
+        public void ReturnToOption()
+        {
+            gameRuleCanvas.SetActive(false);
         }
 
         private void ShowLanguage(string language)

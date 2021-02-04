@@ -66,6 +66,16 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 playerNames[i].GetComponent<Text>().text = playerInfo.GetPlayerName(i);
                 players[i].GetComponent<PlayerStatusManager>().CheckLife(i);
+                /*
+                int playerCurrentLife = playerInfo.GetCurrentLife(i);
+                int playerMaxLife = playerInfo.GetMaxLife(i);
+                int lifeDifference = playerMaxLife - playerCurrentLife;
+                Debug.Log();
+                for(int l = 0; l < lifeDifference; l++)
+                {
+                    players[i].GetComponentsInChildren<Image>()[l].enabled = true;
+                }
+                */
                 playerLifeTexts[i].text = playerInfo.GetCurrentLife(i).ToString();
             }
             CheckWinningStatus();
@@ -111,7 +121,7 @@ namespace DHU2020.DGS.MiniGame.System
 
         }
 
-        public void ActiviatCanvas(string CanvasName)
+        public void ActivateCanvas(string CanvasName)
         {
             int selectedGameIndex;
             switch (CanvasName)
@@ -193,8 +203,8 @@ namespace DHU2020.DGS.MiniGame.System
         {
             winnerCanvas.SetActive(true);
             winnerText.text = playerNames[winnerPlayerIndex].GetComponent<Text>().text;
-            yield return StartCoroutine(CanvasFadeEffect.FadeCanvas(turnCanvasGroup, 1f, 0f, canvasFadeOutSpeed));
-
+            yield return new WaitForSeconds(changeCanvasTime);
+            SceneManager.LoadScene("GameTitle");
         }
 
         IEnumerator ShowWinners(List<int> winnerPlayerIDs)

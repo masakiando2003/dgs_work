@@ -126,7 +126,7 @@ namespace DHU2020.DGS.MiniGame.Setting
                         break;
                     case 1:
                         sceneName = gameInfo.GetGameTitleEnglish(selectedGameIndex)+"1v3";
-                        FindObjectOfType<GameManager>().ActiviatCanvas("SelectGhostPlayerCanvas");
+                        FindObjectOfType<GameManager>().ActivateCanvas("SelectGhostPlayerCanvas");
                         break;
                     case 2:
                         int randomGameTypeIndex = Random.Range(0, 2);
@@ -155,7 +155,7 @@ namespace DHU2020.DGS.MiniGame.Setting
                                 randomGameTypeTextEN.text = "1 vs 3";
                             }
                             sceneName = gameInfo.GetGameTitleEnglish(selectedGameIndex) + "1v3";
-                            FindObjectOfType<GameManager>().ActiviatCanvas("SelectGhostPlayerCanvas");
+                            FindObjectOfType<GameManager>().ActivateCanvas("SelectGhostPlayerCanvas");
                         }
                         break;
                 }

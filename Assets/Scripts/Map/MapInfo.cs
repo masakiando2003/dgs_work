@@ -13,8 +13,9 @@ namespace DHU2020.DGS.MiniGame.Map
     ]
     public class MapInfo : ScriptableObject
     {
-        [Range(1, 99)]
-        public int maxTurns = 99;
+        public int minTurns = 10;
+        [Range(10, 25)]
+        public int maxTurns = 25;
         [SerializeField] int currentTurn = 0;
         public float loadMainMapSeconds;
         public enum Language
@@ -27,6 +28,11 @@ namespace DHU2020.DGS.MiniGame.Map
         public int GetCurrentTurn()
         {
             return currentTurn;
+        }
+
+        public int GetMinTurns()
+        {
+            return minTurns;
         }
 
         public void SetMaxTurns(int turns)
@@ -62,6 +68,7 @@ namespace DHU2020.DGS.MiniGame.Map
             {
                 return langauge;
             }
+            //return langauge;
         }
 
         public void StartNewGame()
@@ -83,6 +90,17 @@ namespace DHU2020.DGS.MiniGame.Map
         public float GetLoadMapSeconds()
         {
             return loadMainMapSeconds;
+        }
+
+        public void SetDebugMode(bool isDebug)
+        {
+            PlayerPrefs.SetInt("debugMode", (isDebug == true) ? 1 : 0);
+        }
+
+        public bool GetDebugMode()
+        {
+            int debugMode = PlayerPrefs.GetInt("debugMode");
+            return debugMode == 1 ? true : false;
         }
     }
 }

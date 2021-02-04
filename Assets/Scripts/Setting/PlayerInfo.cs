@@ -60,8 +60,8 @@ namespace DHU2020.DGS.MiniGame.Setting
         public string GetPlayerName(int index)
         {
             string playerName = PlayerPrefs.GetString("Player" + (index + 1) + "Name");
-            //return playerNames[index];
             return playerName;
+            //return playerNames[index];
         }
         
         public int GetPlayerID(string name)
@@ -112,7 +112,7 @@ namespace DHU2020.DGS.MiniGame.Setting
         public int GetCurrentLife(int playerIndex)
         {
             return PlayerPrefs.GetInt("Player" + (playerIndex + 1) + "Life");
-            // return playerLifes[playerIndex];
+            //return playerLifes[playerIndex];
         }
 
         public void SetPlayerControllerInput(int index, PlayerControllerInput input)

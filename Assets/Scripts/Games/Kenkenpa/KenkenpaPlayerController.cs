@@ -16,6 +16,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         public int playerID;
         public KeyCode hitButton1, hitButton2, hitButton3, hitButton4;
 
+        private int playerLife;
         private bool buttonPressed;
         private float currenyPlayerInputTime;
         [SerializeField] private List<KeyCode> buttonEntered = new List<KeyCode>();
@@ -35,6 +36,8 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
             playerButtons.Add(hitButton3);
             playerButtons.Add(hitButton4);
             playerInputMethod = playerInfo.GetPlayerControllerInput(playerID);
+
+            playerLife = playerInfo.GetCurrentLife(playerID);
         }
 
         // Update is called once per frame
@@ -42,6 +45,7 @@ namespace DHU2020.DGS.MiniGame.Kenkenpa
         {
             GameState currentGameState = kenkenpaGameController.GetCurrentGameState();
             if (currentGameState != GameState.GameStart) { return; }
+            if (playerLife <= 0) { return; }
 
             if (!buttonPressed)
             {

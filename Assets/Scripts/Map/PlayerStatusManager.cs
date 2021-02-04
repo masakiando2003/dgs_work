@@ -11,9 +11,9 @@ namespace DHU2020.DGS.MiniGame.Map
     {
         public PlayerInfo playerInfo;
         public GameInfo gameInfo;
-        public GameObject[] PlayerCrossesObjects;
-        public GameObject GameOverObject;
-        public Text playerNameText;
+        public GameObject[] playerCrossImage;
+        public GameObject crossImageObject;
+        public Text playerNameText, gameOverText;
         public int playerID;
         public KeyCode nextTurnKey;
         private int maxLife;
@@ -22,12 +22,6 @@ namespace DHU2020.DGS.MiniGame.Map
         // Start is called before the first frame update
         void Start()
         {
-            maxLife = playerInfo.GetMaxLife(playerID);
-            for(int i=0; i < PlayerCrossesObjects.Length; i++)
-            {
-                PlayerCrossesObjects[i].SetActive(false);
-            }
-            GameOverObject.SetActive(false);
             isAlive = true;
             isPlayingAnimation = false;
         }
@@ -47,24 +41,23 @@ namespace DHU2020.DGS.MiniGame.Map
 
         void EnableCross(int currentLife)
         {
-            // 一旦全部クロスを消す
-            for (int i = 0; i < PlayerCrossesObjects.Length; i++)
-            {
-                PlayerCrossesObjects[i].SetActive(false);
-            }
-
+            maxLife = playerInfo.GetMaxLife(playerID);
             int numOfCrosses = maxLife - currentLife;
-            for(int i = 0; i < numOfCrosses; i++)
+            for (int i = 0; i < numOfCrosses; i++)
             {
-                PlayerCrossesObjects[i].SetActive(true);
+                GameObject crossObj = Instantiate(crossImageObject, playerCrossImage[i].transform);
             }
         }
 
-        void CheckIsGameOver()
+        void CheckIsGameOver(int currentLife)
         {
-            if(playerInfo.GetCurrentLife(playerID) < 1)
+            if (currentLife < 1)
             {
                 GameOver();
+            }
+            else
+            {
+                gameOverText.CrossFadeAlpha(0f, 0f, true);
             }
         }
 
@@ -72,12 +65,12 @@ namespace DHU2020.DGS.MiniGame.Map
         {
             int currentLife = playerInfo.GetCurrentLife(playerID);
             EnableCross(currentLife);
-            CheckIsGameOver();
+            CheckIsGameOver(currentLife);
         }
 
         private void GameOver()
         {
-            GameOverObject.SetActive(true);
+            gameOverText.CrossFadeAlpha(1f, 0f, true);
             isAlive = false;
         }
 

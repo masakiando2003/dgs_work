@@ -28,7 +28,7 @@ namespace DHU2020.DGS.MiniGame.Yubisumo
         {
             GameState currentGameState = yubisumoGameController.GetCurrentGameState();
 
-            if ((currentGameState != GameState.GameStart)) { return; }
+            if (currentGameState != GameState.GameStart) { return; }
 
             if (playerInputMethod == PlayerControllerInput.Keyboard)
             {

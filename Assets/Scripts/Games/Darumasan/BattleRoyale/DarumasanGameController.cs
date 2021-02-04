@@ -22,7 +22,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public Localization localeJP, localeEN;
         public int goalDistance = 300, runFactor = 2;
         public int iconStartPosX = -600, iconGoalPosX = 600;
-        public GameObject[] playerIcon;
+        public GameObject[] playerIcon, playerArea;
         public GameObject darumansanIntroductionCanvas, darumansanGameCavnas;
         public DarumasanPlayerController[] darumasanPlayerControllers;
         public DarumasanGhostTextWriter darumasanGhostTextWriter;
@@ -89,6 +89,11 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 playerRemainingDistanceText[playerIndex].text = goalDistance.ToString();
                 playerInputCount[playerIndex] = 0;
                 playerRemainingDistance[playerIndex] = goalDistance;
+                
+                if (playerInfo.GetCurrentLife(playerIndex) <= 0)
+                {
+                    playerArea[playerIndex].SetActive(false);
+                }
             }
             resultTitleText.enabled = false;
             resultText.enabled = false;

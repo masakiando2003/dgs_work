@@ -5679,7 +5679,7 @@ MonoBehaviour:
   mapInfo: {fileID: 11400000, guid: 8cfd33191d1d29242aec30979f4a3b82, type: 2}
   localeJP: {fileID: 11400000, guid: fcf5fbde8803b8843ac61ec186c11efd, type: 2}
   localeEN: {fileID: 11400000, guid: 07489c0f4adf22a4a83d0b2dfdefc338, type: 2}
-  goalDistance: 75
+  goalDistance: 50
   runFactor: 2
   iconStartPosX: -600
   iconGoalPosX: 550
@@ -5688,6 +5688,11 @@ MonoBehaviour:
   - {fileID: 1123450421}
   - {fileID: 989862861}
   - {fileID: 1131881362}
+  playerArea:
+  - {fileID: 1054148400}
+  - {fileID: 659607741}
+  - {fileID: 1110190871}
+  - {fileID: 1717875303}
   darumansanIntroductionCanvas: {fileID: 1097847772}
   darumansanGameCavnas: {fileID: 1577399068}
   darumasanPlayerControllers:

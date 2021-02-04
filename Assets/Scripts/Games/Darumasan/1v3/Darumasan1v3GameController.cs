@@ -22,7 +22,7 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         public Localization localeJP, localeEN;
         public int goalDistance = 300, runFactor = 2;
         public int iconStartPosX = -600, iconGoalPosX = 600;
-        public GameObject[] playerIcon;
+        public GameObject[] playerIcon, playerArea;
         public GameObject darumansanIntroductionCanvas, darumansanGameCavnas;
         public Darumasan1v3PlayerController[] darumasan1v3PlayerControllers;
         public DarumasanGhostPlayerController darumasanGhostPlayerController;
@@ -99,6 +99,11 @@ namespace DHU2020.DGS.MiniGame.Darumasan
                 playerRemainingDistanceText[playerIndex].text = goalDistance.ToString();
                 playerInputCount[playerIndex] = 0;
                 playerRemainingDistance[playerIndex] = goalDistance;
+
+                if (playerInfo.GetCurrentLife(playerID) <= 0)
+                {
+                    playerArea[playerIndex].SetActive(false);
+                }
             }
             resultTitleText.enabled = false;
             resultText.enabled = false;
@@ -279,21 +284,22 @@ namespace DHU2020.DGS.MiniGame.Darumasan
 
         public void PlayerStand(int playerIndex)
         {
-            switch (playerIndex)
+            string player = "Player" + playerIndex;
+            switch (player)
             {
-                case 0:
+                case "Player1":
                     player1StandImage.enabled = true;
                     player1LeftHandImage.enabled = false;
                     player1RightHandImage.enabled = false;
                     player1CaughtByGhostImage.enabled = false;
                     break;
-                case 1:
+                case "Player2":
                     player2StandImage.enabled = true;
                     player2LeftHandImage.enabled = false;
                     player2RightHandImage.enabled = false;
                     player2CaughtByGhostImage.enabled = false;
                     break;
-                case 2:
+                case "Player3":
                     player3StandImage.enabled = true;
                     player3LeftHandImage.enabled = false;
                     player3RightHandImage.enabled = false;

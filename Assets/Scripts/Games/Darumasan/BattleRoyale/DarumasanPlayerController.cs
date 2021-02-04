@@ -19,9 +19,15 @@ namespace DHU2020.DGS.MiniGame.Darumasan
         private bool playerIsRunning;
         private PlayerControllerInput playerInputMethod;
         private float playerInputTimer;
+        private int playerLife;
 
         // Start is called before the first frame update
         void Start()
+        {
+            Initialization();
+        }
+
+        private void Initialization()
         {
             playerIsRunning = false;
             playerInputMethod = playerInfo.GetPlayerControllerInput(playerID);
@@ -37,6 +43,9 @@ namespace DHU2020.DGS.MiniGame.Darumasan
             {
                 return;
             }
+
+            playerLife = playerInfo.GetCurrentLife(playerID);
+            if (playerLife <= 0) { return; }
 
             if (playerInputMethod == PlayerControllerInput.Keyboard)
             {

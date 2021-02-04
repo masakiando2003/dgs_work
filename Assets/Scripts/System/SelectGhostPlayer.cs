@@ -18,7 +18,7 @@ namespace DHU2020.DGS.MiniGame.System
         public MapInfo mapInfo;
         public PlayerInfo playerInfo;
         public OneVSThreePlayerInfo oneVSThreePlayerInfo;
-        public GameObject[] playerObject;
+        public GameObject[] playerObject, playerCross;
         public Color selectColor;
         public Image randomPlayerBorder;
         public Text[] playerNamesText;
@@ -69,11 +69,21 @@ namespace DHU2020.DGS.MiniGame.System
                 }
                 string playerName = playerInfo.GetPlayerName(i);
                 playerNamesText[i].text = playerName;
+                playerCross[i].SetActive(false);
             }
         }
 
         private void Update()
         {
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                int playerLife = playerInfo.GetCurrentLife(i);
+                if (playerLife <= 0)
+                {
+                    playerCross[i].SetActive(true);
+                }
+            }
+
             if (selectedGhostPlayer) { return; }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -118,9 +128,20 @@ namespace DHU2020.DGS.MiniGame.System
             {
                 if (selectRandomGhostPlayerFlag)
                 {
-                    int randomGhostPlayerIndex = Random.Range(0, playerInfo.GetPlayersCount());
+                    int randomGhostPlayerIndex;
+                    randomGhostPlayerIndex = Random.Range(0, playerInfo.GetPlayersCount());
                     selectedGhostPlayerIndex = randomGhostPlayerIndex;
+                    while(playerInfo.GetCurrentLife(selectedGhostPlayerIndex) <= 0)
+                    {
+                        randomGhostPlayerIndex = Random.Range(0, playerInfo.GetPlayersCount());
+                        selectedGhostPlayerIndex = randomGhostPlayerIndex;
+                    }
                     randomedPlayerText.text = playerInfo.GetPlayerName(selectedGhostPlayerIndex);
+                }
+                int playerLife = playerInfo.GetCurrentLife(selectedGhostPlayerIndex);
+                if (playerLife <= 0)
+                {
+                    return;
                 }
                 int threePlayerSideID = 0;
                 for(int i = 0; i < playerInfo.GetPlayersCount(); i++)

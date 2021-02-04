@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DHU2020.DGS.MiniGame.Setting;
 using DHU2020.DGS.MiniGame.Game;
+using DHU2020.DGS.MiniGame.Map;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 namespace DHU2020.DGS.MiniGame.Yubisuma
@@ -252,6 +254,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             WinnerText.gameObject.SetActive(true);
             WinnerText.text = playerInfo.GetPlayerName(WinnerID) + " Win";
+            SceneManager.LoadScene("MainMap");
         }
 
         
@@ -279,11 +282,11 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             {
                 if (Players[i].GetComponent<Player>().RemainingHand == 0)
                 {
-                    GameController.Instance.ChangeState(State.GameEnd);
                     Debug.Log(DecidePlayer + " Win / PlayerID: " + Players[i].GetComponent<Player>().PlayerID);
                     SetLoserPlayers(Players[i].GetComponent<Player>().PlayerID);
                     WinnerID = Players[i].GetComponent<Player>().PlayerID;
                     SetWinner(WinnerID);
+                    GameController.Instance.ChangeState(State.GameEnd);
                     break;
                 }
             }
@@ -328,6 +331,7 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
         {
             yield return new WaitForSeconds(3f);
             gameInfo.SetMiniGameWinner("Yubisuma", playerID, loserPlayerIDs);
+            Debug.Log("Winner Selected");
         }
 
         public void SetRemainingPlayer()
@@ -335,7 +339,8 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
             RemainingPlayer = Players.Length;
         }
 
-        private void InputCheck()
+        /*
+           private void InputCheck()
         {
             if (Input.GetKeyDown("joystick button 0"))
             {
@@ -384,5 +389,6 @@ namespace DHU2020.DGS.MiniGame.Yubisuma
                 Debug.Log("stick:" + hori + "," + vert);
             }
         }
+        */
     }
 }
